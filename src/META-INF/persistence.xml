@@ -9,6 +9,7 @@
     <class>modelo.Despesa</class>
     <class>modelo.Receita</class>
     <class>modelo.Reprova</class>
+    <class>modelo.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deltacarsys?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
