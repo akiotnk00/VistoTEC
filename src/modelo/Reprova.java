@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Reprova implements Serializable {
     @Column(name = "descricao", length = 155, nullable = false)
     private String descricao;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vistoria", nullable = false)
     private Vistoria vistoria = new Vistoria();
     
