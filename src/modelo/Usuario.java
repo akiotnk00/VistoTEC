@@ -29,8 +29,8 @@ public class Usuario implements Serializable {
     @Column(name = "codigo")
     private long codigo;
     
-    @Column (name = "user")
-    private String user;
+    @Column (name = "nomeusuario")
+    private String nomeusuario;
     
     @Column (name = "nome")
     private String nome;
@@ -53,13 +53,15 @@ public class Usuario implements Serializable {
         this.codigo = codigo;
     }
 
-    public String getUser() {
-        return user;
+    public String getNomeusuario() {
+        return nomeusuario;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setNomeusuario(String nomeusuario) {
+        this.nomeusuario = nomeusuario;
     }
+
+
 
     public String getNome() {
         return nome;

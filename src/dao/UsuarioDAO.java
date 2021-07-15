@@ -20,10 +20,10 @@ public class UsuarioDAO extends GenericoDAO<Usuario> {
         super(Usuario.class);
     }
     
-    public List<Usuario> findByUser(String user) {
+    public List<Usuario findByUser(String nomeusuario) {
         EntityManager em = getEntityManager();
-        TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.user LIKE :user", Usuario.class);
-        query.setParameter("user", "%" + user + "%");
+        TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.nomeusuario LIKE :nomeusuario", Usuario.class);
+        query.setParameter("nomeusuario", "%" + nomeusuario + "%");
         return query.getResultList();
     }
 }
