@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,6 +57,10 @@ public class Vistoria implements Serializable {
     @ManyToOne
     @JoinColumn(name = "referencia", nullable = true)
     private Referencia referencia = new Referencia();
+    
+    @OneToOne
+    @JoinColumn(name = "reprova", nullable = true)
+    private Reprova reprova = new Reprova();
 
     public long getId() {
         return id;
