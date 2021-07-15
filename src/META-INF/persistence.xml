@@ -3,6 +3,14 @@
   <persistence-unit name="deltaSysPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>modelo.Usuario</class>
+    <class>modelo.Agendamento</class>
+    <class>modelo.Cliente</class>
+    <class>modelo.Despesa</class>
+    <class>modelo.Receita</class>
+    <class>modelo.Referencia</class>
+    <class>modelo.Reprova</class>
+    <class>modelo.Veiculo</class>
+    <class>modelo.Vistoria</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deltacarsys?useTimezone=true&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="deltacaruser"/>
