@@ -41,7 +41,7 @@ public class Reprova implements Serializable {
     @Column(name = "descricao", length = 155, nullable = false)
     private String descricao;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "vistoria", nullable = false)
     private Vistoria vistoria = new Vistoria();
     
