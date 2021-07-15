@@ -126,6 +126,14 @@ public class Vistoria implements Serializable {
     public void setHora(Date hora) {
         this.hora = hora;
     }
+
+    public Reprova getReprova() {
+        return reprova;
+    }
+
+    public void setReprova(Reprova reprova) {
+        this.reprova = reprova;
+    }
     
     
     

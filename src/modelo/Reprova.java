@@ -67,6 +67,14 @@ public class Reprova implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Vistoria getVistoria() {
+        return vistoria;
+    }
+
+    public void setVistoria(Vistoria vistoria) {
+        this.vistoria = vistoria;
+    }
     
     
     
