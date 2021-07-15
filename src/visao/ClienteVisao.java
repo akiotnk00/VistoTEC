@@ -385,13 +385,14 @@ public class ClienteVisao extends JDialog {
         if (!txtNome.getText().equals("")) {
             if (!txtCPF.getText().equals("")) {
                 if (!txtEndereco.getText().equals("")) {
+                    if (!txtCidade.getText().equals("")) {
                         if (!txtTel.getText().equals("")) {
                             Cliente c = new Cliente();
                             c.setCpf(txtCPF.getText());
                             c.setNome(txtNome.getText());
-                            c.setCidade(txtCidade.getText());
-                            c.setEndereco(txtEndereco.getText());
                             c.setTelefone(txtTel.getText());
+                            c.setEndereco(txtEndereco.getText());
+                            c.setCidade(txtCidade.getText());
 
                             clienteDAO.merge(c);
                             JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -414,6 +415,10 @@ public class ClienteVisao extends JDialog {
                     JOptionPane.showMessageDialog(null, "Preencha o cpf!", "Alerta", JOptionPane.WARNING_MESSAGE);
                     txtCPF.requestFocus();
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha a cidade!", "Alerta", JOptionPane.WARNING_MESSAGE);
+                txtCidade.requestFocus();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Preencha o nome!", "Alerta", JOptionPane.WARNING_MESSAGE);
             txtNome.requestFocus();

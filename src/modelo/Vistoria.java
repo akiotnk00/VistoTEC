@@ -31,19 +31,19 @@ public class Vistoria implements Serializable {
     @Column(name = "codigo")
     private long id;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "datahora")
-    private Date datahora;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data")
+    private Date data;
     
-    @Column(name = "tipo")
-    private String tipo;
+    @Temporal(TemporalType.TIME)
+    @Column(name = "hora")
+    private Date hora;
     
-    @Column(name = "valor")
-    private double valor;
-        
-    @Column(name = "situacao")
-    private String situacao;
+    @Column(name = "situacao_de_pagamento")
+    private String situacaoPagamento;
     
+    @Column(name = "valor_cobrado")
+    private double valorCobrado;
     
     @ManyToOne
     @JoinColumn(name = "veiculo", nullable = false)
@@ -52,10 +52,6 @@ public class Vistoria implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente", nullable = false)
     private Cliente cliente = new Cliente();
-    
-    @ManyToOne
-    @JoinColumn(name = "reprova", nullable = true)
-    private Reprova reprova = new Reprova();
     
     @ManyToOne
     @JoinColumn(name = "referencia", nullable = true)
@@ -69,36 +65,21 @@ public class Vistoria implements Serializable {
         this.id = id;
     }
 
-    public Date getDatahora() {
-        return datahora;
+   
+    public String getSituacaoPagamento() {
+        return situacaoPagamento;
     }
 
-    public void setDatahora(Date datahora) {
-        this.datahora = datahora;
+    public void setSituacaoPagamento(String situacaoPagamento) {
+        this.situacaoPagamento = situacaoPagamento;
     }
 
-    public String getTipo() {
-        return tipo;
+    public double getValorCobrado() {
+        return valorCobrado;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setValorCobrado(double valorCobrado) {
+        this.valorCobrado = valorCobrado;
     }
 
     public Veiculo getVeiculo() {
@@ -125,14 +106,23 @@ public class Vistoria implements Serializable {
         this.referencia = referencia;
     }
 
-    public Reprova getReprova() {
-        return reprova;
+    public Date getData() {
+        return data;
     }
 
-    public void setReprova(Reprova reprova) {
-        this.reprova = reprova;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-   
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+    
+    
+    
         
 }

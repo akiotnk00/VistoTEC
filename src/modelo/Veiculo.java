@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,27 +26,35 @@ public class Veiculo implements Serializable {
     @Column(name = "placa", length = 7)
     private String placa;
     
+    @Column(name = "tipo", length = 12, nullable = false)
+    private String tipo;
+    
     @Column(name = "marca", length = 70, nullable = false)
     private String marca;
     
     @Column(name = "modelo", length = 70, nullable = false)
     private String modelo;
     
-    @Column(name = "ano", length = 4, nullable = false)
-    private String ano;
-    
     @Column(name = "cor", length = 15, nullable = false)
     private String cor;
     
     @OneToMany(mappedBy="Veiculo")
     private List<Vistoria> vistorias;
-
+    
     public String getPlaca() {
         return placa;
     }
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getMarca() {
@@ -64,23 +73,13 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public String getAno() {
-        return ano;
-    }
-
-    public void setAno(String ano) {
-        this.ano = ano;
-    }
-
     public String getCor() {
         return cor;
     }
 
     public void setCor(String cor) {
         this.cor = cor;
-    }
-    
- 
+    }     
 
     public List<Vistoria> getVistorias() {
         return vistorias;

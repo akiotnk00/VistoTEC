@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,7 +32,7 @@ public class Referencia implements Serializable {
     @Column(name = "nome", length = 70, nullable = false)
     private String nome;
     
-    @Column(name = "endereco", length = 12, nullable = false)
+    @Column(name = "endereco", length = 70, nullable = false)
     private String endereco;
     
     @Column(name = "telefone", length = 12, nullable = false)
@@ -39,7 +40,7 @@ public class Referencia implements Serializable {
 
     @OneToMany(mappedBy="Referencia")
     private List<Vistoria> vistorias;
-
+    
     public long getCodigo() {
         return codigo;
     }
@@ -79,7 +80,6 @@ public class Referencia implements Serializable {
     public void setVistorias(List<Vistoria> vistorias) {
         this.vistorias = vistorias;
     }
-    
     
     
     

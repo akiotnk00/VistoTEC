@@ -77,7 +77,6 @@ public class VistoriaVisao extends JDialog {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jRadioButtonPlaca = new javax.swing.JRadioButton();
-        jRadioButtonData = new javax.swing.JRadioButton();
         jButtonPago = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -137,11 +136,11 @@ public class VistoriaVisao extends JDialog {
 
             },
             new String [] {
-                "Placa", "Cliente", "Data e Hora", "Situação", "Valor Cobrado", "Referencia"
+                "Codigo", "Placa", "Cliente", "Data", "Hora", "Situação", "Valor Cobrado", "Referencia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -150,9 +149,6 @@ public class VistoriaVisao extends JDialog {
         });
         tabela.setShowGrid(true);
         jScrollPane1.setViewportView(tabela);
-        if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(2).setMinWidth(22);
-        }
 
         jButton2.setBackground(new java.awt.Color(102, 0, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,12 +193,6 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jRadioButtonData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDataActionPerformed(evt);
-            }
-        });
-
         jButtonPago.setBackground(new java.awt.Color(102, 0, 153));
         jButtonPago.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPago.setText("Mudar situação");
@@ -226,9 +216,7 @@ public class VistoriaVisao extends JDialog {
                         .addComponent(jRadioButtonPlaca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jRadioButtonData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                         .addComponent(jButton3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton8)
@@ -245,13 +233,11 @@ public class VistoriaVisao extends JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jRadioButtonPlaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jRadioButtonData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jRadioButtonPlaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -536,79 +522,6 @@ public class VistoriaVisao extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jRadioButtonPlaca.isSelected() == true) {
-            if (!jTextFieldCampoPesquisa.getText().equals("")) {
-                String pesquisa = jTextFieldCampoPesquisa.getText();
-                switch (jComboBoxOpPesquisa.getSelectedIndex()) {
-                    case 0: {
-                        List<Vistoria> lista = vistoriaDAO.findByPlaca(pesquisa);
-                        if (lista == null
-                                || lista.isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            atualizaTabela(lista);
-                        }
-                        break;
-                    }
-                    case 1: {
-                        List<Vistoria> lista = vistoriaDAO.findByNome(pesquisa);
-                        if (lista == null
-                                || lista.isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            atualizaTabela(lista);
-                        }
-                        break;
-                    }
-                    default:
-                        List<Vistoria> lista = vistoriaDAO.findByReferencia(pesquisa);
-                        if (lista == null
-                                || lista.isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            atualizaTabela(lista);
-                        }
-                        break;
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor inserir dados para pesquisa.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabela(vistoriaDAO.findAllOrder());
-            }
-
-        } /* else {
-            if (jDateChooser1.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "Por favor selecione uma data.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                String pesquisa = jTextFieldCampoPesquisa.getText();
-                List<Vistoria> lista = vistoriaDAO.findByData(jDateChooser1.getDate());
-                if (lista == null
-                        || lista.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-                } else {
-                    atualizaTabela(lista);
-                }
-            }*/
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int linha = tabela.getSelectedRow();
-        if (linha != -1) {
-            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
-
-            if (op == 0) {
-                Vistoria v = vistorias.get(linha);
-                vistoriaDAO.remove(v);
-                JOptionPane.showMessageDialog(null, "Registro excluído.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabela(vistoriaDAO.findAll());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Vistoria v = new Vistoria();
         // Verifica se o campo PLACA está preenchido
@@ -630,10 +543,14 @@ public class VistoriaVisao extends JDialog {
                         // Verifica se tem conteudo, pra saber se é uma alteração ou não
                         if ("".equals(jTextFieldID.getText())) {
                             // Salva apenas a data
-                            v.setDatahora(new Date());
+                            v.setData(new Date());
+
+                            // Salva apenas a hora e minuto
+                            v.setHora(new Date());
                         } else {
                             // Usa os valores salvos quando aperta o botão editar
-                            v.setDatahora(editarVistoria.getDatahora());
+                            v.setData(editarVistoria.getData());
+                            v.setHora(editarVistoria.getHora());
                         }
 
                         // Verifica qual opção escolhida na jComboBox
@@ -646,23 +563,17 @@ public class VistoriaVisao extends JDialog {
                         }
 
                         // Salva a opção escolhida, por padrão fica "Não Pago"
-                        v.setSituacao((String) jComboBoxSituacao.getSelectedItem());
+                        v.setSituacaoPagamento((String) jComboBoxSituacao.getSelectedItem());
 
                         // Verifica se foi digitado o valor
                         if (!"".equals(jTextFieldValorCobrado.getText())) {
-                            v.setValor(parseDouble(jTextFieldValorCobrado.getText()));
+                            v.setValorCobrado(parseDouble(jTextFieldValorCobrado.getText()));
 
                             // Pega o ID e faz o merge , caso não tenha ele cria um novo registro
                             if (!"".equals(jTextFieldID.getText())) {
                                 v.setId(Long.parseLong(jTextFieldID.getText()));
                             }
 
-                            v.setReprova(null);
-                            
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-                            Date date = new Date();
-                            v.setDatahora(date);
-                            
                             vistoriaDAO.merge(v);
 
                             JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -700,22 +611,6 @@ public class VistoriaVisao extends JDialog {
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jComboBoxOpPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOpPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxOpPesquisaActionPerformed
-
-    private void jTextFieldCampoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCampoPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        jLabel6.setText("Nova Vistoria");
-
-        PainelComAbas.setSelectedIndex(1);
-        PainelComAbas.setEnabledAt(0, false);
-        PainelComAbas.setEnabledAt(1, true);
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         limparCampos();
@@ -774,85 +669,6 @@ public class VistoriaVisao extends JDialog {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButtonDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDataActionPerformed
-        jRadioButtonPlaca.setSelected(false);
-       // jDateChooser1.setEnabled(true);
-        jComboBoxOpPesquisa.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonDataActionPerformed
-
-    private void jRadioButtonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPlacaActionPerformed
-        jRadioButtonData.setSelected(false);
-        jComboBoxOpPesquisa.setEnabled(true);
-       // jDateChooser1.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonPlacaActionPerformed
-
-    private void jButtonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagoActionPerformed
-        int linha = tabela.getSelectedRow();
-        if (linha != -1) {
-            int op = JOptionPane.showConfirmDialog(null, "Deseja mudar a situação da vistoria?");
-
-            if (op == 0) {
-                Vistoria v = vistorias.get(linha);
-
-                if ("Pago".equals(v.getSituacao())) {
-                    v.setSituacao("Não Pago");
-                } else {
-                    v.setSituacao("Pago");
-                }
-                vistoriaDAO.merge(v);
-                atualizaTabela(vistoriaDAO.findAll());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
-        }
-    }//GEN-LAST:event_jButtonPagoActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        int linha = tabela.getSelectedRow();
-        if (linha != -1) {
-            int op = JOptionPane.showConfirmDialog(null, "Deseja editar os dados da vistoria?");
-
-            if (op == 0) {
-                Vistoria v = vistorias.get(linha);
-
-                jTextFieldID.setText(v.getId() + "");
-
-                // Dados do veiculo
-                txtPlaca.setText(v.getVeiculo().getPlaca());
-                jTextFieldModelo.setText(v.getVeiculo().getModelo());
-
-                //Dados do cliente
-                txtCpf.setText(v.getCliente().getCpf());
-                txtCliente.setText(v.getCliente().getNome());
-                
-                if(v.getReferencia()!=null){
-                jComboBoxReferencia.setSelectedItem(v.getReferencia().getNome());
-                }
-                
-                if ("Pago".equals(v.getSituacao())) {
-                    jComboBoxSituacao.setSelectedIndex(1);
-                } else {
-                    jComboBoxSituacao.setSelectedIndex(0);
-                }
-
-                
-                
-                // Valor Cobrado
-                jTextFieldValorCobrado.setText(String.valueOf(v.getValor()));
-
-                editarVistoria.setDatahora(v.getDatahora());
-
-                jLabel6.setText("Editar Vistoria");
-
-                PainelComAbas.setSelectedIndex(1);
-                PainelComAbas.setEnabledAt(0, false);
-                PainelComAbas.setEnabledAt(1, true);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
     private void jTextFieldValorCobradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorCobradoKeyTyped
         // Restringe caracteres no campo
         String caracteres = "0987654321";
@@ -893,6 +709,153 @@ public class VistoriaVisao extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxReferenciaActionPerformed
 
+    private void jButtonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagoActionPerformed
+        int linha = tabela.getSelectedRow();
+        if (linha != -1) {
+            int op = JOptionPane.showConfirmDialog(null, "Deseja mudar a situação da vistoria?");
+
+            if (op == 0) {
+                Vistoria v = vistorias.get(linha);
+
+                if ("Pago".equals(v.getSituacaoPagamento())) {
+                    v.setSituacaoPagamento("Não Pago");
+                } else {
+                    v.setSituacaoPagamento("Pago");
+                }
+                vistoriaDAO.merge(v);
+                atualizaTabela(vistoriaDAO.findAll());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
+        }
+    }//GEN-LAST:event_jButtonPagoActionPerformed
+
+    private void jRadioButtonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPlacaActionPerformed
+       // jRadioButtonData.setSelected(false);
+        jComboBoxOpPesquisa.setEnabled(true);
+        //jDateChooser1.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonPlacaActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        int linha = tabela.getSelectedRow();
+        if (linha != -1) {
+            int op = JOptionPane.showConfirmDialog(null, "Deseja editar os dados da vistoria?");
+
+            if (op == 0) {
+                Vistoria v = vistorias.get(linha);
+
+                jTextFieldID.setText(v.getId() + "");
+
+                // Dados do veiculo
+                txtPlaca.setText(v.getVeiculo().getPlaca());
+                jTextFieldModelo.setText(v.getVeiculo().getModelo());
+
+                //Dados do cliente
+                txtCpf.setText(v.getCliente().getCpf());
+                txtCliente.setText(v.getCliente().getNome());
+
+                if(v.getReferencia()!=null){
+                    jComboBoxReferencia.setSelectedItem(v.getReferencia().getNome());
+                }
+
+                if ("Pago".equals(v.getSituacaoPagamento())) {
+                    jComboBoxSituacao.setSelectedIndex(1);
+                } else {
+                    jComboBoxSituacao.setSelectedIndex(0);
+                }
+
+                // Valor Cobrado
+                jTextFieldValorCobrado.setText(String.valueOf(v.getValorCobrado()));
+
+                editarVistoria.setData(v.getData());
+                editarVistoria.setHora(v.getHora());
+
+                jLabel6.setText("Editar Vistoria");
+
+                PainelComAbas.setSelectedIndex(1);
+                PainelComAbas.setEnabledAt(0, false);
+                PainelComAbas.setEnabledAt(1, true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jLabel6.setText("Nova Vistoria");
+
+        PainelComAbas.setSelectedIndex(1);
+        PainelComAbas.setEnabledAt(0, false);
+        PainelComAbas.setEnabledAt(1, true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jComboBoxOpPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOpPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxOpPesquisaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int linha = tabela.getSelectedRow();
+        if (linha != -1) {
+            int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
+
+            if (op == 0) {
+                Vistoria v = vistorias.get(linha);
+                vistoriaDAO.remove(v);
+                JOptionPane.showMessageDialog(null, "Registro excluído.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabela(vistoriaDAO.findAll());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (jRadioButtonPlaca.isSelected() == true) {
+            if (!jTextFieldCampoPesquisa.getText().equals("")) {
+                String pesquisa = jTextFieldCampoPesquisa.getText();
+                switch (jComboBoxOpPesquisa.getSelectedIndex()) {
+                    case 0: {
+                        List<Vistoria> lista = vistoriaDAO.findByPlaca(pesquisa);
+                        if (lista == null
+                            || lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            atualizaTabela(lista);
+                        }
+                        break;
+                    }
+                    case 1: {
+                        List<Vistoria> lista = vistoriaDAO.findByNome(pesquisa);
+                        if (lista == null
+                            || lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            atualizaTabela(lista);
+                        }
+                        break;
+                    }
+                    default:
+                    List<Vistoria> lista = vistoriaDAO.findByReferencia(pesquisa);
+                    if (lista == null
+                        || lista.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        atualizaTabela(lista);
+                    }
+                    break;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor inserir dados para pesquisa.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabela(vistoriaDAO.findAllOrder());
+            }
+
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextFieldCampoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCampoPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
+
     private String verificaNullReferencia(Referencia referencia) {
         if (referencia == null) {
             return "Nenhuma";
@@ -917,10 +880,11 @@ public class VistoriaVisao extends JDialog {
         DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
         dtm.setNumRows(0); // excluir os registros que estão na JTable
         vistorias = lista;
-        DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getCliente().getNome(), dateDia.format(v.getDatahora()) , v.getSituacao(), v.getValor(), verificaNullReferencia(v.getReferencia())});
+                dtm.addRow(new Object[]{v.getId(), v.getVeiculo().getPlaca(), v.getCliente().getNome(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullReferencia(v.getReferencia())});
             }
         }
 
@@ -1012,7 +976,6 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButtonData;
     private javax.swing.JRadioButton jRadioButtonPlaca;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldCampoPesquisa;
