@@ -7,6 +7,10 @@
     <class>modelo.Veiculo</class>
     <class>modelo.Vistoria</class>
     <class>modelo.Usuario</class>
+    <class>modelo.Agendamento</class>
+    <class>modelo.Despesa</class>
+    <class>modelo.Receita</class>
+    <class>modelo.Reprova</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deltacarsys?useTimezone=true&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
