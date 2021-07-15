@@ -21,10 +21,10 @@ public class DespesaDAO extends GenericoDAO<Despesa> {
     }
 
     
-    public List<Despesa> findByCpf(String cpf) {
+     public List<Despesa> findByCodigo(String codigo) {
         EntityManager em = getEntityManager();
-        TypedQuery<Despesa> query = em.createQuery("Select c FROM Cliente c WHERE c.cpf LIKE :cpf", Despesa.class);
-        query.setParameter("cpf", "%" + cpf + "%");
+        TypedQuery<Despesa> query = em.createQuery("Select d FROM Despesa d WHERE d LIKE :codigo", Despesa.class);
+        query.setParameter("codigo", "%" + codigo + "%");
         return query.getResultList();
     }
 }

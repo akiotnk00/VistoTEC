@@ -8,29 +8,23 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import modelo.Cliente;
+import modelo.Receita;
 
 /**
  *
  * @author akiot
  */
-public class ReceitaDAO extends GenericoDAO<Cliente> {
+public class ReceitaDAO extends GenericoDAO<Receita> {
     
     public ReceitaDAO() {
-        super(Cliente.class);
+        super(Receita.class);
     }
     
-    public List<Cliente> findByNome(String nome) {
+    public List<Receita> findByCodigo(String codigo) {
         EntityManager em = getEntityManager();
-        TypedQuery<Cliente> query = em.createQuery("Select c FROM Cliente c WHERE c.nome LIKE :nome", Cliente.class);
-        query.setParameter("nome", "%" + nome + "%");
+        TypedQuery<Receita> query = em.createQuery("Select r FROM Receita r WHERE r LIKE :codigo", Receita.class);
+        query.setParameter("codigo", "%" + codigo + "%");
         return query.getResultList();
     }
     
-    public List<Cliente> findByCpf(String cpf) {
-        EntityManager em = getEntityManager();
-        TypedQuery<Cliente> query = em.createQuery("Select c FROM Cliente c WHERE c.cpf LIKE :cpf", Cliente.class);
-        query.setParameter("cpf", "%" + cpf + "%");
-        return query.getResultList();
-    }
 }
