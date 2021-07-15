@@ -57,11 +57,7 @@ public class Vistoria implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "referencia", nullable = true)
-    private Referencia referencia = new Referencia();
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reprova", nullable = true)
-    private Reprova reprova = new Reprova();
+    private Referencia referencia = new Referencia();   
 
     public long getId() {
         return id;
@@ -126,17 +122,5 @@ public class Vistoria implements Serializable {
 
     public void setHora(Date hora) {
         this.hora = hora;
-    }
-
-    public Reprova getReprova() {
-        return reprova;
-    }
-
-    public void setReprova(Reprova reprova) {
-        this.reprova = reprova;
-    }
-    
-    
-    
-        
+    }      
 }
