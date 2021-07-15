@@ -40,10 +40,7 @@ public class Reprova implements Serializable {
     @Column(name = "descricao", length = 155, nullable = false)
     private String descricao;
     
-    @OneToMany(mappedBy="Reprova")
-    private List<Vistoria> vistorias;
-
-    @OneToOne(mappedBy="Vistoria")
+    @OneToOne
     @JoinColumn(name = "vistoria", nullable = false)
     private Vistoria vistoria = new Vistoria();
     
