@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
     private long codigo;
     
     @Column (name = "user")
-    private String usuario;
+    private String user;
     
     @Column (name = "nome")
     private String nome;
@@ -54,11 +54,11 @@ public class Usuario implements Serializable {
     }
 
     public String getUser() {
-        return usuario;
+        return user;
     }
 
     public void setUser(String user) {
-        this.usuario = user;
+        this.user = user;
     }
 
     public String getNome() {
