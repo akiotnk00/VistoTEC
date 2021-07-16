@@ -21,8 +21,8 @@ import javax.persistence.Table;
  * @author akiot
  */
 @Entity
-@Table(name = "referencia")
-public class Referencia implements Serializable {
+@Table(name = "parceiro")
+public class Parceiro implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Referencia implements Serializable {
     @Column(name = "telefone", length = 12, nullable = false)
     private String telefone;
 
-    @OneToMany(mappedBy="Referencia")
+    @OneToMany(mappedBy="Parceiro")
     private List<Vistoria> vistorias;
     
     public long getCodigo() {

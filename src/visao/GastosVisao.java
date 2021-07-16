@@ -5,30 +5,31 @@
  */
 package visao;
 
-import dao.ClienteDAO;
+import dao.ParceiroDAO;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Cliente;
+import modelo.Parceiro;
 
 /**
  *
  * @author akiot
  */
-public class ClienteVisao extends JDialog {
+public class GastosVisao extends JDialog {
 
-    private final ClienteDAO clienteDAO;
-    private List<Cliente> lista;
+    private final ParceiroDAO referenciaDAO;
+    private List<Parceiro> lista;
 
     /**
      * Creates new form CadastroCliente
      */
-    public ClienteVisao() {
+    public GastosVisao() {
         initComponents();
-        clienteDAO = new ClienteDAO();
+        referenciaDAO = new ParceiroDAO();
+
         PainelComAbas.setEnabledAt(1, false);
-        atualizaTabela(clienteDAO.findAll());
+        atualizaTabela(referenciaDAO.findAll());
     }
 
     /**
@@ -47,34 +48,32 @@ public class ClienteVisao extends JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxOpPesquisa = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtCPF = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
-        txtCidade = new javax.swing.JTextField();
-        txtTel = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("Referencias");
 
         PainelComAbas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(0, 102, 153));
+        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(102, 0, 153));
         jTextFieldCampoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldCampoPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCampoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +82,7 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 102, 153));
+        jButton3.setBackground(new java.awt.Color(102, 0, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pequenos/search_left [#1504].png"))); // NOI18N
@@ -99,7 +98,7 @@ public class ClienteVisao extends JDialog {
 
             },
             new String [] {
-                "Nome", "CPF", "Endereço", "Telefone"
+                "Codigo", "Nome", "Endereço", "Telefone"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -112,7 +111,7 @@ public class ClienteVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 153));
+        jButton2.setBackground(new java.awt.Color(102, 0, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -121,16 +120,16 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 102, 153));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Cpf" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxOpPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxOpPesquisa.setForeground(new java.awt.Color(102, 0, 153));
+        jComboBoxOpPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Telefone" }));
+        jComboBoxOpPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxOpPesquisaActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(0, 102, 153));
+        jButton8.setBackground(new java.awt.Color(102, 0, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +138,7 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(0, 102, 153));
+        jButton9.setBackground(new java.awt.Color(102, 0, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -155,11 +154,11 @@ public class ClienteVisao extends JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextFieldCampoPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -176,7 +175,7 @@ public class ClienteVisao extends JDialog {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +187,7 @@ public class ClienteVisao extends JDialog {
                 .addGap(0, 0, 0))
         );
 
-        PainelComAbas.addTab("Clientes", jPanel2);
+        PainelComAbas.addTab("Referencias", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -196,49 +195,38 @@ public class ClienteVisao extends JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Nome");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("CPF");
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Endereço");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Cidade");
+        jLabel3.setText("Telefone");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Telefone");
+        jLabel5.setText("Endereço");
+
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEndereco))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 66, Short.MAX_VALUE))
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNome)
-                        .addGap(4, 4, 4)))
-                .addGap(0, 0, 0)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -248,22 +236,16 @@ public class ClienteVisao extends JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(0, 102, 153));
+        jButton5.setBackground(new java.awt.Color(102, 0, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +254,7 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(0, 102, 153));
+        jButton6.setBackground(new java.awt.Color(102, 0, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +263,7 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(0, 102, 153));
+        jButton7.setBackground(new java.awt.Color(102, 0, 153));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -291,8 +273,13 @@ public class ClienteVisao extends JDialog {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel6.setText("Dados do Cliente");
+        jLabel6.setForeground(new java.awt.Color(102, 0, 153));
+        jLabel6.setText("Nova referencia");
+
+        jLabel2.setText("ID");
+
+        jTextFieldID.setEnabled(false);
+        jTextFieldID.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,7 +288,6 @@ public class ClienteVisao extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -309,18 +295,28 @@ public class ClienteVisao extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
@@ -341,19 +337,33 @@ public class ClienteVisao extends JDialog {
             .addComponent(PainelComAbas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (!jTextFieldCampoPesquisa.getText().equals("")) {
-            String nome = jTextFieldCampoPesquisa.getText();
-            List<Cliente> clientes = clienteDAO.findByNome(nome);
-            if (clientes == null || clientes.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            String pesquisa = jTextFieldCampoPesquisa.getText();
+            if (jComboBoxOpPesquisa.getSelectedIndex() == 0) {
+                List<Parceiro> referencias = referenciaDAO.findByNome(pesquisa);
+                if (referencias == null
+                        || referencias.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    atualizaTabela(referencias);
+                }
             } else {
-                atualizaTabela(clientes);
+                List<Parceiro> referencias = referenciaDAO.findByTelefone(pesquisa);
+                if (referencias == null
+                        || referencias.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    atualizaTabela(referencias);
+                }
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Preencha o campo de pesquisa!", "Alerta", JOptionPane.WARNING_MESSAGE);
             jTextFieldCampoPesquisa.requestFocus();
@@ -366,15 +376,15 @@ public class ClienteVisao extends JDialog {
             int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
 
             if (op == 0) {
-                Cliente c = lista.get(linha);
-                if(clienteDAO.remove(c)==true){
-                    JOptionPane.showMessageDialog(null, "Registro excluido com sucesso.");
+                Parceiro r = lista.get(linha);
+                if(referenciaDAO.remove(r)){
+                JOptionPane.showMessageDialog(null, "Registro excluído.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabela(referenciaDAO.findAll());
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Não foi possivel excluir, dados ainda vinculados.");
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir, dados ainda vinculados.");
                 }
-                atualizaTabela(clienteDAO.findAll());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
@@ -382,59 +392,56 @@ public class ClienteVisao extends JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (!txtNome.getText().equals("")) {
-            if (!txtCPF.getText().equals("")) {
-                if (!txtEndereco.getText().equals("")) {
-                    if (!txtCidade.getText().equals("")) {
-                        if (!txtTel.getText().equals("")) {
-                            Cliente c = new Cliente();
-                            c.setCpf(txtCPF.getText());
-                            c.setNome(txtNome.getText());
-                            c.setTelefone(txtTel.getText());
-                            c.setEndereco(txtEndereco.getText());
-                            c.setCidade(txtCidade.getText());
+        Parceiro r = new Parceiro();
+        // Verifica se o campo nome foi preenchido
+        if (!"".equals(txtNome.getText())) {
+            r.setNome(txtNome.getText());
 
-                            clienteDAO.merge(c);
-                            JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                            atualizaTabela(clienteDAO.findAll());
+            // Verifica se o campo endereço foi preenchido
+            if (!"".equals(txtEndereco.getText())) {
+                r.setEndereco(txtEndereco.getText());
 
-                            limparCampos();
-                            PainelComAbas.setEnabledAt(0, true);
-                            PainelComAbas.setEnabledAt(1, false);
-                            PainelComAbas.setSelectedIndex(0);
+                // Verifica se o telefone foi preenchido
+                if (!"".equals(txtTelefone.getText())) {
+                    r.setTelefone(txtTelefone.getText());
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Preencha o telefone!", "Alerta", JOptionPane.WARNING_MESSAGE);
-                            txtTel.requestFocus();
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Preencha o endereço!", "Alerta", JOptionPane.WARNING_MESSAGE);
-                        txtEndereco.requestFocus();
+                    // Verifica se tem conteudo no campo ID , se tiver significa que é uma alteraçãoe mantem o ID original
+                    if (!"".equals(jTextFieldID.getText())) {
+                        r.setCodigo(Long.parseLong(jTextFieldID.getText()));
                     }
+
+                    referenciaDAO.merge(r);
+                    JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTabela(referenciaDAO.findAll());
+
+                    limparCampos();
+                    PainelComAbas.setEnabledAt(0, true);
+                    PainelComAbas.setEnabledAt(1, false);
+                    PainelComAbas.setSelectedIndex(0);
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Preencha o cpf!", "Alerta", JOptionPane.WARNING_MESSAGE);
-                    txtCPF.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Favor inserir o telefone", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    txtTelefone.requestFocusInWindow();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Preencha a cidade!", "Alerta", JOptionPane.WARNING_MESSAGE);
-                txtCidade.requestFocus();
+                JOptionPane.showMessageDialog(null, "Favor inserir o endereço", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                txtEndereco.requestFocusInWindow();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha o nome!", "Alerta", JOptionPane.WARNING_MESSAGE);
-            txtNome.requestFocus();
+            JOptionPane.showMessageDialog(null, "Favor inserir o nome.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            txtNome.requestFocusInWindow();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxOpPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOpPesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxOpPesquisaActionPerformed
 
     private void jTextFieldCampoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCampoPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        limparCampos();
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
@@ -446,15 +453,14 @@ public class ClienteVisao extends JDialog {
             int op = JOptionPane.showConfirmDialog(null, "Deseja editar os dados do cliente?");
 
             if (op == 0) {
-                Cliente c = lista.get(linha);
+                Parceiro c = lista.get(linha);
 
                 txtNome.setText(c.getNome());
-                txtCPF.setText(c.getCpf());
-                txtTel.setText(c.getTelefone());
                 txtEndereco.setText(c.getEndereco());
-                txtCidade.setText(c.getCidade());
+                txtTelefone.setText(c.getTelefone());
+                jTextFieldID.setText(String.valueOf(c.getCodigo()));
 
-                jLabel6.setText("Editar dados do cliente");
+                jLabel6.setText("Editar referencia");
                 PainelComAbas.setSelectedIndex(1);
                 PainelComAbas.setEnabledAt(0, false);
                 PainelComAbas.setEnabledAt(1, true);
@@ -465,33 +471,38 @@ public class ClienteVisao extends JDialog {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      limparCampos();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-                            limparCampos();
-                            PainelComAbas.setEnabledAt(0, true);
-                            PainelComAbas.setEnabledAt(1, false);
-                            PainelComAbas.setSelectedIndex(0);
+        limparCampos();
+        PainelComAbas.setEnabledAt(0, true);
+        PainelComAbas.setEnabledAt(1, false);
+        PainelComAbas.setSelectedIndex(0);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
+        // Restringe caracteres no campo
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefoneKeyTyped
+
     private void limparCampos() {
-        jLabel6.setText("Novo Cliente");
         txtNome.setText("");
-        txtCPF.setText("");
-        txtTel.setText("");
         txtEndereco.setText("");
-        txtCidade.setText("");
+        txtTelefone.setText("");
 
     }
 
-    private void atualizaTabela(List<Cliente> clientes) {
+    private void atualizaTabela(List<Parceiro> referencias) {
         DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
         dtm.setNumRows(0); // excluir os registros que estão na JTable
-        lista = clientes;
+        lista = referencias;
         if (lista != null) {
-            for (Cliente c : lista) {
-                dtm.addRow(new Object[]{c.getNome(), c.getCpf(), c.getEndereco(), c.getTelefone()});
+            for (Parceiro r : lista) {
+                dtm.addRow(new Object[]{r.getCodigo(), r.getNome(), r.getEndereco(), r.getTelefone()});
             }
         }
 
@@ -514,21 +525,35 @@ public class ClienteVisao extends JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GastosVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GastosVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GastosVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GastosVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClienteVisao().setVisible(true);
+                new GastosVisao().setVisible(true);
             }
         });
     }
@@ -542,11 +567,10 @@ public class ClienteVisao extends JDialog {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxOpPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -554,11 +578,10 @@ public class ClienteVisao extends JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldCampoPesquisa;
+    private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtCPF;
-    private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTel;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

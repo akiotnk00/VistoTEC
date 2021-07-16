@@ -6,7 +6,7 @@
 package visao;
 
 import dao.ClienteDAO;
-import dao.ReferenciaDAO;
+import dao.ParceiroDAO;
 import dao.VeiculoDAO;
 import dao.VistoriaDAO;
 import static java.lang.Double.parseDouble;
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
-import modelo.Referencia;
+import modelo.Parceiro;
 import modelo.Veiculo;
 import modelo.Vistoria;
 
@@ -38,8 +38,8 @@ public class VistoriaVisao extends JDialog {
     private final VeiculoDAO veiculoDAO;
     private List<Veiculo> veiculos;
 
-    private final ReferenciaDAO referenciaDAO;
-    private List<Referencia> referencias;
+    private final ParceiroDAO parceiroDAO;
+    private List<Parceiro> parceiros;
     Vistoria editarVistoria = new Vistoria();
 
     /**
@@ -50,10 +50,10 @@ public class VistoriaVisao extends JDialog {
         vistoriaDAO = new VistoriaDAO();
         veiculoDAO = new VeiculoDAO();
         clienteDAO = new ClienteDAO();
-        referenciaDAO = new ReferenciaDAO();
+        parceiroDAO = new ParceiroDAO();
 
         PainelComAbas.setEnabledAt(1, false);
-        atualizaReferencias(referenciaDAO.findAll());
+        atualizaParceiros(parceiroDAO.findAll());
         atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
@@ -95,7 +95,7 @@ public class VistoriaVisao extends JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox<>();
-        jComboBoxReferencia = new javax.swing.JComboBox<>();
+        jComboBoxParceiro = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -329,11 +329,11 @@ public class VistoriaVisao extends JDialog {
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não Pago", "Pago" }));
 
-        jComboBoxReferencia.setForeground(new java.awt.Color(102, 0, 153));
-        jComboBoxReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhuma" }));
-        jComboBoxReferencia.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxParceiro.setForeground(new java.awt.Color(102, 0, 153));
+        jComboBoxParceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhuma" }));
+        jComboBoxParceiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxReferenciaActionPerformed(evt);
+                jComboBoxParceiroActionPerformed(evt);
             }
         });
 
@@ -386,7 +386,7 @@ public class VistoriaVisao extends JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -416,7 +416,7 @@ public class VistoriaVisao extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBoxReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
@@ -554,12 +554,12 @@ public class VistoriaVisao extends JDialog {
                         }
 
                         // Verifica qual opção escolhida na jComboBox
-                        if (jComboBoxReferencia.getSelectedItem() != "Nenhuma") {
-                            Referencia referencia = referenciaDAO.findByNome((String) jComboBoxReferencia.getSelectedItem()).get(0);
-                            v.setReferencia(referencia);
+                        if (jComboBoxParceiro.getSelectedItem() != "Nenhuma") {
+                            Parceiro parceiro = parceiroDAO.findByNome((String) jComboBoxParceiro.getSelectedItem()).get(0);
+                            v.setParceiro(parceiro);
                         } else {
                             // Caso nenhuma esteja escolhida, ele coloca o valor null
-                            v.setReferencia(null);
+                            v.setParceiro(null);
                         }
 
                         // Salva a opção escolhida, por padrão fica "Não Pago"
@@ -705,9 +705,9 @@ public class VistoriaVisao extends JDialog {
         txt.selectAll();
     }//GEN-LAST:event_txtCpfFocusGained
 
-    private void jComboBoxReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxReferenciaActionPerformed
+    private void jComboBoxParceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxParceiroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxReferenciaActionPerformed
+    }//GEN-LAST:event_jComboBoxParceiroActionPerformed
 
     private void jButtonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagoActionPerformed
         int linha = tabela.getSelectedRow();
@@ -754,8 +754,8 @@ public class VistoriaVisao extends JDialog {
                 txtCpf.setText(v.getCliente().getCpf());
                 txtCliente.setText(v.getCliente().getNome());
 
-                if(v.getReferencia()!=null){
-                    jComboBoxReferencia.setSelectedItem(v.getReferencia().getNome());
+                if(v.getParceiro()!=null){
+                    jComboBoxParceiro.setSelectedItem(v.getParceiro().getNome());
                 }
 
                 if ("Pago".equals(v.getSituacaoPagamento())) {
@@ -835,7 +835,7 @@ public class VistoriaVisao extends JDialog {
                         break;
                     }
                     default:
-                    List<Vistoria> lista = vistoriaDAO.findByReferencia(pesquisa);
+                    List<Vistoria> lista = vistoriaDAO.findByParceiro(pesquisa);
                     if (lista == null
                         || lista.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -856,11 +856,11 @@ public class VistoriaVisao extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
 
-    private String verificaNullReferencia(Referencia referencia) {
-        if (referencia == null) {
+    private String verificaNullParceiro(Parceiro parceiro) {
+        if (parceiro == null) {
             return "Nenhuma";
         } else {
-            return referencia.getNome();
+            return parceiro.getNome();
         }
     }
 
@@ -871,7 +871,7 @@ public class VistoriaVisao extends JDialog {
         jTextFieldModelo.setText("");
         txtCpf.setText("");
         txtCliente.setText("");
-        jComboBoxReferencia.setSelectedIndex(0);
+        jComboBoxParceiro.setSelectedIndex(0);
         jComboBoxSituacao.setSelectedIndex(0);
         jTextFieldValorCobrado.setText("");
     }
@@ -884,19 +884,19 @@ public class VistoriaVisao extends JDialog {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getId(), v.getVeiculo().getPlaca(), v.getCliente().getNome(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullReferencia(v.getReferencia())});
+                dtm.addRow(new Object[]{v.getId(), v.getVeiculo().getPlaca(), v.getCliente().getNome(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro())});
             }
         }
 
     }
 
-    private void atualizaReferencias(List<Referencia> referencias) {
+    private void atualizaParceiros(List<Parceiro> parceiros) {
         String str = null;
 
-        for (int i = 0; i < referencias.size(); i++) {
+        for (int i = 0; i < parceiros.size(); i++) {
 
-            str = (String) referencias.get(i).getNome();
-            jComboBoxReferencia.addItem(str);
+            str = (String) parceiros.get(i).getNome();
+            jComboBoxParceiro.addItem(str);
         }
     }
 
@@ -961,7 +961,7 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonPago;
     private javax.swing.JComboBox<String> jComboBoxOpPesquisa;
-    private javax.swing.JComboBox<String> jComboBoxReferencia;
+    private javax.swing.JComboBox<String> jComboBoxParceiro;
     private javax.swing.JComboBox<String> jComboBoxSituacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

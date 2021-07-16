@@ -5,31 +5,31 @@
  */
 package visao;
 
-import dao.ReferenciaDAO;
+import dao.ParceiroDAO;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Referencia;
+import modelo.Parceiro;
 
 /**
  *
  * @author akiot
  */
-public class ReferenciaVisao extends JDialog {
+public class ParceiroVisao extends JDialog {
 
-    private final ReferenciaDAO referenciaDAO;
-    private List<Referencia> lista;
+    private final ParceiroDAO parceiroDAO;
+    private List<Parceiro> lista;
 
     /**
      * Creates new form CadastroCliente
      */
-    public ReferenciaVisao() {
+    public ParceiroVisao() {
         initComponents();
-        referenciaDAO = new ReferenciaDAO();
+        parceiroDAO = new ParceiroDAO();
 
         PainelComAbas.setEnabledAt(1, false);
-        atualizaTabela(referenciaDAO.findAll());
+        atualizaTabela(parceiroDAO.findAll());
     }
 
     /**
@@ -67,13 +67,13 @@ public class ReferenciaVisao extends JDialog {
         jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Referencias");
+        setTitle("DeltaCarSys - Parceiros");
 
         PainelComAbas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(102, 0, 153));
+        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(0, 102, 153));
         jTextFieldCampoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldCampoPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCampoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +82,7 @@ public class ReferenciaVisao extends JDialog {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(102, 0, 153));
+        jButton3.setBackground(new java.awt.Color(0, 102, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pequenos/search_left [#1504].png"))); // NOI18N
@@ -111,7 +111,7 @@ public class ReferenciaVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(102, 0, 153));
+        jButton2.setBackground(new java.awt.Color(0, 102, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class ReferenciaVisao extends JDialog {
         });
 
         jComboBoxOpPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxOpPesquisa.setForeground(new java.awt.Color(102, 0, 153));
+        jComboBoxOpPesquisa.setForeground(new java.awt.Color(0, 102, 153));
         jComboBoxOpPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Telefone" }));
         jComboBoxOpPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class ReferenciaVisao extends JDialog {
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(102, 0, 153));
+        jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +138,7 @@ public class ReferenciaVisao extends JDialog {
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(102, 0, 153));
+        jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class ReferenciaVisao extends JDialog {
                 .addGap(0, 0, 0))
         );
 
-        PainelComAbas.addTab("Referencias", jPanel2);
+        PainelComAbas.addTab("Parceiros", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -245,7 +245,7 @@ public class ReferenciaVisao extends JDialog {
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(102, 0, 153));
+        jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +254,7 @@ public class ReferenciaVisao extends JDialog {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(102, 0, 153));
+        jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +263,7 @@ public class ReferenciaVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(102, 0, 153));
+        jButton7.setBackground(new java.awt.Color(0, 102, 153));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -273,8 +273,8 @@ public class ReferenciaVisao extends JDialog {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 0, 153));
-        jLabel6.setText("Nova referencia");
+        jLabel6.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel6.setText("Cadastrar Parceiro");
 
         jLabel2.setText("ID");
 
@@ -347,20 +347,20 @@ public class ReferenciaVisao extends JDialog {
         if (!jTextFieldCampoPesquisa.getText().equals("")) {
             String pesquisa = jTextFieldCampoPesquisa.getText();
             if (jComboBoxOpPesquisa.getSelectedIndex() == 0) {
-                List<Referencia> referencias = referenciaDAO.findByNome(pesquisa);
-                if (referencias == null
-                        || referencias.isEmpty()) {
+                List<Parceiro> parceiros = parceiroDAO.findByNome(pesquisa);
+                if (parceiros == null
+                        || parceiros.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    atualizaTabela(referencias);
+                    atualizaTabela(parceiros);
                 }
             } else {
-                List<Referencia> referencias = referenciaDAO.findByTelefone(pesquisa);
-                if (referencias == null
-                        || referencias.isEmpty()) {
+                List<Parceiro> parceiros = parceiroDAO.findByTelefone(pesquisa);
+                if (parceiros == null
+                        || parceiros.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    atualizaTabela(referencias);
+                    atualizaTabela(parceiros);
                 }
             }
 
@@ -376,10 +376,10 @@ public class ReferenciaVisao extends JDialog {
             int op = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
 
             if (op == 0) {
-                Referencia r = lista.get(linha);
-                if(referenciaDAO.remove(r)){
+                Parceiro r = lista.get(linha);
+                if(parceiroDAO.remove(r)){
                 JOptionPane.showMessageDialog(null, "Registro excluído.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabela(referenciaDAO.findAll());
+                atualizaTabela(parceiroDAO.findAll());
                 }
                 else
                 {
@@ -392,7 +392,7 @@ public class ReferenciaVisao extends JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Referencia r = new Referencia();
+        Parceiro r = new Parceiro();
         // Verifica se o campo nome foi preenchido
         if (!"".equals(txtNome.getText())) {
             r.setNome(txtNome.getText());
@@ -410,9 +410,9 @@ public class ReferenciaVisao extends JDialog {
                         r.setCodigo(Long.parseLong(jTextFieldID.getText()));
                     }
 
-                    referenciaDAO.merge(r);
+                    parceiroDAO.merge(r);
                     JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    atualizaTabela(referenciaDAO.findAll());
+                    atualizaTabela(parceiroDAO.findAll());
 
                     limparCampos();
                     PainelComAbas.setEnabledAt(0, true);
@@ -453,14 +453,14 @@ public class ReferenciaVisao extends JDialog {
             int op = JOptionPane.showConfirmDialog(null, "Deseja editar os dados do cliente?");
 
             if (op == 0) {
-                Referencia c = lista.get(linha);
+                Parceiro c = lista.get(linha);
 
                 txtNome.setText(c.getNome());
                 txtEndereco.setText(c.getEndereco());
                 txtTelefone.setText(c.getTelefone());
                 jTextFieldID.setText(String.valueOf(c.getCodigo()));
 
-                jLabel6.setText("Editar referencia");
+                jLabel6.setText("Editar parceiro");
                 PainelComAbas.setSelectedIndex(1);
                 PainelComAbas.setEnabledAt(0, false);
                 PainelComAbas.setEnabledAt(1, true);
@@ -496,12 +496,12 @@ public class ReferenciaVisao extends JDialog {
 
     }
 
-    private void atualizaTabela(List<Referencia> referencias) {
+    private void atualizaTabela(List<Parceiro> parceiros) {
         DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
         dtm.setNumRows(0); // excluir os registros que estão na JTable
-        lista = referencias;
+        lista = parceiros;
         if (lista != null) {
-            for (Referencia r : lista) {
+            for (Parceiro r : lista) {
                 dtm.addRow(new Object[]{r.getCodigo(), r.getNome(), r.getEndereco(), r.getTelefone()});
             }
         }
@@ -525,14 +525,22 @@ public class ReferenciaVisao extends JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReferenciaVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ParceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReferenciaVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ParceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReferenciaVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ParceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReferenciaVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ParceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -545,7 +553,7 @@ public class ReferenciaVisao extends JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReferenciaVisao().setVisible(true);
+                new ParceiroVisao().setVisible(true);
             }
         });
     }

@@ -56,8 +56,8 @@ public class Vistoria implements Serializable {
     private Cliente cliente = new Cliente();
     
     @ManyToOne
-    @JoinColumn(name = "referencia", nullable = true)
-    private Referencia referencia = new Referencia();   
+    @JoinColumn(name = "parceiro", nullable = true)
+    private Parceiro parceiro = new Parceiro();   
 
     public long getId() {
         return id;
@@ -100,12 +100,12 @@ public class Vistoria implements Serializable {
         this.cliente = cliente;
     }
 
-    public Referencia getReferencia() {
-        return referencia;
+    public Parceiro getParceiro() {
+        return parceiro;
     }
 
-    public void setReferencia(Referencia referencia) {
-        this.referencia = referencia;
+    public void setParceiro(Parceiro parceiro) {
+        this.parceiro = parceiro;
     }
 
     public Date getData() {

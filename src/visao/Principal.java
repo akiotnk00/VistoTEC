@@ -214,7 +214,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ReferenciaVisao frame = new ReferenciaVisao();
+        ParceiroVisao frame = new ParceiroVisao();
         frame.setModal(true);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed

@@ -8,28 +8,28 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import modelo.Referencia;
+import modelo.Parceiro;
 
 /**
  *
  * @author akiot
  */
-public class ReferenciaDAO extends GenericoDAO<Referencia> {
+public class ParceiroDAO extends GenericoDAO<Parceiro> {
     
-    public ReferenciaDAO() {
-        super(Referencia.class);
+    public ParceiroDAO() {
+        super(Parceiro.class);
     }
     
-    public List<Referencia> findByNome(String nome) {
+    public List<Parceiro> findByNome(String nome) {
         EntityManager em = getEntityManager();
-        TypedQuery<Referencia> query = em.createQuery("Select r FROM Referencia r WHERE r.nome LIKE :nome", Referencia.class);
+        TypedQuery<Parceiro> query = em.createQuery("Select r FROM Referencia r WHERE r.nome LIKE :nome", Parceiro.class);
         query.setParameter("nome", "%" + nome + "%");
         return query.getResultList();
     }
     
-     public List<Referencia> findByTelefone(String telefone) {
+     public List<Parceiro> findByTelefone(String telefone) {
         EntityManager em = getEntityManager();
-        TypedQuery<Referencia> query = em.createQuery("Select r FROM Referencia r WHERE r.telefone LIKE :telefone", Referencia.class);
+        TypedQuery<Parceiro> query = em.createQuery("Select r FROM Referencia r WHERE r.telefone LIKE :telefone", Parceiro.class);
         query.setParameter("telefone", "%" + telefone + "%");
         return query.getResultList();
     }

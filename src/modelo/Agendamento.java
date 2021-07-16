@@ -47,8 +47,8 @@ public class Agendamento implements Serializable {
     private String observacao;
 
     @ManyToOne
-    @JoinColumn(name = "referencia", nullable = true)
-    private Referencia referencia = new Referencia();
+    @JoinColumn(name = "parceiro", nullable = true)
+    private Parceiro parceiro = new Parceiro();
     
     
     public long getCodigo() {

@@ -41,10 +41,10 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
         return query.getResultList();
     }
 
-    // Busca de Vistoria por Referencia
-    public List<Vistoria> findByReferencia(String nome) {
+    // Busca de Vistoria por Parceiro
+    public List<Vistoria> findByParceiro(String nome) {
         EntityManager em = getEntityManager();
-        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.referencia.nome LIKE :nome", Vistoria.class);
+        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.parceiro.nome LIKE :nome", Vistoria.class);
         query.setParameter("nome", "%" + nome + "%");
         return query.getResultList();
     }
