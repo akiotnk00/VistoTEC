@@ -72,6 +72,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Senha:");
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 102, 153));
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,8 +167,8 @@ public class Login extends javax.swing.JFrame {
                     
                     usuario.setUltimoLogin(new Date());
                     usuarioDAO.merge(usuario);
-                   // JanelaPrincipal frame = new JanelaPrincipal(usuario);
-               //     frame.setVisible(true);
+                    JanelaPrincipal frame = new JanelaPrincipal(usuario);
+                   frame.setVisible(true);
                     dispose();      
                 }
                 else
@@ -201,7 +202,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

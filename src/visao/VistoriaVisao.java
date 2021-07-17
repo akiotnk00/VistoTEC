@@ -57,6 +57,21 @@ public class VistoriaVisao extends JDialog {
         atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
+    VistoriaVisao(boolean b) {
+        initComponents();
+        vistoriaDAO = new VistoriaDAO();
+        veiculoDAO = new VeiculoDAO();
+        clienteDAO = new ClienteDAO();
+        parceiroDAO = new ParceiroDAO();
+
+        PainelComAbas.setEnabledAt(0, false);
+        PainelComAbas.setEnabledAt(1, true);
+        PainelComAbas.setSelectedIndex(1);
+        
+        atualizaParceiros(parceiroDAO.findAll());
+        atualizaTabela(vistoriaDAO.findAllOrder());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
