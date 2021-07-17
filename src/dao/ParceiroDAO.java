@@ -22,14 +22,14 @@ public class ParceiroDAO extends GenericoDAO<Parceiro> {
     
     public List<Parceiro> findByNome(String nome) {
         EntityManager em = getEntityManager();
-        TypedQuery<Parceiro> query = em.createQuery("Select r FROM Referencia r WHERE r.nome LIKE :nome", Parceiro.class);
+        TypedQuery<Parceiro> query = em.createQuery("Select p FROM Parceiro p WHERE p.nome LIKE :nome", Parceiro.class);
         query.setParameter("nome", "%" + nome + "%");
         return query.getResultList();
     }
     
      public List<Parceiro> findByTelefone(String telefone) {
         EntityManager em = getEntityManager();
-        TypedQuery<Parceiro> query = em.createQuery("Select r FROM Referencia r WHERE r.telefone LIKE :telefone", Parceiro.class);
+        TypedQuery<Parceiro> query = em.createQuery("Select p FROM Parceiro p WHERE p.telefone LIKE :telefone", Parceiro.class);
         query.setParameter("telefone", "%" + telefone + "%");
         return query.getResultList();
     }

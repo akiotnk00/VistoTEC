@@ -166,8 +166,8 @@ public class Login extends javax.swing.JFrame {
                     
                     usuario.setUltimoLogin(new Date());
                     usuarioDAO.merge(usuario);
-                    JanelaPrincipal frame = new JanelaPrincipal(usuario);
-                    frame.setVisible(true);
+                   // JanelaPrincipal frame = new JanelaPrincipal(usuario);
+               //     frame.setVisible(true);
                     dispose();      
                 }
                 else

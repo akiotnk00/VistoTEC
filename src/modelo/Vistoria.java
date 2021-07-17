@@ -41,11 +41,17 @@ public class Vistoria implements Serializable {
     @Column(name = "hora")
     private Date hora;
     
+    @Column(name = "motivo")
+    private String motivo;
+    
     @Column(name = "situacao_de_pagamento")
     private String situacaoPagamento;
     
     @Column(name = "valor_cobrado")
     private double valorCobrado;
+    
+    @Column(name = "aprovado")
+    private Boolean aprovado;
     
     @ManyToOne
     @JoinColumn(name = "veiculo", nullable = false)
@@ -122,5 +128,23 @@ public class Vistoria implements Serializable {
 
     public void setHora(Date hora) {
         this.hora = hora;
-    }      
+    }    
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public Boolean getAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(Boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+    
+    
 }

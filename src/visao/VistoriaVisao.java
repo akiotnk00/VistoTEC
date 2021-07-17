@@ -80,29 +80,45 @@ public class VistoriaVisao extends JDialog {
         jButtonPago = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtPlaca = new javax.swing.JTextField();
-        txtCpf = new javax.swing.JTextField();
-        txtCliente = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextFieldModelo = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        TxtModeloVeiculo = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        TxtMarcaVeiculo = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextFieldModelo6 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtPlaca = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        TxtCorVeiculo = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        TxtNomeCliente = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        TxtTelefoneCliente = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBoxParceiro = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldValorCobrado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox<>();
-        jComboBoxParceiro = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jRadioButtonAprovado = new javax.swing.JRadioButton();
+        jRadioButtonReprovado = new javax.swing.JRadioButton();
+        jLabelMotivo = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vistorias");
@@ -111,7 +127,7 @@ public class VistoriaVisao extends JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(102, 0, 153));
+        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(0, 102, 153));
         jTextFieldCampoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldCampoPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCampoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +136,7 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(102, 0, 153));
+        jButton3.setBackground(new java.awt.Color(0, 102, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pequenos/search_left [#1504].png"))); // NOI18N
@@ -136,11 +152,11 @@ public class VistoriaVisao extends JDialog {
 
             },
             new String [] {
-                "Codigo", "Placa", "Cliente", "Data", "Hora", "Situação", "Valor Cobrado", "Referencia"
+                "Motivo", "Placa", "Modelo", "Data", "Hora", "Pagamento", "Valor Cobrado", "Parceiro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,9 +164,10 @@ public class VistoriaVisao extends JDialog {
             }
         });
         tabela.setShowGrid(true);
+        tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(102, 0, 153));
+        jButton2.setBackground(new java.awt.Color(0, 102, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -160,15 +177,15 @@ public class VistoriaVisao extends JDialog {
         });
 
         jComboBoxOpPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxOpPesquisa.setForeground(new java.awt.Color(102, 0, 153));
-        jComboBoxOpPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Nome", "Referencia" }));
+        jComboBoxOpPesquisa.setForeground(new java.awt.Color(0, 102, 153));
+        jComboBoxOpPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Nome", "Parceiro" }));
         jComboBoxOpPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxOpPesquisaActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(102, 0, 153));
+        jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +194,7 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(102, 0, 153));
+        jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +210,7 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jButtonPago.setBackground(new java.awt.Color(102, 0, 153));
+        jButtonPago.setBackground(new java.awt.Color(0, 102, 153));
         jButtonPago.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPago.setText("Mudar situação");
         jButtonPago.addActionListener(new java.awt.event.ActionListener() {
@@ -216,15 +233,15 @@ public class VistoriaVisao extends JDialog {
                         .addComponent(jRadioButtonPlaca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxOpPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(jButton3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(211, 211, 211)
                         .addComponent(jButtonPago)
-                        .addGap(215, 215, 215)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -239,26 +256,44 @@ public class VistoriaVisao extends JDialog {
                         .addComponent(jTextFieldCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(jButton9)
-                    .addComponent(jButton2)
-                    .addComponent(jButtonPago))
-                .addGap(0, 0, 0))
+                    .addComponent(jButtonPago)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton3, jComboBoxOpPesquisa, jTextFieldCampoPesquisa});
 
         PainelComAbas.addTab("Vistorias", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Placa do Veiculo");
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Veiculo"));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Cpf do Cliente");
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel2.setText("Modelo");
+
+        TxtModeloVeiculo.setEditable(false);
+
+        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel12.setText("Marca");
+
+        TxtMarcaVeiculo.setEditable(false);
+
+        jLabel17.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel17.setText("Ultima Vistoria");
+
+        jTextFieldModelo6.setEditable(false);
+        jTextFieldModelo6.setText("Ainda não implementado");
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel1.setText("Placa do Veiculo");
 
         txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -271,6 +306,102 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 102, 153));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        TxtCorVeiculo.setEditable(false);
+
+        jLabel13.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel13.setText("Cor");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtCorVeiculo))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtMarcaVeiculo))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtModeloVeiculo))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldModelo6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(TxtModeloVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jTextFieldModelo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtMarcaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtCorVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(12, 12, 12))
+        );
+
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {TxtCorVeiculo, TxtMarcaVeiculo, TxtModeloVeiculo, jButton1, jTextFieldModelo6, txtPlaca});
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Cliente"));
+
+        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel14.setText("Nome do Cliente");
+
+        TxtNomeCliente.setEditable(false);
+
+        jLabel15.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+
+        TxtTelefoneCliente.setEditable(false);
+
+        jLabel16.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel16.setText("Telefone");
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel5.setText("Cpf do Cliente");
+
         txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCpfFocusGained(evt);
@@ -282,20 +413,7 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        txtCliente.setEditable(false);
-
-        jButton1.setBackground(new java.awt.Color(102, 0, 153));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTextFieldModelo.setEditable(false);
-
-        jButton4.setBackground(new java.awt.Color(102, 0, 153));
+        jButton4.setBackground(new java.awt.Color(0, 102, 153));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("OK");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -304,13 +422,78 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Modelo");
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(0, 0, 0)
+                .addComponent(jLabel15)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(TxtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(TxtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
+        );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Cliente");
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {TxtNomeCliente, TxtTelefoneCliente, jButton4, txtCpf});
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da Vistoria"));
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel9.setText("Parceiro");
+
+        jComboBoxParceiro.setForeground(new java.awt.Color(0, 102, 153));
+        jComboBoxParceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
+        jComboBoxParceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxParceiroActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel7.setText("Valor Cobrado");
 
         jTextFieldValorCobrado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -324,108 +507,145 @@ public class VistoriaVisao extends JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText(",00");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Situação");
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        jLabel8.setText("Situação de Pagamento");
 
+        jComboBoxSituacao.setForeground(new java.awt.Color(0, 102, 153));
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não Pago", "Pago" }));
 
-        jComboBoxParceiro.setForeground(new java.awt.Color(102, 0, 153));
-        jComboBoxParceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhuma" }));
-        jComboBoxParceiro.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxParceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 37, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxParceiro, jTextFieldValorCobrado});
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
+
+        jRadioButtonAprovado.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButtonAprovado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jRadioButtonAprovado.setForeground(new java.awt.Color(51, 204, 0));
+        jRadioButtonAprovado.setText("Aprovado");
+        jRadioButtonAprovado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxParceiroActionPerformed(evt);
+                jRadioButtonAprovadoActionPerformed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Referencia");
+        jRadioButtonReprovado.setBackground(new java.awt.Color(255, 255, 255));
+        jRadioButtonReprovado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jRadioButtonReprovado.setForeground(new java.awt.Color(204, 0, 51));
+        jRadioButtonReprovado.setText("Reprovado");
+        jRadioButtonReprovado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonReprovadoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButtonAprovado)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButtonReprovado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonAprovado)
+                    .addComponent(jRadioButtonReprovado))
+                .addGap(12, 12, 12))
+        );
+
+        jLabelMotivo.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
+        jLabelMotivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelMotivo.setText("transferência");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCpf))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabelMotivo)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(102, 0, 153));
+        jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -434,7 +654,7 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(102, 0, 153));
+        jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -443,46 +663,47 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(102, 0, 153));
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Cancelar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 0, 153));
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Nova Vistoria");
 
         jTextFieldID.setEnabled(false);
 
         jLabel10.setText("ID");
 
+        jButton10.setBackground(new java.awt.Color(0, 102, 153));
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Cancelar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton10))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
+                .addGap(12, 12, 12))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,13 +715,13 @@ public class VistoriaVisao extends JDialog {
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addGap(6, 6, 6))
+                    .addComponent(jButton10))
+                .addGap(12, 12, 12))
         );
 
         PainelComAbas.addTab("Formulário", jPanel1);
@@ -509,11 +730,11 @@ public class VistoriaVisao extends JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelComAbas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PainelComAbas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelComAbas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PainelComAbas)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -528,7 +749,7 @@ public class VistoriaVisao extends JDialog {
         if (!"".equals(txtPlaca.getText())) {
 
             // Verifica se a busca pelo veiculo teve sucesso
-            if (!"".equals(jTextFieldModelo.getText())) {
+            if (!"".equals(TxtModeloVeiculo.getText())) {
                 Veiculo veiculo = veiculoDAO.findByPlaca(txtPlaca.getText()).get(0);
                 v.setVeiculo(veiculo);
 
@@ -536,7 +757,7 @@ public class VistoriaVisao extends JDialog {
                 if (!"".equals(txtCpf.getText())) {
 
                     // Verifica se a busca pelo cliente teve sucesso
-                    if (!"".equals(txtCliente.getText())) {
+                    if (!"".equals(TxtNomeCliente.getText())) {
                         Cliente cliente = clienteDAO.findByCpf(txtCpf.getText()).get(0);
                         v.setCliente(cliente);
 
@@ -573,7 +794,16 @@ public class VistoriaVisao extends JDialog {
                             if (!"".equals(jTextFieldID.getText())) {
                                 v.setId(Long.parseLong(jTextFieldID.getText()));
                             }
-
+                            v.setMotivo("transferencia");
+                            
+                            if(jRadioButtonAprovado.isSelected()){
+                                v.setAprovado(true);
+                            }
+                            if(jRadioButtonReprovado.isSelected()){
+                                v.setAprovado(false);
+                            }
+                            
+                            
                             vistoriaDAO.merge(v);
 
                             JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -616,13 +846,6 @@ public class VistoriaVisao extends JDialog {
         limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        limparCampos();
-        PainelComAbas.setEnabledAt(0, true);
-        PainelComAbas.setEnabledAt(1, false);
-        PainelComAbas.setSelectedIndex(0);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // Verifica se o campo cpf está vazio
         if (!"".equals(txtCpf.getText())) {
@@ -630,13 +853,30 @@ public class VistoriaVisao extends JDialog {
             if (!clienteDAO.findByCpf(txtCpf.getText()).isEmpty()) {
 
                 Cliente cliente = clienteDAO.findByCpf(txtCpf.getText()).get(0);
-                txtCliente.setText(cliente.getNome());
+                TxtNomeCliente.setText(cliente.getNome());
 
                 jTextFieldValorCobrado.requestFocusInWindow();
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
-                txtCliente.setText("");
+                
+                
+                
+                int op = JOptionPane.showConfirmDialog(null, "Cliente não encontrado, deseja cadastrar?");
+
+                if (op == 0) {
+                    VeiculoVisao frame = new VeiculoVisao(true);
+
+                    frame.setModal(true);
+                    frame.setVisible(true);
+                } else {
+                     TxtNomeCliente.setText("");
                 txtCpf.requestFocus();
+                }
+                
+                
+                
+                
+                
+     
             }
         } else {
             JOptionPane.showMessageDialog(null, "Favor digitar no campo cpf");
@@ -653,21 +893,34 @@ public class VistoriaVisao extends JDialog {
             if (!veiculoDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
 
                 Veiculo veiculo = veiculoDAO.findByPlaca(txtPlaca.getText()).get(0);
-                jTextFieldModelo.setText(veiculo.getModelo());
+                TxtModeloVeiculo.setText(veiculo.getModelo());
+                TxtMarcaVeiculo.setText(veiculo.getMarca());
+                TxtCorVeiculo.setText(veiculo.getCor());        
 
                 // Passa o foco para o campo cpf
                 txtCpf.requestFocusInWindow();
 
             } else {
-                JOptionPane.showMessageDialog(null, "Veículo não encontrado!");
-                jTextFieldModelo.setText("");
-                txtPlaca.requestFocus();
+
+                int op = JOptionPane.showConfirmDialog(null, "Veiculo não encontrado, deseja cadastrar?");
+
+                if (op == 0) {
+                    VeiculoVisao frame = new VeiculoVisao(true);
+
+                    frame.setModal(true);
+                    frame.setVisible(true);
+                } else {
+                    TxtModeloVeiculo.setText("");
+                    txtPlaca.requestFocus();
+                }
             }
         } else {
+
             JOptionPane.showMessageDialog(null, "Favor digitar a placa");
             txtPlaca.requestFocus();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
 
     private void jTextFieldValorCobradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorCobradoKeyTyped
         // Restringe caracteres no campo
@@ -731,7 +984,7 @@ public class VistoriaVisao extends JDialog {
     }//GEN-LAST:event_jButtonPagoActionPerformed
 
     private void jRadioButtonPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPlacaActionPerformed
-       // jRadioButtonData.setSelected(false);
+        // jRadioButtonData.setSelected(false);
         jComboBoxOpPesquisa.setEnabled(true);
         //jDateChooser1.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonPlacaActionPerformed
@@ -748,13 +1001,17 @@ public class VistoriaVisao extends JDialog {
 
                 // Dados do veiculo
                 txtPlaca.setText(v.getVeiculo().getPlaca());
-                jTextFieldModelo.setText(v.getVeiculo().getModelo());
+                TxtModeloVeiculo.setText(v.getVeiculo().getModelo());
+                TxtMarcaVeiculo.setText(v.getVeiculo().getMarca());
+                TxtCorVeiculo.setText(v.getVeiculo().getCor());
 
                 //Dados do cliente
                 txtCpf.setText(v.getCliente().getCpf());
-                txtCliente.setText(v.getCliente().getNome());
+                TxtNomeCliente.setText(v.getCliente().getNome());
+                TxtTelefoneCliente.setText(v.getCliente().getTelefone());
 
-                if(v.getParceiro()!=null){
+                //Dados da Vistoria
+                if (v.getParceiro() != null) {
                     jComboBoxParceiro.setSelectedItem(v.getParceiro().getNome());
                 }
 
@@ -764,6 +1021,16 @@ public class VistoriaVisao extends JDialog {
                     jComboBoxSituacao.setSelectedIndex(0);
                 }
 
+                if(v.getAprovado()){
+                    jRadioButtonAprovado.setSelected(true);
+                }
+                else
+                {
+                    jRadioButtonReprovado.setSelected(true);
+                }
+                
+                jLabelMotivo.setText(v.getMotivo());
+                
                 // Valor Cobrado
                 jTextFieldValorCobrado.setText(String.valueOf(v.getValorCobrado()));
 
@@ -817,7 +1084,7 @@ public class VistoriaVisao extends JDialog {
                     case 0: {
                         List<Vistoria> lista = vistoriaDAO.findByPlaca(pesquisa);
                         if (lista == null
-                            || lista.isEmpty()) {
+                                || lista.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             atualizaTabela(lista);
@@ -827,7 +1094,7 @@ public class VistoriaVisao extends JDialog {
                     case 1: {
                         List<Vistoria> lista = vistoriaDAO.findByNome(pesquisa);
                         if (lista == null
-                            || lista.isEmpty()) {
+                                || lista.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             atualizaTabela(lista);
@@ -835,14 +1102,14 @@ public class VistoriaVisao extends JDialog {
                         break;
                     }
                     default:
-                    List<Vistoria> lista = vistoriaDAO.findByParceiro(pesquisa);
-                    if (lista == null
-                        || lista.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        atualizaTabela(lista);
-                    }
-                    break;
+                        List<Vistoria> lista = vistoriaDAO.findByParceiro(pesquisa);
+                        if (lista == null
+                                || lista.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            atualizaTabela(lista);
+                        }
+                        break;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Por favor inserir dados para pesquisa.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -856,6 +1123,22 @@ public class VistoriaVisao extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        limparCampos();
+        PainelComAbas.setEnabledAt(0, true);
+        PainelComAbas.setEnabledAt(1, false);
+        PainelComAbas.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jRadioButtonAprovadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAprovadoActionPerformed
+        jRadioButtonReprovado.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAprovadoActionPerformed
+
+    private void jRadioButtonReprovadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonReprovadoActionPerformed
+        jRadioButtonAprovado.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonReprovadoActionPerformed
+
     private String verificaNullParceiro(Parceiro parceiro) {
         if (parceiro == null) {
             return "Nenhuma";
@@ -868,9 +1151,9 @@ public class VistoriaVisao extends JDialog {
         jLabel6.setText("Nova Vistoria");
         jTextFieldID.setText("");
         txtPlaca.setText("");
-        jTextFieldModelo.setText("");
+        TxtModeloVeiculo.setText("");
         txtCpf.setText("");
-        txtCliente.setText("");
+        TxtModeloVeiculo.setText("");
         jComboBoxParceiro.setSelectedIndex(0);
         jComboBoxSituacao.setSelectedIndex(0);
         jTextFieldValorCobrado.setText("");
@@ -884,7 +1167,7 @@ public class VistoriaVisao extends JDialog {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getId(), v.getVeiculo().getPlaca(), v.getCliente().getNome(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro())});
+                dtm.addRow(new Object[]{v.getMotivo(), v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro())});
             }
         }
 
@@ -950,13 +1233,18 @@ public class VistoriaVisao extends JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane PainelComAbas;
+    private javax.swing.JTextField TxtCorVeiculo;
+    private javax.swing.JTextField TxtMarcaVeiculo;
+    private javax.swing.JTextField TxtModeloVeiculo;
+    private javax.swing.JTextField TxtNomeCliente;
+    private javax.swing.JTextField TxtTelefoneCliente;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonPago;
@@ -965,25 +1253,36 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JComboBox<String> jComboBoxSituacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelMotivo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRadioButtonAprovado;
     private javax.swing.JRadioButton jRadioButtonPlaca;
+    private javax.swing.JRadioButton jRadioButtonReprovado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldCampoPesquisa;
     private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldModelo;
+    private javax.swing.JTextField jTextFieldModelo6;
     private javax.swing.JTextField jTextFieldValorCobrado;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
