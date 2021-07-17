@@ -79,13 +79,13 @@ public class VeiculoVisao extends JDialog {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Veiculos");
+        setTitle("VistoTEC - Veiculos");
 
         PainelComAbas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(102, 0, 153));
+        jTextFieldCampoPesquisa.setBackground(new java.awt.Color(0, 102, 153));
         jTextFieldCampoPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldCampoPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCampoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(102, 0, 153));
+        jButton3.setBackground(new java.awt.Color(0, 102, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pequenos/search_left [#1504].png"))); // NOI18N
@@ -123,7 +123,7 @@ public class VeiculoVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(102, 0, 153));
+        jButton2.setBackground(new java.awt.Color(0, 102, 153));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +133,7 @@ public class VeiculoVisao extends JDialog {
         });
 
         jComboBoxOpPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxOpPesquisa.setForeground(new java.awt.Color(102, 0, 153));
+        jComboBoxOpPesquisa.setForeground(new java.awt.Color(0, 102, 153));
         jComboBoxOpPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Modelo" }));
         jComboBoxOpPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +141,7 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(102, 0, 153));
+        jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(102, 0, 153));
+        jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +200,8 @@ public class VeiculoVisao extends JDialog {
                 .addGap(6, 6, 6))
         );
 
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxOpPesquisa, jTextFieldCampoPesquisa});
+
         PainelComAbas.addTab("Veiculos", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -226,7 +228,8 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Carro", "Moto", "Caminhão", "Ônibus", "Carreta", "Outro" }));
+        jComboBoxTipo.setForeground(new java.awt.Color(0, 102, 153));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Carro", "Moto", "Caminhão", "Ônibus", "Reboque", "Outro" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -279,7 +282,7 @@ public class VeiculoVisao extends JDialog {
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(102, 0, 153));
+        jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +291,7 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(102, 0, 153));
+        jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +300,7 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(102, 0, 153));
+        jButton7.setBackground(new java.awt.Color(0, 102, 153));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +310,7 @@ public class VeiculoVisao extends JDialog {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 0, 153));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Dados do Veiculo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

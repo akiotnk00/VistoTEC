@@ -7,7 +7,6 @@
     <class>modelo.Cliente</class>
     <class>modelo.Despesa</class>
     <class>modelo.Receita</class>
-    <class>modelo.Reprova</class>
     <class>modelo.Veiculo</class>
     <class>modelo.Vistoria</class>
     <class>modelo.Parceiro</class>

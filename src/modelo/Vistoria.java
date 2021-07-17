@@ -53,6 +53,9 @@ public class Vistoria implements Serializable {
     @Column(name = "aprovado")
     private Boolean aprovado;
     
+    @Column(name = "kilometragem")
+    private long kilometragem;
+    
     @ManyToOne
     @JoinColumn(name = "veiculo", nullable = false)
     private Veiculo veiculo = new Veiculo();
@@ -144,6 +147,14 @@ public class Vistoria implements Serializable {
 
     public void setAprovado(Boolean aprovado) {
         this.aprovado = aprovado;
+    }
+
+    public long getKilometragem() {
+        return kilometragem;
+    }
+
+    public void setKilometragem(long kilometragem) {
+        this.kilometragem = kilometragem;
     }
     
     

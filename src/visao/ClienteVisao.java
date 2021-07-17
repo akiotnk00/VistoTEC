@@ -188,6 +188,8 @@ public class ClienteVisao extends JDialog {
                 .addGap(0, 0, 0))
         );
 
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jTextFieldCampoPesquisa});
+
         PainelComAbas.addTab("Clientes", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
