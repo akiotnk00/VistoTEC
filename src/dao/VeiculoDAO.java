@@ -27,6 +27,7 @@ public class VeiculoDAO extends GenericoDAO<Veiculo> {
         query.setParameter("placa", "%" + placa + "%");
         return query.getResultList();
     }
+    
 
 // Busca de Veiculo por Modelo
  public List<Veiculo> findByModelo(String modelo) {

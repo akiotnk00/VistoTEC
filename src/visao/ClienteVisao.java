@@ -31,6 +31,14 @@ public class ClienteVisao extends JDialog {
         atualizaTabela(clienteDAO.findAll());
     }
 
+    ClienteVisao(boolean b) {
+        initComponents();
+        clienteDAO = new ClienteDAO();
+        PainelComAbas.setSelectedIndex(1);
+        PainelComAbas.setEnabledAt(1, true);
+       PainelComAbas.setEnabledAt(0, false);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
