@@ -28,7 +28,7 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
     // Busca de Vistoria por Placa    
     public List<Vistoria> findByPlaca(String placa) {
         EntityManager em = getEntityManager();
-        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.veiculo.placa LIKE :placa", Vistoria.class);
+        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.veiculo.placa LIKE :placa ORDER BY v.id DESC", Vistoria.class);
         query.setParameter("placa", "%" + placa + "%");
         return query.getResultList();
     }
