@@ -2,8 +2,10 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="deltaSysPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>modelo.Caixa</class>
     <class>modelo.Cliente</class>
     <class>modelo.ContaAPagar</class>
+    <class>modelo.Movimentacao</class>
     <class>modelo.Parceiro</class>
     <class>modelo.Usuario</class>
     <class>modelo.Veiculo</class>
