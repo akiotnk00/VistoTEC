@@ -41,9 +41,9 @@ public class Movimentacao implements Serializable {
     @Column(name = "valor")
     private Double valor;    
 
-     @ManyToOne
-    @JoinColumn(name = "movimentacao", nullable = false)
-    private Veiculo veiculo = new Veiculo();
+    @ManyToOne
+    @JoinColumn(name = "caixa", nullable = false)
+    private Caixa caixa = new Caixa();
     
     public long getCodigo() {
         return codigo;
@@ -78,6 +78,12 @@ public class Movimentacao implements Serializable {
     }
     
    
-    
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
     
 }
