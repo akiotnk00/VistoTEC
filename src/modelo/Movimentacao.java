@@ -41,6 +41,10 @@ public class Movimentacao implements Serializable {
     @Column(name = "valor")
     private Double valor;    
 
+     @ManyToOne
+    @JoinColumn(name = "movimentacao", nullable = false)
+    private Veiculo veiculo = new Veiculo();
+    
     public long getCodigo() {
         return codigo;
     }
