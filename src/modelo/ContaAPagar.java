@@ -21,8 +21,8 @@ import javax.persistence.TemporalType;
  * @author akiot
  */
 @Entity
-@Table(name = "receita")
-public class Receita implements Serializable {
+@Table(name = "contaapagar")
+public class ContaAPagar implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,11 +30,17 @@ public class Receita implements Serializable {
     private long codigo;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "datahora")
-    private Date datahora;
+    @Column(name = "vencimento")
+    private Date vencimento;
     
     @Column(name = "descricao", length = 155, nullable = false)
     private String descricao;
+
+    @Column(name = "valor")
+    private Double valor;
+    
+    @Column(name = "codigodebarras")
+    private long codigodebarras;
 
     public long getCodigo() {
         return codigo;
@@ -44,12 +50,12 @@ public class Receita implements Serializable {
         this.codigo = codigo;
     }
 
-    public Date getDatahora() {
-        return datahora;
+    public Date getVencimento() {
+        return vencimento;
     }
 
-    public void setDatahora(Date datahora) {
-        this.datahora = datahora;
+    public void setVencimento(Date vencimento) {
+        this.vencimento = vencimento;
     }
 
     public String getDescricao() {
@@ -59,6 +65,25 @@ public class Receita implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public long getCodigodebarras() {
+        return codigodebarras;
+    }
+
+    public void setCodigodebarras(long codigodebarras) {
+        this.codigodebarras = codigodebarras;
+    }
+    
+    
+  
     
     
     

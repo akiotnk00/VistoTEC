@@ -9,6 +9,7 @@ import dao.ClienteDAO;
 import dao.ParceiroDAO;
 import dao.VeiculoDAO;
 import dao.VistoriaDAO;
+import java.awt.Color;
 import static java.lang.Double.parseDouble;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -116,8 +117,8 @@ public class VistoriaVisao extends JDialog {
         TxtTelefoneCliente = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        txtCpf = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jComboBoxParceiro = new javax.swing.JComboBox<>();
@@ -131,6 +132,7 @@ public class VistoriaVisao extends JDialog {
         jPanel7 = new javax.swing.JPanel();
         jRadioButtonAprovado = new javax.swing.JRadioButton();
         jRadioButtonReprovado = new javax.swing.JRadioButton();
+        jPanel8 = new javax.swing.JPanel();
         jLabelMotivo = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -318,11 +320,6 @@ public class VistoriaVisao extends JDialog {
                 txtPlacaFocusGained(evt);
             }
         });
-        txtPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlacaActionPerformed(evt);
-            }
-        });
         txtPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPlacaKeyTyped(evt);
@@ -439,17 +436,6 @@ public class VistoriaVisao extends JDialog {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel5.setText("Cpf do Cliente");
 
-        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCpfFocusGained(evt);
-            }
-        });
-        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCpfKeyTyped(evt);
-            }
-        });
-
         jButton4.setBackground(new java.awt.Color(0, 102, 153));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("OK");
@@ -458,6 +444,12 @@ public class VistoriaVisao extends JDialog {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -477,18 +469,17 @@ public class VistoriaVisao extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TxtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TxtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -499,8 +490,8 @@ public class VistoriaVisao extends JDialog {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jLabel15)
                 .addGap(12, 12, 12)
@@ -552,6 +543,17 @@ public class VistoriaVisao extends JDialog {
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel11.setText("Kilometragem");
+
+        jTextFieldKilometragem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldKilometragemActionPerformed(evt);
+            }
+        });
+        jTextFieldKilometragem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldKilometragemKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -652,9 +654,29 @@ public class VistoriaVisao extends JDialog {
                 .addGap(12, 12, 12))
         );
 
-        jLabelMotivo.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Motivo da Vistoria"));
+
+        jLabelMotivo.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabelMotivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMotivo.setText("transferência");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(jLabelMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -662,19 +684,24 @@ public class VistoriaVisao extends JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,15 +710,14 @@ public class VistoriaVisao extends JDialog {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelMotivo))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -721,7 +747,7 @@ public class VistoriaVisao extends JDialog {
 
         jLabel10.setText("ID");
 
-        jButton10.setBackground(new java.awt.Color(0, 102, 153));
+        jButton10.setBackground(new java.awt.Color(204, 0, 51));
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("Cancelar");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -823,6 +849,7 @@ public class VistoriaVisao extends JDialog {
                             // Usa os valores salvos quando aperta o botão editar
                             v.setData(editarVistoria.getData());
                             v.setHora(editarVistoria.getHora());
+                            
                         }
 
                         // Verifica qual opção escolhida na jComboBox
@@ -855,28 +882,35 @@ public class VistoriaVisao extends JDialog {
 
                             v.setKilometragem(Long.parseLong(jTextFieldKilometragem.getText()));
 
-                            if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
-                                if (Integer.valueOf(jTextFieldUltimaKm.getText()) > Integer.valueOf(jTextFieldKilometragem.getText())) {
+                            v.setMotivo(jLabelMotivo.getText());
 
-                                    int op = JOptionPane.showConfirmDialog(null, "Atenção! Veiculo com kilometragem inferior do laudo anterior, deseja continuar?");
+                            if ("".equals(jTextFieldID.getText())) {
+                                if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
+                                    if (Integer.valueOf(jTextFieldUltimaKm.getText()) > Integer.valueOf(jTextFieldKilometragem.getText())) {
 
-                                    if (op == 0) {
+                                        int op = JOptionPane.showConfirmDialog(null, "Atenção! Veiculo com kilometragem inferior do laudo anterior, deseja continuar?");
+
+                                        if (op == 0) {
+                                            vistoriaDAO.merge(v);
+                                            JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+                                        } else {
+                                            jTextFieldKilometragem.requestFocusInWindow();
+                                        }
+                                    } else {
+
                                         vistoriaDAO.merge(v);
                                         JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-                                    } else {
-                                        jTextFieldKilometragem.requestFocusInWindow();
                                     }
+
                                 } else {
 
                                     vistoriaDAO.merge(v);
                                     JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                                 }
-
-                            }
-                            else{
+                            } else {
                                 vistoriaDAO.merge(v);
-                                    JOptionPane.showMessageDialog(null, "Dados foram gravados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Os dados foram editados.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                             }
 
                             // Verifica as Km
@@ -921,27 +955,31 @@ public class VistoriaVisao extends JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // Verifica se o campo cpf está vazio
         if (!"".equals(txtCpf.getText())) {
-            // Verifica se está vazia, o que significa que não teve retorno no DAO.
-            if (!clienteDAO.findByCpf(txtCpf.getText()).isEmpty()) {
+            if (txtCpf.getText().length() == 14) {
+                // Verifica se está vazia, o que significa que não teve retorno no DAO.
+                if (!clienteDAO.findByCpf(txtCpf.getText()).isEmpty()) {
 
-                Cliente cliente = clienteDAO.findByCpf(txtCpf.getText()).get(0);
-                TxtNomeCliente.setText(cliente.getNome());
-                TxtTelefoneCliente.setText(cliente.getTelefone());
-                jTextFieldValorCobrado.requestFocusInWindow();
-            } else {
-
-                int op = JOptionPane.showConfirmDialog(null, "Cliente não encontrado, deseja cadastrar?");
-
-                if (op == 0) {
-                    ClienteVisao frame = new ClienteVisao(true);
-
-                    frame.setModal(true);
-                    frame.setVisible(true);
+                    Cliente cliente = clienteDAO.findByCpf(txtCpf.getText()).get(0);
+                    TxtNomeCliente.setText(cliente.getNome());
+                    TxtTelefoneCliente.setText(cliente.getTelefone());
+                    jTextFieldValorCobrado.requestFocusInWindow();
                 } else {
-                    TxtNomeCliente.setText("");
-                    txtCpf.requestFocus();
-                }
 
+                    int op = JOptionPane.showConfirmDialog(null, "Cliente não encontrado, deseja cadastrar?");
+
+                    if (op == 0) {
+                        ClienteVisao frame = new ClienteVisao(txtCpf.getText());
+
+                        frame.setModal(true);
+                        frame.setVisible(true);
+                    } else {
+                        TxtNomeCliente.setText("");
+                        txtCpf.requestFocus();
+                    }
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Favor digitar os 11 digitos do cpf");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Favor digitar no campo cpf");
@@ -954,37 +992,60 @@ public class VistoriaVisao extends JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Verifica se foi digitado algo no campo placa
         if (!"".equals(txtPlaca.getText())) {
-            // Verifica se está vazia, o que significa que não teve retorno no DAO.
-            if (!veiculoDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
+            txtPlaca.setText(txtPlaca.getText().toUpperCase());
+           
+            
+            //Permite somente 7 digitos
+            if (txtPlaca.getText().length() == 7) {
+                // Verifica se está vazia, o que significa que não teve retorno no DAO.
+                if (!veiculoDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
 
-                Veiculo veiculo = veiculoDAO.findByPlaca(txtPlaca.getText()).get(0);
-                TxtModeloVeiculo.setText(veiculo.getModelo());
-                TxtMarcaVeiculo.setText(veiculo.getMarca());
-                TxtCorVeiculo.setText(veiculo.getCor());
+                    Veiculo veiculo = veiculoDAO.findByPlaca(txtPlaca.getText()).get(0);
+                    TxtModeloVeiculo.setText(veiculo.getModelo());
+                    TxtMarcaVeiculo.setText(veiculo.getMarca());
+                    TxtCorVeiculo.setText(veiculo.getCor());
 
-                // Verifica ultima vistoria e pega os dados
-                if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
-                    jTextFieldUltimaVistoria.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getData());
+                    // Verifica ultima vistoria e pega os dados
+                    if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
+                        jTextFieldUltimaVistoria.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getData());
 
-                    jTextFieldUltimaKm.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getKilometragem());
-                }
+                        jTextFieldUltimaKm.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getKilometragem());
 
-                // Passa o foco para o campo cpf
-                txtCpf.requestFocusInWindow();
+                        if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getAprovado()) {
+                            jLabelMotivo.setText("retorno/aprovação");
+                            jLabelMotivo.setForeground(Color.red);
+                            jTextFieldValorCobrado.setText("0");
+                            jTextFieldValorCobrado.setEnabled(false);
+                            jComboBoxSituacao.setEnabled(false);
+                            jComboBoxSituacao.setSelectedIndex(1);
+                            
+                        }
 
-            } else {
+                    }
 
-                int op = JOptionPane.showConfirmDialog(null, "Veiculo não encontrado, deseja cadastrar?");
+                    // Passa o foco para o campo cpf
+                    txtCpf.requestFocusInWindow();
 
-                if (op == 0) {
-                    VeiculoVisao frame = new VeiculoVisao(true);
-
-                    frame.setModal(true);
-                    frame.setVisible(true);
                 } else {
-                    TxtModeloVeiculo.setText("");
-                    txtPlaca.requestFocus();
+
+                    int op = JOptionPane.showConfirmDialog(null, "Veiculo não encontrado, deseja cadastrar?");
+
+                    if (op == 0) {
+                        VeiculoVisao frame = new VeiculoVisao(txtPlaca.getText());
+
+                        frame.setModal(true);
+                        frame.setVisible(true);
+                        
+                        
+                        jButton1.doClick();
+                    } else {
+                        TxtModeloVeiculo.setText("");
+                        txtPlaca.requestFocus();
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Favor inserir 7 digitos");
+                txtPlaca.requestFocus();
             }
         } else {
 
@@ -1002,14 +1063,6 @@ public class VistoriaVisao extends JDialog {
         }
     }//GEN-LAST:event_jTextFieldValorCobradoKeyTyped
 
-    private void txtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyTyped
-        // Restringe caracteres no campo
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCpfKeyTyped
-
     private void txtPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyTyped
         // Restringe caracteres no campo
         String caracteres = "0987654321ABCDEFGHIJKLMNOPQRSTUVXZKWYabcdefghijklmnopqrstuvxzkwy";
@@ -1023,12 +1076,6 @@ public class VistoriaVisao extends JDialog {
         JTextField txt = (JTextField) evt.getComponent();
         txt.selectAll();
     }//GEN-LAST:event_txtPlacaFocusGained
-
-    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
-        // Quando focado seleciona todo o conteudo
-        JTextField txt = (JTextField) evt.getComponent();
-        txt.selectAll();
-    }//GEN-LAST:event_txtCpfFocusGained
 
     private void jComboBoxParceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxParceiroActionPerformed
         // TODO add your handling code here:
@@ -1070,6 +1117,13 @@ public class VistoriaVisao extends JDialog {
                 Vistoria v = vistorias.get(linha);
 
                 jTextFieldID.setText(v.getId() + "");
+
+                // Bloqueia campos
+                txtCpf.setEnabled(false);
+                jButton1.setEnabled(false);
+                txtCpf.setEnabled(false);
+                jButton4.setEnabled(false);
+                txtPlaca.setEnabled(false);
 
                 // Dados do veiculo
                 txtPlaca.setText(v.getVeiculo().getPlaca());
@@ -1210,9 +1264,17 @@ public class VistoriaVisao extends JDialog {
         jRadioButtonAprovado.setSelected(false);
     }//GEN-LAST:event_jRadioButtonReprovadoActionPerformed
 
-    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+    private void jTextFieldKilometragemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemKeyTyped
+        // Restringe caracteres no campo
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldKilometragemKeyTyped
+
+    private void jTextFieldKilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPlacaActionPerformed
+    }//GEN-LAST:event_jTextFieldKilometragemActionPerformed
 
     private String verificaNullParceiro(Parceiro parceiro) {
         if (parceiro == null) {
@@ -1234,6 +1296,11 @@ public class VistoriaVisao extends JDialog {
         jTextFieldValorCobrado.setText("");
         jTextFieldUltimaVistoria.setText("");
         jTextFieldUltimaKm.setText("");
+        TxtNomeCliente.setText("");
+        TxtTelefoneCliente.setText("");
+        jTextFieldKilometragem.setText("");
+        jLabelMotivo.setText("transferência");
+        jLabelMotivo.setForeground(Color.black);
     }
 
     private void atualizaTabela(List<Vistoria> lista) {
@@ -1353,6 +1420,7 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRadioButtonAprovado;
     private javax.swing.JRadioButton jRadioButtonPlaca;
     private javax.swing.JRadioButton jRadioButtonReprovado;
@@ -1364,7 +1432,7 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JTextField jTextFieldUltimaVistoria;
     private javax.swing.JTextField jTextFieldValorCobrado;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,23 +8,23 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import modelo.Receita;
+import modelo.ContaAPagar;
 
 /**
  *
  * @author akiot
  */
-public class ReceitaDAO extends GenericoDAO<Receita> {
+public class ContaAPagarDAO extends GenericoDAO<ContaAPagar> {
     
-    public ReceitaDAO() {
-        super(Receita.class);
+    public ContaAPagarDAO() {
+        super(ContaAPagar.class);
     }
+
     
-    public List<Receita> findByCodigo(String codigo) {
+     public List<ContaAPagar> findByCodigo(String codigo) {
         EntityManager em = getEntityManager();
-        TypedQuery<Receita> query = em.createQuery("Select r FROM Receita r WHERE r LIKE :codigo", Receita.class);
+        TypedQuery<ContaAPagar> query = em.createQuery("Select d FROM Despesa d WHERE d LIKE :codigo", ContaAPagar.class);
         query.setParameter("codigo", "%" + codigo + "%");
         return query.getResultList();
     }
-    
 }

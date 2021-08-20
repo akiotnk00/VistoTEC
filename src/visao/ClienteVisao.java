@@ -31,9 +31,10 @@ public class ClienteVisao extends JDialog {
         atualizaTabela(clienteDAO.findAll());
     }
 
-    ClienteVisao(boolean b) {
+    ClienteVisao(String b) {
         initComponents();
         clienteDAO = new ClienteDAO();
+        txtCPF.setText(b);
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(1, true);
        PainelComAbas.setEnabledAt(0, false);
@@ -66,10 +67,10 @@ public class ClienteVisao extends JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtCPF = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
         txtTel = new javax.swing.JTextField();
+        txtCPF = new javax.swing.JFormattedTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -217,6 +218,12 @@ public class ClienteVisao extends JDialog {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Telefone");
+
+        try {
+            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -565,7 +572,7 @@ public class ClienteVisao extends JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldCampoPesquisa;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;

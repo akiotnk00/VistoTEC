@@ -73,6 +73,7 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
         return query.getResultList();
     }
     
+    
     // Busca Todos em ordem decrescente pelo codigo
     public List<Vistoria> findAllOrder() {
         EntityManager em = getEntityManager();

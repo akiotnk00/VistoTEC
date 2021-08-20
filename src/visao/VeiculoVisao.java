@@ -32,9 +32,10 @@ public class VeiculoVisao extends JDialog {
         atualizaTabela(veiculoDAO.findAll());
     }
 
-    VeiculoVisao(boolean b) {
+    VeiculoVisao(String b) {
         initComponents();
         veiculoDAO = new VeiculoDAO();
+        txtPlaca.setText(b);
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(1, true);
        PainelComAbas.setEnabledAt(0, false);

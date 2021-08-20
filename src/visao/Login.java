@@ -130,7 +130,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jPasswordSenha, jTextUser});
 
         logo_login.setBackground(new java.awt.Color(255, 255, 255));
-        logo_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carro.png"))); // NOI18N
+        logo_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vistoria-de-veiculo-3.png"))); // NOI18N
         logo_login.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
