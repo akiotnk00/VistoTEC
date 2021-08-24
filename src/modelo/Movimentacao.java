@@ -45,6 +45,10 @@ public class Movimentacao implements Serializable {
     @JoinColumn(name = "caixa", nullable = false)
     private Caixa caixa = new Caixa();
     
+    @ManyToOne
+    @JoinColumn(name = "contaapagar", nullable = true)
+    private ContaAPagar contaapagar = new ContaAPagar();
+    
     public long getCodigo() {
         return codigo;
     }
@@ -85,5 +89,15 @@ public class Movimentacao implements Serializable {
     public void setCaixa(Caixa caixa) {
         this.caixa = caixa;
     }
+
+    public ContaAPagar getContaapagar() {
+        return contaapagar;
+    }
+
+    public void setContaapagar(ContaAPagar contaapagar) {
+        this.contaapagar = contaapagar;
+    }
+    
+    
     
 }
