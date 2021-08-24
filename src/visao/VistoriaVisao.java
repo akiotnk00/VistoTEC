@@ -874,10 +874,10 @@ public class VistoriaVisao extends JDialog {
                             }
 
                             if (jRadioButtonAprovado.isSelected()) {
-                                v.setAprovado(true);
+                                v.setResultado('a');
                             }
                             if (jRadioButtonReprovado.isSelected()) {
-                                v.setAprovado(false);
+                                v.setResultado('r');
                             }
 
                             v.setKilometragem(Long.parseLong(jTextFieldKilometragem.getText()));
@@ -1011,7 +1011,7 @@ public class VistoriaVisao extends JDialog {
 
                         jTextFieldUltimaKm.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getKilometragem());
 
-                        if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getAprovado()) {
+                        if (vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getResultado()!='a') {
                             jLabelMotivo.setText("retorno/aprovação");
                             jLabelMotivo.setForeground(Color.red);
                             jTextFieldValorCobrado.setText("0");
@@ -1148,7 +1148,7 @@ public class VistoriaVisao extends JDialog {
                     jComboBoxSituacao.setSelectedIndex(0);
                 }
 
-                if (v.getAprovado()) {
+                if (v.getResultado()=='a') {
                     jRadioButtonAprovado.setSelected(true);
                 } else {
                     jRadioButtonReprovado.setSelected(true);

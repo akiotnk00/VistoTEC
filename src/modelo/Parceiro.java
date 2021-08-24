@@ -41,6 +41,9 @@ public class Parceiro implements Serializable {
     @OneToMany(mappedBy="Parceiro")
     private List<Vistoria> vistorias;
     
+    @OneToMany(mappedBy="Parceiro")
+    private List<Agendamento> agendamentos;
+    
     public long getCodigo() {
         return codigo;
     }
@@ -79,6 +82,14 @@ public class Parceiro implements Serializable {
 
     public void setVistorias(List<Vistoria> vistorias) {
         this.vistorias = vistorias;
+    }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
     
     

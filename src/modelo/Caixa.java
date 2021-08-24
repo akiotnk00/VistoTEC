@@ -48,7 +48,7 @@ public class Caixa implements Serializable {
     @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario = new Usuario();
     
-    @OneToMany(mappedBy="Movimentacao")
+    @OneToMany(mappedBy="Caixa")
     private List<Movimentacao> movimentacoes;
 
     public long getCodigo() {

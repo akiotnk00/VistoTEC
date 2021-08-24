@@ -42,6 +42,9 @@ public class ContaAPagar implements Serializable {
     @Column(name = "codigodebarras")
     private long codigodebarras;
 
+    @Column(name = "situacao")
+    private String situacao;
+    
     public long getCodigo() {
         return codigo;
     }
@@ -80,6 +83,14 @@ public class ContaAPagar implements Serializable {
 
     public void setCodigodebarras(long codigodebarras) {
         this.codigodebarras = codigodebarras;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
     
     

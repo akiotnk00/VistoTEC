@@ -7,11 +7,13 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,6 +47,9 @@ public class Usuario implements Serializable {
     @Column(name = "ultimoLogin")
     private Date ultimoLogin;
 
+    @OneToMany(mappedBy="Usuario")
+    private List<Agendamento> agendamentos;
+    
     public long getCodigo() {
         return codigo;
     }
@@ -93,6 +98,14 @@ public class Usuario implements Serializable {
 
     public void setUltimoLogin(Date ultimoLogin) {
         this.ultimoLogin = ultimoLogin;
+    }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 
 

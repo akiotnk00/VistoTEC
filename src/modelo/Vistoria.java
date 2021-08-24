@@ -50,8 +50,8 @@ public class Vistoria implements Serializable {
     @Column(name = "valor_cobrado")
     private double valorCobrado;
     
-    @Column(name = "aprovado")
-    private Boolean aprovado;
+    @Column(name = "resultado")
+    private char resultado;
     
     @Column(name = "kilometragem")
     private long kilometragem;
@@ -141,13 +141,15 @@ public class Vistoria implements Serializable {
         this.motivo = motivo;
     }
 
-    public Boolean getAprovado() {
-        return aprovado;
+    public char getResultado() {
+        return resultado;
     }
 
-    public void setAprovado(Boolean aprovado) {
-        this.aprovado = aprovado;
+    public void setResultado(char resultado) {
+        this.resultado = resultado;
     }
+
+
 
     public long getKilometragem() {
         return kilometragem;

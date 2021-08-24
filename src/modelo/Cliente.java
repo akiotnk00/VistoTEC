@@ -41,6 +41,9 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy="Cliente")
     private List<Vistoria> vistorias;
     
+    @OneToMany(mappedBy="Cliente")
+    private List<Agendamento> agendamentos;
+    
     public String getCpf() {
         return cpf;
     }
