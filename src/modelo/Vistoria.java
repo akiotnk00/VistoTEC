@@ -68,6 +68,12 @@ public class Vistoria implements Serializable {
     @JoinColumn(name = "parceiro", nullable = true)
     private Parceiro parceiro = new Parceiro();   
 
+    @ManyToOne
+    @JoinColumn(name = "usuario", nullable = false)
+    private Usuario usuario = new Usuario();   
+
+    
+    
     public long getId() {
         return id;
     }
@@ -158,6 +164,15 @@ public class Vistoria implements Serializable {
     public void setKilometragem(long kilometragem) {
         this.kilometragem = kilometragem;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     
     
 }

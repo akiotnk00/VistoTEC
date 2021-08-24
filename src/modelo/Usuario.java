@@ -50,6 +50,9 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy="Usuario")
     private List<Agendamento> agendamentos;
     
+    @OneToMany(mappedBy="Usuario")
+    private List<Vistoria> vistorias;
+    
     public long getCodigo() {
         return codigo;
     }
@@ -106,6 +109,14 @@ public class Usuario implements Serializable {
 
     public void setAgendamentos(List<Agendamento> agendamentos) {
         this.agendamentos = agendamentos;
+    }
+
+    public List<Vistoria> getVistorias() {
+        return vistorias;
+    }
+
+    public void setVistorias(List<Vistoria> vistorias) {
+        this.vistorias = vistorias;
     }
 
 
