@@ -5,6 +5,8 @@
  */
 package modelo;
 
+
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
+
 /**
  *
  * @author akiot
@@ -23,6 +28,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "contaapagar")
 public class ContaAPagar implements Serializable {
+   
+    
+    
+    
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

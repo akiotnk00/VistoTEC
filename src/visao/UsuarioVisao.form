@@ -391,9 +391,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtSenha">
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSenhaKeyTyped"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButtonFuncionario">
                   <Properties>

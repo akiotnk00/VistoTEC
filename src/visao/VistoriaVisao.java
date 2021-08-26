@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 import modelo.Parceiro;
+import modelo.Usuario;
 import modelo.Veiculo;
 import modelo.Vistoria;
 
@@ -42,6 +43,7 @@ public class VistoriaVisao extends JDialog {
     private final ParceiroDAO parceiroDAO;
     private List<Parceiro> parceiros;
     Vistoria editarVistoria = new Vistoria();
+    Usuario usuariologado = new Usuario();
 
     /**
      * Creates new form CadastroCliente
@@ -58,13 +60,31 @@ public class VistoriaVisao extends JDialog {
         atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
-    VistoriaVisao(boolean b) {
+    VistoriaVisao(Usuario usuario) {
         initComponents();
         vistoriaDAO = new VistoriaDAO();
         veiculoDAO = new VeiculoDAO();
         clienteDAO = new ClienteDAO();
         parceiroDAO = new ParceiroDAO();
+        usuariologado = usuario;
+        PainelComAbas.setEnabledAt(1, false);
+        atualizaParceiros(parceiroDAO.findAll());
+        atualizaTabela(vistoriaDAO.findAllOrder());
 
+        
+        
+        atualizaParceiros(parceiroDAO.findAll());
+        atualizaTabela(vistoriaDAO.findAllOrder());
+    }
+
+    VistoriaVisao(boolean b, Usuario usuario) {
+       initComponents();
+        vistoriaDAO = new VistoriaDAO();
+        veiculoDAO = new VeiculoDAO();
+        clienteDAO = new ClienteDAO();
+        parceiroDAO = new ParceiroDAO();
+        usuariologado = usuario;
+        UsuarioLogadoText.setText(usuariologado.getNome());
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
         PainelComAbas.setSelectedIndex(1);
@@ -94,6 +114,7 @@ public class VistoriaVisao extends JDialog {
         jButton9 = new javax.swing.JButton();
         jRadioButtonPlaca = new javax.swing.JRadioButton();
         jButtonPago = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -110,6 +131,7 @@ public class VistoriaVisao extends JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jTextFieldUltimaKm = new javax.swing.JTextField();
+        jButton11 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         TxtNomeCliente = new javax.swing.JTextField();
@@ -140,6 +162,8 @@ public class VistoriaVisao extends JDialog {
         jTextFieldID = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
+        usuarioLogadoLabel = new javax.swing.JLabel();
+        UsuarioLogadoText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vistorias");
@@ -173,11 +197,11 @@ public class VistoriaVisao extends JDialog {
 
             },
             new String [] {
-                "Motivo", "Placa", "Modelo", "Data", "Hora", "Pagamento", "Valor Cobrado", "Parceiro"
+                "Placa", "Modelo", "Motivo", "Data", "Hora", "Situação", "Valor Cobrado", "Parceiro", "Resultado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -187,8 +211,12 @@ public class VistoriaVisao extends JDialog {
         tabela.setShowGrid(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabela);
+        if (tabela.getColumnModel().getColumnCount() > 0) {
+            tabela.getColumnModel().getColumn(5).setResizable(false);
+            tabela.getColumnModel().getColumn(7).setResizable(false);
+        }
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 153));
+        jButton2.setBackground(new java.awt.Color(204, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +268,15 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(204, 0, 0));
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Cancelar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -260,10 +297,12 @@ public class VistoriaVisao extends JDialog {
                         .addComponent(jButton8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9)
-                        .addGap(211, 211, 211)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(142, 142, 142)
                         .addComponent(jButtonPago)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton7)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -283,7 +322,8 @@ public class VistoriaVisao extends JDialog {
                     .addComponent(jButton8)
                     .addComponent(jButton9)
                     .addComponent(jButtonPago)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton7))
                 .addContainerGap())
         );
 
@@ -345,6 +385,15 @@ public class VistoriaVisao extends JDialog {
 
         jTextFieldUltimaKm.setEditable(false);
 
+        jButton11.setBackground(new java.awt.Color(0, 102, 153));
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Verificar Vistorias");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -379,14 +428,17 @@ public class VistoriaVisao extends JDialog {
                         .addGap(32, 32, 32)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldUltimaVistoria, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldUltimaKm, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldUltimaVistoria, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextFieldUltimaKm, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton11)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -412,7 +464,8 @@ public class VistoriaVisao extends JDialog {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtCorVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jButton11))
                 .addGap(12, 12, 12))
         );
 
@@ -544,11 +597,6 @@ public class VistoriaVisao extends JDialog {
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel11.setText("Kilometragem");
 
-        jTextFieldKilometragem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldKilometragemActionPerformed(evt);
-            }
-        });
         jTextFieldKilometragem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldKilometragemKeyTyped(evt);
@@ -659,7 +707,7 @@ public class VistoriaVisao extends JDialog {
 
         jLabelMotivo.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabelMotivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelMotivo.setText("transferência");
+        jLabelMotivo.setText("Transferência");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -756,6 +804,11 @@ public class VistoriaVisao extends JDialog {
             }
         });
 
+        usuarioLogadoLabel.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        usuarioLogadoLabel.setText("Usuário Logado:");
+
+        UsuarioLogadoText.setText("Nenhum usuário logado");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -765,6 +818,10 @@ public class VistoriaVisao extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
+                        .addGap(176, 176, 176)
+                        .addComponent(usuarioLogadoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UsuarioLogadoText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -787,7 +844,10 @@ public class VistoriaVisao extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(usuarioLogadoLabel)
+                        .addComponent(UsuarioLogadoText))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
@@ -863,6 +923,7 @@ public class VistoriaVisao extends JDialog {
 
                         // Salva a opção escolhida, por padrão fica "Não Pago"
                         v.setSituacaoPagamento((String) jComboBoxSituacao.getSelectedItem());
+                        v.setUsuario(usuariologado);
 
                         // Verifica se foi digitado o valor
                         if (!"".equals(jTextFieldValorCobrado.getText())) {
@@ -972,6 +1033,8 @@ public class VistoriaVisao extends JDialog {
 
                         frame.setModal(true);
                         frame.setVisible(true);
+                        
+                        jButton4.doClick();
                     } else {
                         TxtNomeCliente.setText("");
                         txtCpf.requestFocus();
@@ -1007,12 +1070,13 @@ public class VistoriaVisao extends JDialog {
 
                     // Verifica ultima vistoria e pega os dados
                     if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
-                        jTextFieldUltimaVistoria.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getData());
+                        DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy");
+                        jTextFieldUltimaVistoria.setText("" + dateDia.format(vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getData()));
 
                         jTextFieldUltimaKm.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getKilometragem());
 
                         if (vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getResultado()!='a') {
-                            jLabelMotivo.setText("retorno/aprovação");
+                            jLabelMotivo.setText("Retorno/Aprovação");
                             jLabelMotivo.setForeground(Color.red);
                             jTextFieldValorCobrado.setText("0");
                             jTextFieldValorCobrado.setEnabled(false);
@@ -1175,7 +1239,7 @@ public class VistoriaVisao extends JDialog {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         jLabel6.setText("Nova Vistoria");
-
+        UsuarioLogadoText.setText(usuariologado.getNome());
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
@@ -1272,9 +1336,15 @@ public class VistoriaVisao extends JDialog {
         }
     }//GEN-LAST:event_jTextFieldKilometragemKeyTyped
 
-    private void jTextFieldKilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldKilometragemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldKilometragemActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        VistoriaVisao frame = new VistoriaVisao(usuariologado);
+        frame.setModal(true);
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     private String verificaNullParceiro(Parceiro parceiro) {
         if (parceiro == null) {
@@ -1311,7 +1381,7 @@ public class VistoriaVisao extends JDialog {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getMotivo(), v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro())});
+                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(),v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
             }
         }
 
@@ -1382,13 +1452,16 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JTextField TxtModeloVeiculo;
     private javax.swing.JTextField TxtNomeCliente;
     private javax.swing.JTextField TxtTelefoneCliente;
+    private javax.swing.JLabel UsuarioLogadoText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonPago;
@@ -1434,5 +1507,16 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JTable tabela;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtPlaca;
+    private javax.swing.JLabel usuarioLogadoLabel;
     // End of variables declaration//GEN-END:variables
+
+    private Object retornaResultado(char resultado) {
+        if(resultado=='a'){
+            return "Aprovado";
+        }
+        else
+        {
+            return "Reprovado";
+        }
+    }
 }

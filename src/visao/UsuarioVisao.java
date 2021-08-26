@@ -193,12 +193,6 @@ public class UsuarioVisao extends JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Senha");
 
-        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSenhaKeyTyped(evt);
-            }
-        });
-
         jRadioButtonFuncionario.setText("Funcionario");
 
         jRadioButtonAdministrador.setText("Administrador");
@@ -446,14 +440,6 @@ public class UsuarioVisao extends JDialog {
         PainelComAbas.setEnabledAt(1, false);
         PainelComAbas.setSelectedIndex(0);
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
-        // Restringe caracteres no campo
-        String caracteres = "0987654321";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtSenhaKeyTyped
 
     private void limparCampos() {
         txtNome.setText("");

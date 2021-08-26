@@ -172,7 +172,18 @@ public class Vistoria implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
     
+    @Override
+    public String toString() {
+        return "Dados da Vistoria"
+                +"\n"+"Placa do Veiculo:"+veiculo.getPlaca()
+                +"\n"+"Modelo do Veiculo:"+veiculo.getModelo()
+                +"\n"+"Data/Horário da Vistoria:"+data+hora
+                +"\n"+"Valor Cobrado:"+valorCobrado
+                +"\n"+"Motivo:"+motivo
+                +"\n"+"Resultado:"+resultado;
     
+    }
     
 }

@@ -22,7 +22,7 @@ public class UsuarioDAO extends GenericoDAO<Usuario> {
     
     public List<Usuario> findByUser(String nomeusuario) {
         EntityManager em = getEntityManager();
-        TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.nomeusuario LIKE :nomeusuario", Usuario.class);
+        TypedQuery<Usuario> query = em.createQuery("Select *u FROM Usuario u WHERE u.nomeusuario = :nomeusuario ", Usuario.class);
         query.setParameter("nomeusuario", "%" + nomeusuario + "%");
         return query.getResultList();
     }
