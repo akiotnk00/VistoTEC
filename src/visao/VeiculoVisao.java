@@ -7,6 +7,7 @@ package visao;
 
 import dao.VeiculoDAO;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class VeiculoVisao extends JDialog {
      */
     public VeiculoVisao() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         veiculoDAO = new VeiculoDAO();
 
         PainelComAbas.setEnabledAt(1, false);
@@ -34,6 +36,7 @@ public class VeiculoVisao extends JDialog {
 
     VeiculoVisao(String b) {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         veiculoDAO = new VeiculoDAO();
         txtPlaca.setText(b);
         PainelComAbas.setSelectedIndex(1);

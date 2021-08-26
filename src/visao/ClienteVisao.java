@@ -7,6 +7,7 @@ package visao;
 
 import dao.ClienteDAO;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class ClienteVisao extends JDialog {
      */
     public ClienteVisao() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         clienteDAO = new ClienteDAO();
         PainelComAbas.setEnabledAt(1, false);
         atualizaTabela(clienteDAO.findAll());
@@ -33,6 +35,7 @@ public class ClienteVisao extends JDialog {
 
     ClienteVisao(String b) {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         clienteDAO = new ClienteDAO();
         txtCPF.setText(b);
         PainelComAbas.setSelectedIndex(1);
@@ -69,15 +72,15 @@ public class ClienteVisao extends JDialog {
         txtNome = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
-        txtTel = new javax.swing.JTextField();
         txtCPF = new javax.swing.JFormattedTextField();
+        txtTel = new javax.swing.JFormattedTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("VistoTEC - Clientes");
 
         PainelComAbas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -225,6 +228,12 @@ public class ClienteVisao extends JDialog {
             ex.printStackTrace();
         }
 
+        try {
+            txtTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -279,6 +288,8 @@ public class ClienteVisao extends JDialog {
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtCPF, txtTel});
 
         jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -576,6 +587,6 @@ public class ClienteVisao extends JDialog {
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTel;
+    private javax.swing.JFormattedTextField txtTel;
     // End of variables declaration//GEN-END:variables
 }

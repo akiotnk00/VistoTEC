@@ -7,30 +7,40 @@ package visao;
 
 import dao.ContaAPagarDAO;
 import static java.lang.Double.parseDouble;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 import modelo.ContaAPagar;
+import modelo.Usuario;
 
 /**
  *
  * @author akiot
  */
-public class FinanceiroVisao extends javax.swing.JDialog {
+public class Financeiro extends javax.swing.JDialog {
 
-    private final ContaAPagarDAO contaAPagarDAO;
-     private List<ContaAPagar> lista;
-     
-     
     /**
-     * Creates new form FinanceiroVisao
+     * Creates new form Financeiro
      */
-    public FinanceiroVisao(java.awt.Frame parent, boolean modal) {
+    private final ContaAPagarDAO contaAPagarDAO;
+    private List<ContaAPagar> lista;
+
+    public Financeiro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         contaAPagarDAO = new ContaAPagarDAO();
+        atualizaTabela(contaAPagarDAO.mostrarOrdenado());
     }
 
-    FinanceiroVisao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Financeiro() {
+        super();
+        initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        contaAPagarDAO = new ContaAPagarDAO();
+        atualizaTabela(contaAPagarDAO.mostrarOrdenado());
     }
 
     /**
@@ -44,7 +54,7 @@ public class FinanceiroVisao extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableContas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldDescricao = new javax.swing.JTextField();
@@ -59,10 +69,12 @@ public class FinanceiroVisao extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("VistoTEC - Financeiro");
+        setResizable(false);
 
-        jLabel1.setText("Próximas Contas a Pagar");
+        jLabel1.setText("Contas a Pagar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -73,7 +85,7 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                 "Descrição", "Vencimento", "Valor", "Situação"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableContas);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Registrar Conta a Pagar"));
 
@@ -91,8 +103,14 @@ public class FinanceiroVisao extends javax.swing.JDialog {
         });
 
         jButton3.setText("Limpar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jDateChooserVencimento.setDateFormatString("dd/MM/yyyy");
+        jDateChooserVencimento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel5.setText("Vencimento");
 
@@ -118,7 +136,7 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateChooserVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -133,13 +151,13 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5))
-                    .addComponent(jDateChooserVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jDateChooserVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldCodigoDeBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -151,6 +169,11 @@ public class FinanceiroVisao extends javax.swing.JDialog {
         );
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,41 +185,51 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jButton1)))
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                ContaAPagar novaconta = new ContaAPagar();
-                novaconta.setDescricao(jTextFieldDescricao.getText());
-                novaconta.setValor(parseDouble(jTextFieldValor.getText()));
-                novaconta.setCodigodebarras(Long.parseLong(jTextFieldCodigoDeBarras.getText()));
-                novaconta.setVencimento(jDateChooserVencimento.getDate());
-                
-                contaAPagarDAO.merge(novaconta);
-
+        ContaAPagar novaconta = new ContaAPagar();
+        novaconta.setDescricao(jTextFieldDescricao.getText());
+        novaconta.setValor(parseDouble(jTextFieldValor.getText()));
+        novaconta.setCodigodebarras(jTextFieldCodigoDeBarras.getText());
+        novaconta.setVencimento(jDateChooserVencimento.getDate());
+        novaconta.setSituacao("Não paga");
+        contaAPagarDAO.merge(novaconta);
+        atualizaTabela(contaAPagarDAO.mostrarOrdenado());
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jTextFieldDescricao.setText("");
+        jTextFieldValor.setText("");
+        jDateChooserVencimento.setDate(null);
+        jTextFieldCodigoDeBarras.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,20 +248,20 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FinanceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Financeiro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FinanceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Financeiro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FinanceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Financeiro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FinanceiroVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Financeiro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FinanceiroVisao dialog = new FinanceiroVisao(new javax.swing.JFrame(), true);
+                Financeiro dialog = new Financeiro(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -238,6 +271,19 @@ public class FinanceiroVisao extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+
+    private void atualizaTabela(List<ContaAPagar> contas) {
+        DefaultTableModel dtm = (DefaultTableModel) jTableContas.getModel();
+        dtm.setNumRows(0); // excluir os registros que estão na JTable
+        DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy");
+        lista = contas;
+        if (lista != null) {
+            lista.forEach(c -> {
+                dtm.addRow(new Object[]{c.getDescricao(), dateDia.format(c.getVencimento()), c.getValor(), c.getSituacao()});
+            });
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,7 +298,7 @@ public class FinanceiroVisao extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableContas;
     private javax.swing.JTextField jTextFieldCodigoDeBarras;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldValor;

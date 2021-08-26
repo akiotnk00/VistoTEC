@@ -11,6 +11,7 @@ import java.util.Date;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 
@@ -29,6 +30,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         usuarioDAO = new UsuarioDAO();
     }
 
@@ -45,7 +47,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextUser = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonEnter = new javax.swing.JButton();
         jPasswordSenha = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -54,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         logo_login = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Acesso ao Sistema");
+        setTitle("VistoTEC - Acesso ao sistema");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
@@ -67,9 +69,9 @@ public class Login extends javax.swing.JFrame {
 
         jTextUser.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTextUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextUserActionPerformed(evt);
+        jTextUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextUserKeyPressed(evt);
             }
         });
 
@@ -77,18 +79,23 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("SENHA");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 102, 153));
-        jButton1.setText("ENTRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEnter.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEnter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonEnter.setForeground(new java.awt.Color(0, 102, 153));
+        jButtonEnter.setText("ENTRAR");
+        jButtonEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonEnterActionPerformed(evt);
             }
         });
 
         jPasswordSenha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jPasswordSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPasswordSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordSenhaKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,7 +137,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addGap(63, 63, 63))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(54, 54, 54))
@@ -165,13 +172,13 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jPasswordSenha, jTextUser});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonEnter, jPasswordSenha, jTextUser});
 
         logo_login.setBackground(new java.awt.Color(255, 255, 255));
         logo_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vistoria-de-veiculo-3.png"))); // NOI18N
@@ -202,7 +209,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnterActionPerformed
         // TODO add your handling code here:
        if (!"".equals(jTextUser.getText())) {
             // Verifica se está vazia, o que significa que não teve retorno no DAO.
@@ -232,11 +239,7 @@ public class Login extends javax.swing.JFrame {
             jTextUser.requestFocus();
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextUserActionPerformed
+    }//GEN-LAST:event_jButtonEnterActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
@@ -249,6 +252,18 @@ public class Login extends javax.swing.JFrame {
       jPasswordSenha.setEchoChar('•');
    }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jPasswordSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordSenhaKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {                    
+                jButtonEnter.doClick();
+            }
+    }//GEN-LAST:event_jPasswordSenhaKeyPressed
+
+    private void jTextUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextUserKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {                    
+                jButtonEnter.doClick();
+            }
+    }//GEN-LAST:event_jTextUserKeyPressed
 
     /**
      * @param args the command line arguments
@@ -286,8 +301,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonEnter;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

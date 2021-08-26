@@ -7,6 +7,7 @@ package visao;
 
 import dao.UsuarioDAO;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class UsuarioVisao extends JDialog {
      */
     public UsuarioVisao() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         usuarioDAO = new UsuarioDAO();
 
         PainelComAbas.setEnabledAt(1, false);
@@ -378,7 +380,11 @@ public class UsuarioVisao extends JDialog {
         u.setNome(txtNome.getText());
         u.setNomeusuario(txtUsuario.getText());
         u.setSenha(txtSenha.getText());
-
+        if(!"".equals(jTextFieldID.getText())){
+         u.setCodigo(Long.parseLong(jTextFieldID.getText()));
+        }
+        
+        
         if (jRadioButtonFuncionario.isSelected()) {
             u.setNvacesso(0);
         }

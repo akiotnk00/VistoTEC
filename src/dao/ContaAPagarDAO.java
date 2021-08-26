@@ -19,12 +19,10 @@ public class ContaAPagarDAO extends GenericoDAO<ContaAPagar> {
     public ContaAPagarDAO() {
         super(ContaAPagar.class);
     }
-
-    
-     public List<ContaAPagar> findByCodigo(String codigo) {
+     
+     public List<ContaAPagar> mostrarOrdenado() {
         EntityManager em = getEntityManager();
-        TypedQuery<ContaAPagar> query = em.createQuery("Select d FROM Despesa d WHERE d LIKE :codigo", ContaAPagar.class);
-        query.setParameter("codigo", "%" + codigo + "%");
+        TypedQuery<ContaAPagar> query = em.createQuery("Select c FROM ContaAPagar c ORDER BY c.vencimento", ContaAPagar.class);
         return query.getResultList();
     }
 }

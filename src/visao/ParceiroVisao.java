@@ -7,6 +7,7 @@ package visao;
 
 import dao.ParceiroDAO;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,7 @@ public class ParceiroVisao extends JDialog {
      */
     public ParceiroVisao() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         parceiroDAO = new ParceiroDAO();
 
         PainelComAbas.setEnabledAt(1, false);
@@ -67,7 +69,7 @@ public class ParceiroVisao extends JDialog {
         jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("DeltaCarSys - Parceiros");
+        setTitle("VistoTEC - Parceiros");
 
         PainelComAbas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 

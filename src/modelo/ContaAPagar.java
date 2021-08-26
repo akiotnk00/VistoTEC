@@ -49,7 +49,7 @@ public class ContaAPagar implements Serializable {
     private Double valor;
     
     @Column(name = "codigodebarras")
-    private long codigodebarras;
+    private String codigodebarras;
 
     @Column(name = "situacao")
     private String situacao;
@@ -86,14 +86,15 @@ public class ContaAPagar implements Serializable {
         this.valor = valor;
     }
 
-    public long getCodigodebarras() {
+    public String getCodigodebarras() {
         return codigodebarras;
     }
 
-    public void setCodigodebarras(long codigodebarras) {
+    public void setCodigodebarras(String codigodebarras) {
         this.codigodebarras = codigodebarras;
     }
 
+   
     public String getSituacao() {
         return situacao;
     }
