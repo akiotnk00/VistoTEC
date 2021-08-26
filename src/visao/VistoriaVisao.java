@@ -73,15 +73,11 @@ public class VistoriaVisao extends JDialog {
         PainelComAbas.setEnabledAt(1, false);
         atualizaParceiros(parceiroDAO.findAll());
         atualizaTabela(vistoriaDAO.findAllOrder());
-
-        
-        
-        atualizaParceiros(parceiroDAO.findAll());
-        atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
     VistoriaVisao(boolean b, Usuario usuario) {
        initComponents();
+       this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         vistoriaDAO = new VistoriaDAO();
         veiculoDAO = new VeiculoDAO();
         clienteDAO = new ClienteDAO();
@@ -1009,7 +1005,7 @@ public class VistoriaVisao extends JDialog {
             txtPlaca.requestFocusInWindow();
 
         }
-
+        limparCampos();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1241,11 +1237,13 @@ public class VistoriaVisao extends JDialog {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        limparCampos();
         jLabel6.setText("Nova Vistoria");
         UsuarioLogadoText.setText(usuariologado.getNome());
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
+        jTextFieldValorCobrado.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jComboBoxOpPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOpPesquisaActionPerformed
