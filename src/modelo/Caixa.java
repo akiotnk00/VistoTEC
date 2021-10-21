@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Caixa implements Serializable {
     private Date fechamento;
     
     @Column(name = "valorinicial")
-    private Double valorinicial;    
+    private BigDecimal valorinicial;    
     
     @ManyToOne
     @JoinColumn(name = "usuario", nullable = false)
@@ -50,6 +51,15 @@ public class Caixa implements Serializable {
     
     @OneToMany(mappedBy="Caixa")
     private List<Movimentacao> movimentacoes;
+    
+    @OneToMany(mappedBy="Caixa")
+    private List<Vistoria> vistorias;
+    
+    @OneToMany(mappedBy="Caixa")
+    private List<ContaAPagar> contas;
+    
+    @OneToMany(mappedBy="Caixa")
+    private List<Agendamento> agendamentos;
 
     public long getCodigo() {
         return codigo;
@@ -75,13 +85,14 @@ public class Caixa implements Serializable {
         this.fechamento = fechamento;
     }
 
-    public Double getValorinicial() {
+    public BigDecimal getValorinicial() {
         return valorinicial;
     }
 
-    public void setValorinicial(Double valorinicial) {
+    public void setValorinicial(BigDecimal valorinicial) {
         this.valorinicial = valorinicial;
     }
+
 
     public Usuario getUsuario() {
         return usuario;
@@ -97,6 +108,30 @@ public class Caixa implements Serializable {
 
     public void setMovimentacoes(List<Movimentacao> movimentacoes) {
         this.movimentacoes = movimentacoes;
+    }
+
+    public List<Vistoria> getVistorias() {
+        return vistorias;
+    }
+
+    public void setVistorias(List<Vistoria> vistorias) {
+        this.vistorias = vistorias;
+    }
+
+    public List<ContaAPagar> getContas() {
+        return contas;
+    }
+
+    public void setContas(List<ContaAPagar> contas) {
+        this.contas = contas;
+    }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
     
     

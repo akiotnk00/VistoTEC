@@ -31,9 +31,12 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
-        usuarioDAO = new UsuarioDAO();
+        usuarioDAO = new UsuarioDAO();     
+        novoUsuario();
+        
+        
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,9 +216,9 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
        if (!"".equals(jTextUser.getText())) {
             // Verifica se está vazia, o que significa que não teve retorno no DAO.
-            if (!usuarioDAO.findByUser(jTextUser.getText()).isEmpty()) {
+            if (usuarioDAO.findUser(jTextUser.getText())!=null) {
 
-                Usuario usuario = usuarioDAO.findByUser(jTextUser.getText()).get(0);
+                Usuario usuario = usuarioDAO.findUser(jTextUser.getText());
                
                 if(usuario.getSenha() == null ? jPasswordSenha.getText() == null : usuario.getSenha().equals(jPasswordSenha.getText())){
                     
@@ -253,6 +256,15 @@ public class Login extends javax.swing.JFrame {
    }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void novoUsuario(){
+        if(usuarioDAO.findAll().isEmpty()){
+            Usuario novousuario = new Usuario();
+            novousuario.setNome("admin");
+            novousuario.setNomeusuario("admin");
+            novousuario.setSenha("admin");
+            usuarioDAO.merge(novousuario);
+        }
+    }
     private void jPasswordSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordSenhaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {                    
                 jButtonEnter.doClick();

@@ -20,9 +20,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Caixa;
 import modelo.Cliente;
 import modelo.Parceiro;
-import modelo.Usuario;
 import modelo.Veiculo;
 import modelo.Vistoria;
 
@@ -44,7 +44,7 @@ public class VistoriaVisao extends JDialog {
     private final ParceiroDAO parceiroDAO;
     private List<Parceiro> parceiros;
     Vistoria editarVistoria = new Vistoria();
-    Usuario usuariologado = new Usuario();
+    Caixa caixaAberto = new Caixa();
 
     /**
      * Creates new form CadastroCliente
@@ -62,28 +62,27 @@ public class VistoriaVisao extends JDialog {
         atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
-    VistoriaVisao(Usuario usuario) {
+    VistoriaVisao(Caixa caixa) {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         vistoriaDAO = new VistoriaDAO();
         veiculoDAO = new VeiculoDAO();
         clienteDAO = new ClienteDAO();
         parceiroDAO = new ParceiroDAO();
-        usuariologado = usuario;
+        caixaAberto = caixa;
         PainelComAbas.setEnabledAt(1, false);
         atualizaParceiros(parceiroDAO.findAll());
         atualizaTabela(vistoriaDAO.findAllOrder());
     }
 
-    VistoriaVisao(boolean b, Usuario usuario) {
+    VistoriaVisao(boolean b, Caixa caixa) {
        initComponents();
        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         vistoriaDAO = new VistoriaDAO();
         veiculoDAO = new VeiculoDAO();
         clienteDAO = new ClienteDAO();
         parceiroDAO = new ParceiroDAO();
-        usuariologado = usuario;
-        UsuarioLogadoText.setText(usuariologado.getNome());
+        caixaAberto = caixa;
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
         PainelComAbas.setSelectedIndex(1);
@@ -155,14 +154,12 @@ public class VistoriaVisao extends JDialog {
         jRadioButtonReprovado = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jLabelMotivo = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+        jButtonLimpar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        usuarioLogadoLabel = new javax.swing.JLabel();
-        UsuarioLogadoText = new javax.swing.JLabel();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VistoTEC - Vistorias");
@@ -567,11 +564,6 @@ public class VistoriaVisao extends JDialog {
 
         jComboBoxParceiro.setForeground(new java.awt.Color(0, 102, 153));
         jComboBoxParceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
-        jComboBoxParceiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxParceiroActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         jLabel7.setText("Valor Cobrado");
@@ -768,21 +760,21 @@ public class VistoriaVisao extends JDialog {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(0, 102, 153));
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Salvar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSalvar.setBackground(new java.awt.Color(0, 102, 153));
+        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonSalvarActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(0, 102, 153));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Limpar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpar.setBackground(new java.awt.Color(0, 102, 153));
+        jButtonLimpar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonLimparActionPerformed(evt);
             }
         });
 
@@ -794,19 +786,14 @@ public class VistoriaVisao extends JDialog {
 
         jLabel10.setText("ID");
 
-        jButton10.setBackground(new java.awt.Color(204, 0, 51));
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Cancelar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setBackground(new java.awt.Color(204, 0, 51));
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
-
-        usuarioLogadoLabel.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
-        usuarioLogadoLabel.setText("Usuário Logado:");
-
-        UsuarioLogadoText.setText("Nenhum usuário logado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -817,10 +804,6 @@ public class VistoriaVisao extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(176, 176, 176)
-                        .addComponent(usuarioLogadoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UsuarioLogadoText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -831,11 +814,11 @@ public class VistoriaVisao extends JDialog {
                 .addGap(12, 12, 12))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5)
+                .addComponent(jButtonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(jButtonLimpar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton10)
+                .addComponent(jButtonCancelar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -843,10 +826,7 @@ public class VistoriaVisao extends JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(usuarioLogadoLabel)
-                        .addComponent(UsuarioLogadoText))
+                    .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
@@ -854,9 +834,9 @@ public class VistoriaVisao extends JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton10))
+                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonLimpar)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap())
         );
 
@@ -879,7 +859,7 @@ public class VistoriaVisao extends JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         Vistoria v = new Vistoria();
         // Verifica se o campo PLACA está preenchido
         if (!"".equals(txtPlaca.getText())) {
@@ -900,14 +880,11 @@ public class VistoriaVisao extends JDialog {
                         // Verifica se tem conteudo, pra saber se é uma alteração ou não
                         if ("".equals(jTextFieldID.getText())) {
                             // Salva apenas a data
-                            v.setData(new Date());
+                            v.setDatahora(new Date());
 
-                            // Salva apenas a hora e minuto
-                            v.setHora(new Date());
                         } else {
                             // Usa os valores salvos quando aperta o botão editar
-                            v.setData(editarVistoria.getData());
-                            v.setHora(editarVistoria.getHora());
+                            v.setDatahora(editarVistoria.getDatahora());
                             
                         }
 
@@ -922,7 +899,7 @@ public class VistoriaVisao extends JDialog {
 
                         // Salva a opção escolhida, por padrão fica "Não Pago"
                         v.setSituacaoPagamento((String) jComboBoxSituacao.getSelectedItem());
-                        v.setUsuario(usuariologado);
+                        v.setCaixa(caixaAberto);
 
                         // Verifica se foi digitado o valor
                         if (!"".equals(jTextFieldValorCobrado.getText())) {
@@ -1006,11 +983,11 @@ public class VistoriaVisao extends JDialog {
 
         }
         limparCampos();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         limparCampos();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // Verifica se o campo cpf está vazio
@@ -1070,7 +1047,7 @@ public class VistoriaVisao extends JDialog {
                     // Verifica ultima vistoria e pega os dados
                     if (!vistoriaDAO.findByPlaca(txtPlaca.getText()).isEmpty()) {
                         DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy");
-                        jTextFieldUltimaVistoria.setText("" + dateDia.format(vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getData()));
+                        jTextFieldUltimaVistoria.setText("" + dateDia.format(vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getDatahora()));
 
                         jTextFieldUltimaKm.setText("" + vistoriaDAO.findByPlaca(txtPlaca.getText()).get(0).getKilometragem());
 
@@ -1139,10 +1116,6 @@ public class VistoriaVisao extends JDialog {
         JTextField txt = (JTextField) evt.getComponent();
         txt.selectAll();
     }//GEN-LAST:event_txtPlacaFocusGained
-
-    private void jComboBoxParceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxParceiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxParceiroActionPerformed
 
     private void jButtonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagoActionPerformed
         int linha = tabela.getSelectedRow();
@@ -1222,8 +1195,7 @@ public class VistoriaVisao extends JDialog {
                 // Valor Cobrado
                 jTextFieldValorCobrado.setText(String.valueOf(v.getValorCobrado()));
 
-                editarVistoria.setData(v.getData());
-                editarVistoria.setHora(v.getHora());
+                editarVistoria.setDatahora(v.getDatahora());
 
                 jLabel6.setText("Editar Vistoria");
 
@@ -1239,7 +1211,6 @@ public class VistoriaVisao extends JDialog {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         limparCampos();
         jLabel6.setText("Nova Vistoria");
-        UsuarioLogadoText.setText(usuariologado.getNome());
         PainelComAbas.setSelectedIndex(1);
         PainelComAbas.setEnabledAt(0, false);
         PainelComAbas.setEnabledAt(1, true);
@@ -1313,13 +1284,13 @@ public class VistoriaVisao extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCampoPesquisaActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         limparCampos();
         PainelComAbas.setEnabledAt(0, true);
         PainelComAbas.setEnabledAt(1, false);
         PainelComAbas.setSelectedIndex(0);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jRadioButtonAprovadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAprovadoActionPerformed
         jRadioButtonReprovado.setSelected(false);
@@ -1342,7 +1313,7 @@ public class VistoriaVisao extends JDialog {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        VistoriaVisao frame = new VistoriaVisao(usuariologado);
+        VistoriaVisao frame = new VistoriaVisao(caixaAberto);
         frame.setModal(true);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -1382,7 +1353,7 @@ public class VistoriaVisao extends JDialog {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(),v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
+                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(),v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
             }
         }
 
@@ -1453,19 +1424,18 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JTextField TxtModeloVeiculo;
     private javax.swing.JTextField TxtNomeCliente;
     private javax.swing.JTextField TxtTelefoneCliente;
-    private javax.swing.JLabel UsuarioLogadoText;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonPago;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxOpPesquisa;
     private javax.swing.JComboBox<String> jComboBoxParceiro;
     private javax.swing.JComboBox<String> jComboBoxSituacao;
@@ -1508,7 +1478,6 @@ public class VistoriaVisao extends JDialog {
     private javax.swing.JTable tabela;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtPlaca;
-    private javax.swing.JLabel usuarioLogadoLabel;
     // End of variables declaration//GEN-END:variables
 
     private Object retornaResultado(char resultado) {

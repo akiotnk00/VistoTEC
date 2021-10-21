@@ -10,11 +10,10 @@ package visao;
  * @author akiot
  *
  */
-import dao.ClienteDAO;
-import dao.ParceiroDAO;
-import dao.VeiculoDAO;
+import dao.CaixaDAO;
 import dao.VistoriaDAO;
 import java.awt.Color;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,17 +21,18 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Cliente;
+import modelo.Caixa;
 import modelo.Parceiro;
 import modelo.Usuario;
-import modelo.Veiculo;
 import modelo.Vistoria;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
 
+    private final CaixaDAO caixaDAO;
     private final VistoriaDAO vistoriaDAO;
     private List<Vistoria> vistorias;
     private Usuario usuariologado;
+    private Caixa caixaAberto;
 
     /**
      * Creates new form JanelaPrincipal
@@ -41,6 +41,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         vistoriaDAO = new VistoriaDAO();
+        caixaDAO = new CaixaDAO();
         atualizaTabela(vistoriaDAO.findAllOrder());
         bloqueiaTudo();
     }
@@ -50,8 +51,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         usuariologado = usuario;
         vistoriaDAO = new VistoriaDAO();
+        caixaDAO = new CaixaDAO();
         atualizaTabela(vistoriaDAO.findAllOrder());
-        jLabelTotalVistoriasHoje.setText(""+ vistoriaDAO.findByData(new Date()).size());
+        jLabelTotalVistoriasHoje.setText("" + vistoriaDAO.findByData(new Date()).size());
         usuarioLogado.setText(usuario.getNome());
         usuarioLogado.setForeground(Color.green);
         bloqueiaTudo();
@@ -75,6 +77,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             jButtonFinanceiro.setEnabled(false);
             jButtonRelatorios.setEnabled(false);
             jButtonUsuarios.setEnabled(false);
+
+        }
+
+        if (verificaCaixaAberto()) {
+
+            caixaAberto = caixaDAO.ultimasAberturas().get(0);
+
+            int op = JOptionPane.showConfirmDialog(null, "Existe um caixa aberto, deseja fazer o fechamento?");
+
+            if (op == 0) {
+
+                jButton4.doClick();
+            } else {
+
+            }
 
         }
     }
@@ -119,7 +136,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabelStatusCaixa = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        jButtonAbrirFechar = new javax.swing.JButton();
         jPanelSaldo = new javax.swing.JPanel();
         jLabelSaldo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -463,10 +480,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabelStatusCaixa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelStatusCaixa.setText("Fechado");
 
-        jButton6.setText("Abrir caixa");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAbrirFechar.setText("Abrir caixa");
+        jButtonAbrirFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonAbrirFecharActionPerformed(evt);
             }
         });
 
@@ -528,25 +545,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addGap(68, 68, 68))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(130, 130, 130)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonAbrirFechar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabelStatusCaixa)
+                .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton6)
+                .addComponent(jButtonAbrirFechar)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVerInfo)
                     .addComponent(jButtonRegMov))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -574,19 +591,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 233, Short.MAX_VALUE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -604,7 +621,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -622,15 +639,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -648,8 +665,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -664,8 +681,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -691,11 +708,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVeiculosActionPerformed
 
     private void jButtonVistoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVistoriasActionPerformed
-        VistoriaVisao frame = new VistoriaVisao(usuariologado);
+        VistoriaVisao frame = new VistoriaVisao(caixaAberto);
         frame.setModal(true);
         frame.setVisible(true);
-        atualizaTabela(vistoriaDAO.findAllOrder()); 
-        jLabelTotalVistoriasHoje.setText(""+ vistoriaDAO.findByData(new Date()).size());
+        atualizaTabela(vistoriaDAO.findAllOrder());
+        jLabelTotalVistoriasHoje.setText("" + vistoriaDAO.findByData(new Date()).size());
     }//GEN-LAST:event_jButtonVistoriasActionPerformed
 
     private void jButtonParceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonParceirosActionPerformed
@@ -706,11 +723,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonParceirosActionPerformed
 
     private void jButtonNovaVistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaVistoriaActionPerformed
-        VistoriaVisao frame = new VistoriaVisao(true,usuariologado);
+        VistoriaVisao frame = new VistoriaVisao(true, caixaAberto);
         frame.setModal(true);
         frame.setVisible(true);
         atualizaTabela(vistoriaDAO.findAllOrder());
-        jLabelTotalVistoriasHoje.setText(""+ vistoriaDAO.findByData(new Date()).size());
+        jLabelTotalVistoriasHoje.setText("" + vistoriaDAO.findByData(new Date()).size());
     }//GEN-LAST:event_jButtonNovaVistoriaActionPerformed
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
@@ -742,31 +759,108 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int linha = tabela.getSelectedRow();
 
-                Vistoria v = vistorias.get(linha);
-                JOptionPane.showMessageDialog(null,v);
-                
+        Vistoria v = vistorias.get(linha);
+        JOptionPane.showMessageDialog(null, v);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonAbrirFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirFecharActionPerformed
         // TODO add your handling code here:
-        if(jLabelStatusCaixa.getText()=="Fechado"){
-            jLabelStatusCaixa.setText("Aberto");
-            jButton6.setText("Fechar caixa");
-            jLabelStatusCaixa.setForeground(Color.green);
-            liberaTudo();
-        }
-        else
-        {
-            jButton6.setText("Abrir caixa");
+        if ("Fechado".equals(jLabelStatusCaixa.getText())) {
+
+            // Verifica se existe caixa aberto.
+            if (verificaCaixaAberto()) {
+                abrirCaixa();
+            }
+
+        } else {
+            jButtonAbrirFechar.setText("Abrir caixa");
             jLabelStatusCaixa.setText("Fechado");
             jLabelStatusCaixa.setForeground(Color.red);
             bloqueiaTudo();
         }
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
 
-    
-    private void bloqueiaTudo(){
+    }//GEN-LAST:event_jButtonAbrirFecharActionPerformed
+
+    // Função que fecha o caixa.
+    private void fecharCaixa() {
+
+        if (verificaCaixaAberto()) {
+            caixaAberto = caixaDAO.ultimasAberturas().get(0);
+            caixaAberto.setFechamento(new Date());
+            caixaDAO.merge(caixaAberto);
+            
+        } else {
+            System.out.println("Não existe nenhum caixa aberto");
+        }
+    }
+
+    // Função que abre um novo caixa.
+    private void abrirCaixa() {
+
+        if (verificaCaixaAberto()) {
+            System.out.println("Existe um caixa aberto");
+        } else {
+            // Cria um novo caixa.
+            Caixa caixaaberto = new Caixa();
+
+            // Coloca a data e hora atual.
+            caixaaberto.setAbertura(new Date());
+
+            //Vincula o novo caixa com o usuario logado.
+            caixaaberto.setUsuario(usuariologado);
+
+            // Pega o valor através de um janela.
+            BigDecimal valorinicial = new BigDecimal(JOptionPane.showInputDialog("Digite o valor inicial:"));
+
+            // Seta o valor pego na janela anterior.
+            caixaaberto.setValorinicial(valorinicial);
+
+            //Salva no banco os dados anteriores.
+            caixaDAO.merge(caixaaberto);
+
+            // Altera as partes visuais.
+            // Muda o texto para Aberto.
+            jLabelStatusCaixa.setText("Aberto");
+
+            // Muda o texto do botão para Fechar Caixa.
+            jButtonAbrirFechar.setText("Fechar caixa");
+
+            // Altera a cor do texto para Verde.
+            jLabelStatusCaixa.setForeground(Color.green);
+
+            // Coloca o valor inicial na tela.
+            jLabelSaldo.setText("" + valorinicial);
+
+            // Libera os botões da janela principal.
+            liberaTudo();
+        }
+
+    }
+
+    // Verifica se existe caixa aberto, retorna TRUE ou FALSE.
+    private boolean verificaCaixaAberto() {
+
+        List<Caixa> ultimas = caixaDAO.ultimasAberturas();
+
+        // Verifica se retornou algum valor.
+        if (ultimas != null) {
+
+            // Verifica se o ultimo caixa está aberto.
+            if (ultimas.get(0).getFechamento() == null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        //Retorna falso se não encontrar registro.
+        return false;
+    }
+
+    // Bloqueia botões e campos da janela principal.
+    private void bloqueiaTudo() {
         jButtonVistorias.setEnabled(false);
         jButtonNovaVistoria.setEnabled(false);
         jTableCaixa.setEnabled(false);
@@ -774,20 +868,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButtonRegMov.setEnabled(false);
         jPanelSaldo.setEnabled(false);
         jLabelSaldo.setEnabled(false);
-        
+
     }
-     private void liberaTudo(){
+
+    // Desbloqueia botões e campos da janela principal.
+    private void liberaTudo() {
         jButtonVistorias.setEnabled(true);
-        jButtonNovaVistoria.setEnabled(true); 
+        jButtonNovaVistoria.setEnabled(true);
         jTableCaixa.setEnabled(true);
         jButtonVerInfo.setEnabled(true);
         jButtonRegMov.setEnabled(true);
         jPanelSaldo.setEnabled(true);
-         jLabelSaldo.setEnabled(true);
+        jLabelSaldo.setEnabled(true);
     }
-    
-    
-   private void atualizaTabela(List<Vistoria> lista) {
+
+    // Atualiza a tabela de vistorias.
+    private void atualizaTabela(List<Vistoria> lista) {
         DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
         dtm.setNumRows(0); // excluir os registros que estão na JTable
         vistorias = lista;
@@ -795,18 +891,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(),v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getData()), dateHora.format(v.getHora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
+                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
             }
         }
-        
 
     }
+
     private Object retornaResultado(char resultado) {
-        if(resultado=='a'){
+        if (resultado == 'a') {
             return "Aprovado";
-        }
-        else
-        {
+        } else {
             return "Reprovado";
         }
     }
@@ -856,7 +950,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonAbrirFechar;
     private javax.swing.JButton jButtonAgendamentos;
     private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonFinanceiro;

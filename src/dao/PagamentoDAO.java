@@ -14,9 +14,9 @@ import modelo.Caixa;
  *
  * @author akiot
  */
-public class CaixaDAO extends GenericoDAO<Caixa> {
+public class PagamentoDAO extends GenericoDAO<Caixa> {
     
-    public CaixaDAO() {
+    public PagamentoDAO() {
         super(Caixa.class);
     }
 
@@ -29,9 +29,4 @@ public class CaixaDAO extends GenericoDAO<Caixa> {
     }
      
      
-     public List<Caixa> ultimasAberturas() {
-        EntityManager em = getEntityManager();
-        TypedQuery<Caixa> query = em.createQuery("Select * FROM Caixa LIMIT 5 ORDER BY codigo DESC", Caixa.class);
-        return query.getResultList();
-    }
 }

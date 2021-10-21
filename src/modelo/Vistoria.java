@@ -7,7 +7,6 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,14 +32,10 @@ public class Vistoria implements Serializable {
     @Column(name = "codigo")
     private long id;
     
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data")
-    private Date data;
-    
-    @Temporal(TemporalType.TIME)
-    @Column(name = "hora")
-    private Date hora;
-    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "datahora")
+    private Date datahora;
+        
     @Column(name = "motivo")
     private String motivo;
     
@@ -69,10 +64,12 @@ public class Vistoria implements Serializable {
     private Parceiro parceiro = new Parceiro();   
 
     @ManyToOne
-    @JoinColumn(name = "usuario", nullable = false)
-    private Usuario usuario = new Usuario();   
+    @JoinColumn(name = "caixa", nullable = false)
+    private Caixa caixa = new Caixa();   
 
-    
+    @OneToOne(mappedBy="Vistoria")
+    @JoinColumn(name = "pagamento", nullable = false)
+    private Pagamento pagamentoo;
     
     public long getId() {
         return id;
@@ -123,22 +120,15 @@ public class Vistoria implements Serializable {
         this.parceiro = parceiro;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDatahora() {
+        return datahora;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDatahora(Date datahora) {
+        this.datahora = datahora;
     }
-
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }    
-
+  
+    
     public String getMotivo() {
         return motivo;
     }
@@ -165,13 +155,23 @@ public class Vistoria implements Serializable {
         this.kilometragem = kilometragem;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Caixa getCaixa() {
+        return caixa;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
     }
+
+    public Pagamento getPagamentoo() {
+        return pagamentoo;
+    }
+
+    public void setPagamentoo(Pagamento pagamentoo) {
+        this.pagamentoo = pagamentoo;
+    }
+
+
 
     
     @Override
@@ -179,7 +179,7 @@ public class Vistoria implements Serializable {
         return "Dados da Vistoria"
                 +"\n"+"Placa do Veiculo:"+veiculo.getPlaca()
                 +"\n"+"Modelo do Veiculo:"+veiculo.getModelo()
-                +"\n"+"Data/Horário da Vistoria:"+data+hora
+                +"\n"+"Data/Horário da Vistoria:"+datahora
                 +"\n"+"Valor Cobrado:"+valorCobrado
                 +"\n"+"Motivo:"+motivo
                 +"\n"+"Resultado:"+resultado;

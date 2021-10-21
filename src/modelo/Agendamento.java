@@ -47,8 +47,8 @@ public class Agendamento implements Serializable {
     private String tipoveiculo;
     
     @ManyToOne
-    @JoinColumn(name = "usuario", nullable = false)
-    private Usuario usuario = new Usuario();
+    @JoinColumn(name = "caixa", nullable = false)
+    private Caixa caixa = new Caixa();
     
     @ManyToOne
     @JoinColumn(name = "parceiro", nullable = true)
@@ -98,13 +98,6 @@ public class Agendamento implements Serializable {
         this.tipoveiculo = tipoveiculo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
     public Parceiro getParceiro() {
         return parceiro;
@@ -120,6 +113,14 @@ public class Agendamento implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
     }
     
     

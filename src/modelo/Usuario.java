@@ -48,10 +48,7 @@ public class Usuario implements Serializable {
     private Date ultimoLogin;
 
     @OneToMany(mappedBy="Usuario")
-    private List<Agendamento> agendamentos;
-    
-    @OneToMany(mappedBy="Usuario")
-    private List<Vistoria> vistorias;
+    private List<Caixa> caixas;
     
     public long getCodigo() {
         return codigo;
@@ -103,21 +100,15 @@ public class Usuario implements Serializable {
         this.ultimoLogin = ultimoLogin;
     }
 
-    public List<Agendamento> getAgendamentos() {
-        return agendamentos;
+    public List<Caixa> getCaixas() {
+        return caixas;
     }
 
-    public void setAgendamentos(List<Agendamento> agendamentos) {
-        this.agendamentos = agendamentos;
+    public void setCaixas(List<Caixa> caixas) {
+        this.caixas = caixas;
     }
 
-    public List<Vistoria> getVistorias() {
-        return vistorias;
-    }
 
-    public void setVistorias(List<Vistoria> vistorias) {
-        this.vistorias = vistorias;
-    }
 
 
 
