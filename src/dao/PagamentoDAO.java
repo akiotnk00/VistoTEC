@@ -9,24 +9,25 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import modelo.Caixa;
+import modelo.Pagamento;
 
 /**
  *
  * @author akiot
  */
-public class PagamentoDAO extends GenericoDAO<Caixa> {
+public class PagamentoDAO extends GenericoDAO<Pagamento> {
     
     public PagamentoDAO() {
-        super(Caixa.class);
+        super(Pagamento.class);
     }
 
      
-     public List<Caixa> findByCodigo(String codigo) {
-        EntityManager em = getEntityManager();
-        TypedQuery<Caixa> query = em.createQuery("Select d FROM Caixa d WHERE d LIKE :codigo LIMIT 5 ORDER BY codigo DESC", Caixa.class);
-        query.setParameter("codigo", "%" + codigo + "%");
-        return query.getResultList();
-    }
+     //public List<Caixa> findByCodigo(String codigo) {
+     //   EntityManager em = getEntityManager();
+     //   TypedQuery<Caixa> query = em.createQuery("Select d FROM Caixa d WHERE d LIKE :codigo LIMIT 5 ORDER BY codigo DESC", Caixa.class);
+     //   query.setParameter("codigo", "%" + codigo + "%");
+     //   return query.getResultList();
+   // }
      
      
 }

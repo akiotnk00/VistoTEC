@@ -42,9 +42,6 @@ public class Vistoria implements Serializable {
     @Column(name = "situacao_de_pagamento")
     private String situacaoPagamento;
     
-    @Column(name = "valor_cobrado")
-    private double valorCobrado;
-    
     @Column(name = "resultado")
     private char resultado;
     
@@ -68,7 +65,7 @@ public class Vistoria implements Serializable {
     private Caixa caixa = new Caixa();   
 
     @OneToOne(mappedBy="Vistoria")
-    @JoinColumn(name = "pagamento", nullable = false)
+    @JoinColumn(name = "pagamento", nullable = true)
     private Pagamento pagamentoo;
     
     public long getId() {
@@ -86,14 +83,6 @@ public class Vistoria implements Serializable {
 
     public void setSituacaoPagamento(String situacaoPagamento) {
         this.situacaoPagamento = situacaoPagamento;
-    }
-
-    public double getValorCobrado() {
-        return valorCobrado;
-    }
-
-    public void setValorCobrado(double valorCobrado) {
-        this.valorCobrado = valorCobrado;
     }
 
     public Veiculo getVeiculo() {
@@ -171,8 +160,6 @@ public class Vistoria implements Serializable {
         this.pagamentoo = pagamentoo;
     }
 
-
-
     
     @Override
     public String toString() {
@@ -180,7 +167,6 @@ public class Vistoria implements Serializable {
                 +"\n"+"Placa do Veiculo:"+veiculo.getPlaca()
                 +"\n"+"Modelo do Veiculo:"+veiculo.getModelo()
                 +"\n"+"Data/Horário da Vistoria:"+datahora
-                +"\n"+"Valor Cobrado:"+valorCobrado
                 +"\n"+"Motivo:"+motivo
                 +"\n"+"Resultado:"+resultado;
     

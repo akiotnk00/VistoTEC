@@ -67,7 +67,7 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
         c.add(Calendar.SECOND, 59);
         c.add(Calendar.MILLISECOND, 999);
 
-        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.data BETWEEN :di and :df", Vistoria.class);
+        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.datahora BETWEEN :di and :df", Vistoria.class);
         query.setParameter("di", dataBusca, TemporalType.DATE);
         query.setParameter("df", c.getTime(), TemporalType.TIMESTAMP);
         return query.getResultList();

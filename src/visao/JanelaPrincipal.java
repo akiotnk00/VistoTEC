@@ -27,7 +27,7 @@ import modelo.Usuario;
 import modelo.Vistoria;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
-
+    
     private final CaixaDAO caixaDAO;
     private final VistoriaDAO vistoriaDAO;
     private List<Vistoria> vistorias;
@@ -45,7 +45,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         atualizaTabela(vistoriaDAO.findAllOrder());
         bloqueiaTudo();
     }
-
+    
     public JanelaPrincipal(Usuario usuario) {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
@@ -60,7 +60,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         // Recebe o nivel de acesso
         if (usuario.getNvacesso() > 0) {
-
+            
             niveldeacesso.setText("Administrador");
 
             // Altera a cor da letra
@@ -68,31 +68,47 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } else {
             niveldeacesso.setText("Funcionário");
         }
-
+        
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         usuarioHorario.setText(dateFormat.format(usuario.getUltimoLogin()));
         usuarioHorario.setForeground(Color.green);
-
+        
         if (usuario.getNvacesso() < 1) {
             jButtonFinanceiro.setEnabled(false);
             jButtonRelatorios.setEnabled(false);
             jButtonUsuarios.setEnabled(false);
-
+            
         }
-
+        
         if (verificaCaixaAberto()) {
+            
+            if (!caixaDAO.ultimasAberturas().isEmpty()) {
+                caixaAberto = caixaDAO.ultimasAberturas().get(0);
+                
+                int op = JOptionPane.showConfirmDialog(null, "Existe um caixa aberto, deseja fazer o fechamento?");
+                
+                if (op == 0) {
+                    fecharCaixa();
+                    
+                } else {
+                                // Altera as partes visuais.
+            // Muda o texto para Aberto.
+            jLabelStatusCaixa.setText("Aberto");
 
-            caixaAberto = caixaDAO.ultimasAberturas().get(0);
+            // Muda o texto do botão para Fechar Caixa.
+            jButtonAbrirFechar.setText("Fechar caixa");
 
-            int op = JOptionPane.showConfirmDialog(null, "Existe um caixa aberto, deseja fazer o fechamento?");
+            // Altera a cor do texto para Verde.
+            jLabelStatusCaixa.setForeground(Color.green);
 
-            if (op == 0) {
+            // Coloca o valor inicial na tela.
+            jLabelSaldo.setText("" + caixaAberto.getValorinicial());
 
-                jButton4.doClick();
-            } else {
-
+            // Libera os botões da janela principal.
+            liberaTudo();
+                    
+                }
             }
-
         }
     }
 
@@ -758,7 +774,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int linha = tabela.getSelectedRow();
-
+        
         Vistoria v = vistorias.get(linha);
         JOptionPane.showMessageDialog(null, v);
 
@@ -769,26 +785,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if ("Fechado".equals(jLabelStatusCaixa.getText())) {
 
             // Verifica se existe caixa aberto.
-            if (verificaCaixaAberto()) {
-                abrirCaixa();
-            }
+            //   if (verificaCaixaAberto()) {
+            abrirCaixa();
+            //  }
 
         } else {
-            jButtonAbrirFechar.setText("Abrir caixa");
-            jLabelStatusCaixa.setText("Fechado");
-            jLabelStatusCaixa.setForeground(Color.red);
-            bloqueiaTudo();
+            
+            fecharCaixa();
         }
 
     }//GEN-LAST:event_jButtonAbrirFecharActionPerformed
 
     // Função que fecha o caixa.
     private void fecharCaixa() {
-
+        
         if (verificaCaixaAberto()) {
             caixaAberto = caixaDAO.ultimasAberturas().get(0);
             caixaAberto.setFechamento(new Date());
             caixaDAO.merge(caixaAberto);
+            jButtonAbrirFechar.setText("Abrir caixa");
+            jLabelStatusCaixa.setText("Fechado");
+            jLabelStatusCaixa.setForeground(Color.red);
+            bloqueiaTudo();
             
         } else {
             System.out.println("Não existe nenhum caixa aberto");
@@ -797,7 +815,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     // Função que abre um novo caixa.
     private void abrirCaixa() {
-
+        
         if (verificaCaixaAberto()) {
             System.out.println("Existe um caixa aberto");
         } else {
@@ -835,28 +853,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             // Libera os botões da janela principal.
             liberaTudo();
         }
-
+        
     }
 
     // Verifica se existe caixa aberto, retorna TRUE ou FALSE.
     private boolean verificaCaixaAberto() {
+        
+        if (caixaDAO.ultimasAberturas().isEmpty()) {
+            return false;
+        } else {
+            List<Caixa> ultimas = caixaDAO.ultimasAberturas();
 
-        List<Caixa> ultimas = caixaDAO.ultimasAberturas();
-
-        // Verifica se retornou algum valor.
-        if (ultimas != null) {
-
+            // Verifica se retornou algum valor.
             // Verifica se o ultimo caixa está aberto.
             if (ultimas.get(0).getFechamento() == null) {
                 return true;
             } else {
                 return false;
             }
-
         }
-
-        //Retorna falso se não encontrar registro.
-        return false;
     }
 
     // Bloqueia botões e campos da janela principal.
@@ -868,7 +883,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButtonRegMov.setEnabled(false);
         jPanelSaldo.setEnabled(false);
         jLabelSaldo.setEnabled(false);
-
+        
     }
 
     // Desbloqueia botões e campos da janela principal.
@@ -891,12 +906,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), v.getSituacaoPagamento(), v.getValorCobrado(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
+                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), v.getSituacaoPagamento(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
             }
         }
-
+        
     }
-
+    
     private Object retornaResultado(char resultado) {
         if (resultado == 'a') {
             return "Aprovado";
@@ -904,7 +919,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             return "Reprovado";
         }
     }
-
+    
     private String verificaNullParceiro(Parceiro parceiro) {
         if (parceiro == null) {
             return "Nenhuma";

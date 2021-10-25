@@ -7,7 +7,6 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +35,7 @@ public class Agendamento implements Serializable {
     @Column(name = "datahora")
     private Date datahora;
     
-    @Column(name = "local")
+    @Column(name = "endereco")
     private String endereco;    
     
     @Column(name = "observacao")
@@ -57,6 +55,8 @@ public class Agendamento implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente", nullable = true)
     private Cliente cliente = new Cliente();    
+
+ // Getters e Setters Abaixo:
 
     public long getCodigo() {
         return codigo;
@@ -98,6 +98,13 @@ public class Agendamento implements Serializable {
         this.tipoveiculo = tipoveiculo;
     }
 
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
     public Parceiro getParceiro() {
         return parceiro;
@@ -114,14 +121,7 @@ public class Agendamento implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public Caixa getCaixa() {
-        return caixa;
-    }
-
-    public void setCaixa(Caixa caixa) {
-        this.caixa = caixa;
-    }
+    
     
     
     
