@@ -32,11 +32,17 @@ public class Agendamento implements Serializable {
     private long codigo;
         
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "datahora")
-    private Date datahora;
+    @Column(name = "data")
+    private Date dataagendamento;
+    
+    @Column(name= "horario")
+    private String horario;
     
     @Column(name = "endereco")
     private String endereco;    
+    
+    @Column(name= "telefone")
+    private String telefone;
     
     @Column(name = "observacao")
     private String observacao; 
@@ -44,8 +50,9 @@ public class Agendamento implements Serializable {
     @Column(name ="tipoveiculo")
     private String tipoveiculo;
     
+    
     @ManyToOne
-    @JoinColumn(name = "caixa", nullable = false)
+    @JoinColumn(name = "caixa", nullable = true)
     private Caixa caixa = new Caixa();
     
     @ManyToOne
@@ -66,12 +73,20 @@ public class Agendamento implements Serializable {
         this.codigo = codigo;
     }
 
-    public Date getDatahora() {
-        return datahora;
+    public Date getDataagendamento() {
+        return dataagendamento;
     }
 
-    public void setDatahora(Date datahora) {
-        this.datahora = datahora;
+    public void setDataagendamento(Date dataagendamento) {
+        this.dataagendamento = dataagendamento;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     public String getEndereco() {
@@ -80,6 +95,14 @@ public class Agendamento implements Serializable {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getObservacao() {
@@ -121,6 +144,11 @@ public class Agendamento implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+
+
+    
+   
     
     
     

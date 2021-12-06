@@ -65,6 +65,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,7 +85,6 @@ public class Login extends javax.swing.JFrame {
 
         jButtonEnter.setBackground(new java.awt.Color(255, 255, 255));
         jButtonEnter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonEnter.setForeground(new java.awt.Color(0, 102, 153));
         jButtonEnter.setText("ENTRAR");
         jButtonEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +122,7 @@ public class Login extends javax.swing.JFrame {
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Mostrar senha");
+        jCheckBox1.setFocusable(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -140,9 +141,9 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addGap(63, 63, 63))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButtonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(54, 54, 54))
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -262,6 +263,7 @@ public class Login extends javax.swing.JFrame {
             novousuario.setNome("admin");
             novousuario.setNomeusuario("admin");
             novousuario.setSenha("admin");
+            novousuario.setNvacesso(1);
             usuarioDAO.merge(novousuario);
         }
     }

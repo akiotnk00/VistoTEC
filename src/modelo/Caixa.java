@@ -28,37 +28,37 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "caixa")
 public class Caixa implements Serializable {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
     private long codigo;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "abertura")
     private Date abertura;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fechamento")
     private Date fechamento;
-    
+
     @Column(name = "valorinicial")
-    private BigDecimal valorinicial;    
-    
+    private double valorinicial;
+
     @ManyToOne
     @JoinColumn(name = "usuario", nullable = false)
     private Usuario usuario = new Usuario();
-    
-    @OneToMany(mappedBy="Caixa")
+
+    @OneToMany(mappedBy = "Caixa")
     private List<Movimentacao> movimentacoes;
-    
-    @OneToMany(mappedBy="Caixa")
+
+    @OneToMany(mappedBy = "Caixa")
     private List<Vistoria> vistorias;
-    
-    @OneToMany(mappedBy="Caixa")
+
+    @OneToMany(mappedBy = "Caixa")
     private List<ContaAPagar> contas;
-    
-    @OneToMany(mappedBy="Caixa")
+
+    @OneToMany(mappedBy = "Caixa")
     private List<Agendamento> agendamentos;
 
     public long getCodigo() {
@@ -85,14 +85,13 @@ public class Caixa implements Serializable {
         this.fechamento = fechamento;
     }
 
-    public BigDecimal getValorinicial() {
+    public double getValorinicial() {
         return valorinicial;
     }
 
-    public void setValorinicial(BigDecimal valorinicial) {
+    public void setValorinicial(double valorinicial) {
         this.valorinicial = valorinicial;
     }
-
 
     public Usuario getUsuario() {
         return usuario;
@@ -133,9 +132,5 @@ public class Caixa implements Serializable {
     public void setAgendamentos(List<Agendamento> agendamentos) {
         this.agendamentos = agendamentos;
     }
-    
-    
-    
-    
-    
+
 }

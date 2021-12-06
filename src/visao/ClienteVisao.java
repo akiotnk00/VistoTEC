@@ -475,7 +475,7 @@ public class ClienteVisao extends JDialog {
 
             if (op == 0) {
                 Cliente c = lista.get(linha);
-
+                
                 txtNome.setText(c.getNome());
                 txtCPF.setText(c.getCpf());
                 txtTel.setText(c.getTelefone());

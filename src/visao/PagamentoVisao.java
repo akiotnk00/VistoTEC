@@ -44,6 +44,7 @@ public class PagamentoVisao extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pagamento de Vistoria");
 
         jLabel1.setText("ID da Vistoria");
 
