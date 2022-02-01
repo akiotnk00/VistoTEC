@@ -6,7 +6,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +39,7 @@ public class Pagamento implements Serializable{
     private String formapagamento;
 
     @Column(name = "valorcobrado")
-    private BigDecimal valorcobrado;
+    private Double valorcobrado;
     
     @OneToOne
     @JoinColumn(name = "vistoria", nullable = true)
@@ -70,13 +69,15 @@ public class Pagamento implements Serializable{
         this.formapagamento = formapagamento;
     }
 
-    public BigDecimal getValorcobrado() {
+    public Double getValorcobrado() {
         return valorcobrado;
     }
 
-    public void setValorcobrado(BigDecimal valorcobrado) {
+    public void setValorcobrado(Double valorcobrado) {
         this.valorcobrado = valorcobrado;
     }
+
+
 
     public Vistoria getVistoria() {
         return vistoria;

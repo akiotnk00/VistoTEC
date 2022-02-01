@@ -35,4 +35,5 @@ public class CaixaDAO extends GenericoDAO<Caixa> {
         query.setMaxResults(5);
         return query.getResultList();
     }
+     
 }

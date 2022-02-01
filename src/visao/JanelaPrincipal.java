@@ -133,7 +133,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     jLabelStatusCaixa.setForeground(Color.green);
 
                     // Coloca o valor inicial na tela.
-                    jLabelSaldo.setText("R$"+String.format("%.2f", caixaAberto.getValorinicial()));
+                    jLabelSaldo.setText("R$" + String.format("%.2f", caixaAberto.getValorinicial()));
 
                     // Libera os botões da janela principal.
                     liberaTudo();
@@ -212,7 +212,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         niveldeacesso.setText("Niveldeacesso");
 
-        jLabel5.setText("Versão do Sistema: v1.0");
+        jLabel5.setText("Versão do Sistema: v2.0");
 
         javax.swing.GroupLayout jPanelLogadoComoLayout = new javax.swing.GroupLayout(jPanelLogadoComo);
         jPanelLogadoComo.setLayout(jPanelLogadoComoLayout);
@@ -471,7 +471,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabela.setShowGrid(true);
         tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabela);
 
@@ -502,7 +501,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableAgendamentos.setShowGrid(true);
         jScrollPane3.setViewportView(jTableAgendamentos);
         if (jTableAgendamentos.getColumnModel().getColumnCount() > 0) {
             jTableAgendamentos.getColumnModel().getColumn(0).setResizable(false);
@@ -599,10 +597,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabelUltimasVistorias)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4)
+                                    .addComponent(jLabelUltimasVistorias))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -856,6 +853,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             jButtonAbrirFechar.setText("Abrir caixa");
             jLabelStatusCaixa.setText("Fechado");
             jLabelStatusCaixa.setForeground(Color.red);
+            jLabelSaldo.setText("");
             bloqueiaTudo();
 
         } else {
@@ -873,14 +871,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             Caixa caixaaberto = new Caixa();
 
             // Coloca a data e hora atual.
-            System.out.println(""+Calendar.getInstance().getTime());
+            System.out.println("" + Calendar.getInstance().getTime());
             caixaaberto.setAbertura(Calendar.getInstance().getTime());
 
             //Vincula o novo caixa com o usuario logado.
             caixaaberto.setUsuario(usuariologado);
 
             // Pega o valor através de um janela.
-            Double valorinicial = Double.valueOf(JOptionPane.showInputDialog("Digite o valor inicial:"));
+            Double valorinicial = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor inicial:"));
 
             // Seta o valor pego na janela anterior.
             caixaaberto.setValorinicial(valorinicial);
@@ -899,8 +897,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             jLabelStatusCaixa.setForeground(Color.green);
 
             // Coloca o valor inicial na tela.
-            jLabelSaldo.setText("R$" + String.format("%.2f", caixaAberto.getValorinicial()));
+            jLabelSaldo.setText(Double.toString(caixaaberto.getValorinicial()));
 
+            caixaAberto = caixaDAO.ultimasAberturas().get(0); 
+            
             // Libera os botões da janela principal.
             liberaTudo();
         }
@@ -913,11 +913,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (caixaDAO.ultimasAberturas().isEmpty()) {
             return false;
         } else {
-            List<Caixa> ultimas = caixaDAO.ultimasAberturas();
 
-            // Verifica se retornou algum valor.
-            // Verifica se o ultimo caixa está aberto.
-            return ultimas.get(0).getFechamento() == null;
+            
+            if(caixaDAO.ultimasAberturas().get(0).getFechamento()==null){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -953,7 +957,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
         if (vistorias != null) {
             for (Vistoria v : vistorias) {
-                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), v.getSituacaoPagamento(), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
+                dtm.addRow(new Object[]{v.getVeiculo().getPlaca(), v.getVeiculo().getModelo(), v.getMotivo(), dateDia.format(v.getDatahora()), dateHora.format(v.getDatahora()), verificaNullParceiro(v.getParceiro()), retornaResultado(v.getResultado())});
             }
         }
 

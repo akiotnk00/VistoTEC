@@ -7,6 +7,7 @@ package visao;
 
 import dao.PagamentoDAO;
 import java.util.Date;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.Pagamento;
 import modelo.Vistoria;
@@ -15,24 +16,30 @@ import modelo.Vistoria;
  *
  * @author akiot
  */
-public class PagamentoVisao extends javax.swing.JDialog {
+public class PagamentoVistoria extends JDialog {
 
     private final PagamentoDAO pagamentoDAO;
 
+    private Vistoria vistoriasalva;
+
     /**
-     * Creates new form PagamentoVisao
+     * Creates new form PagamentoVistoria
      */
-    public PagamentoVisao(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public PagamentoVistoria() {
         initComponents();
         pagamentoDAO = new PagamentoDAO();
+
     }
 
-    PagamentoVisao(Vistoria v) {
-        jTextFieldID.setText(Long.toString(v.getId()));
-        jTextFieldPlaca.setText(v.getVeiculo().getPlaca());
-        jTextFieldNomeCliente.setText(v.getCliente().getNome());
+    public PagamentoVistoria(Vistoria get) {
+        initComponents();
+        System.out.println(get.toString());
+        jTextFieldID.setText("" + get.getId());
+        jTextFieldPlaca.setText("" + get.getVeiculo().getPlaca());
+        jTextFieldNomeCliente.setText("" + get.getCliente().getNome());
         pagamentoDAO = new PagamentoDAO();
+        vistoriasalva = get;
+        
     }
 
     /**
@@ -54,17 +61,21 @@ public class PagamentoVisao extends javax.swing.JDialog {
         jRadioButtonDinheiro = new javax.swing.JRadioButton();
         jRadioButtonPix = new javax.swing.JRadioButton();
         jRadioButtonTransferencia = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldValorPago = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pagamento de Vistoria");
+        setTitle("Pagamento da Vistoria");
 
         jLabel1.setText("ID da Vistoria");
 
+        jTextFieldID.setEditable(false);
+
         jLabel2.setText("Placa do Veiculo");
+
+        jTextFieldPlaca.setEditable(false);
 
         jLabel3.setText("Nome do Cliente");
 
@@ -83,16 +94,16 @@ public class PagamentoVisao extends javax.swing.JDialog {
 
         jRadioButtonTransferencia.setText("Transferência Bancaria");
 
+        jLabel5.setText("Valor Pago");
+
+        jButton2.setText("Cancelar");
+
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel5.setText("Valor Pago");
-
-        jButton2.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,11 +200,11 @@ public class PagamentoVisao extends javax.swing.JDialog {
         }
 
         novopagamento.setValorcobrado(Double.parseDouble(jTextFieldValorPago.getText()));
+        novopagamento.setVistoria(vistoriasalva);
         pagamentoDAO.merge(novopagamento);
         JOptionPane.showMessageDialog(null, "Pagamento confirmado!");
-        
-        dispose();
 
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -213,27 +224,20 @@ public class PagamentoVisao extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PagamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PagamentoVistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PagamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PagamentoVistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PagamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PagamentoVistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PagamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PagamentoVistoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PagamentoVisao dialog = new PagamentoVisao(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new PagamentoVistoria().setVisible(true);
             }
         });
     }

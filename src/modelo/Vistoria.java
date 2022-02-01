@@ -38,15 +38,15 @@ public class Vistoria implements Serializable {
         
     @Column(name = "motivo")
     private String motivo;
-    
-    @Column(name = "situacao_de_pagamento")
-    private String situacaoPagamento;
-    
+        
     @Column(name = "resultado")
     private char resultado;
     
     @Column(name = "kilometragem")
     private long kilometragem;
+    
+    @Column(name = "localpdf")
+    private String localpdf;
     
     @ManyToOne
     @JoinColumn(name = "veiculo", nullable = false)
@@ -66,7 +66,7 @@ public class Vistoria implements Serializable {
 
     @OneToOne(mappedBy="Vistoria")
     @JoinColumn(name = "pagamento", nullable = true)
-    private Pagamento pagamentoo;
+    private Pagamento pagamento;
     
     public long getId() {
         return id;
@@ -74,15 +74,6 @@ public class Vistoria implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-   
-    public String getSituacaoPagamento() {
-        return situacaoPagamento;
-    }
-
-    public void setSituacaoPagamento(String situacaoPagamento) {
-        this.situacaoPagamento = situacaoPagamento;
     }
 
     public Veiculo getVeiculo() {
@@ -152,12 +143,22 @@ public class Vistoria implements Serializable {
         this.caixa = caixa;
     }
 
-    public Pagamento getPagamentoo() {
-        return pagamentoo;
+    public Pagamento getPagamento() {
+        return pagamento;
     }
 
-    public void setPagamentoo(Pagamento pagamentoo) {
-        this.pagamentoo = pagamentoo;
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+
+
+    public String getLocalpdf() {
+        return localpdf;
+    }
+
+    public void setLocalpdf(String localpdf) {
+        this.localpdf = localpdf;
     }
 
     
