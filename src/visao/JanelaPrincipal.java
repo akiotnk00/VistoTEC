@@ -545,8 +545,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jDateChooserAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelAgendamentos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelSaldo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Saldo"), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Raleway", 1, 11))); // NOI18N
@@ -973,7 +973,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             DateFormat dateHora = new SimpleDateFormat("HH:mm:ss");
 
             for (Agendamento a : agendamentos) {
-                dtm.addRow(new Object[]{a.getHorario(), a.getEndereco(), a.getTipoveiculo(), a.getTelefone(), a.getCliente(), verificaNullParceiro(a.getParceiro())});
+                dtm.addRow(new Object[]{a.getDataagendamento().getHours(), a.getEndereco(), a.getTipoveiculo(), a.getTelefone(), a.getCliente(), verificaNullParceiro(a.getParceiro())});
 
             }
         } else {

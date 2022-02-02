@@ -34,10 +34,7 @@ public class Agendamento implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data")
     private Date dataagendamento;
-    
-    @Column(name= "horario")
-    private String horario;
-    
+        
     @Column(name = "endereco")
     private String endereco;    
     
@@ -81,13 +78,6 @@ public class Agendamento implements Serializable {
         this.dataagendamento = dataagendamento;
     }
 
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
 
     public String getEndereco() {
         return endereco;

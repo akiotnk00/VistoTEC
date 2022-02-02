@@ -7,6 +7,7 @@ package visao;
 
 import dao.AgendamentoDAO;
 import dao.ParceiroDAO;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JDialog;
@@ -20,7 +21,7 @@ import modelo.Parceiro;
  * @author akiot
  */
 public class AgendamentoVisao extends JDialog {
-
+    
     private final ParceiroDAO parceiroDAO;
     private List<Parceiro> parceiros;
     private final AgendamentoDAO agendamentoDAO;
@@ -37,7 +38,7 @@ public class AgendamentoVisao extends JDialog {
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
     }
-
+    
     AgendamentoVisao(Caixa caixaAberto, Date date) {
         initComponents();
         jDateChooserDataAgendamento.setDate(date);
@@ -45,28 +46,30 @@ public class AgendamentoVisao extends JDialog {
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
         this.caixaAberto = caixaAberto;
-
+        
     }
-
+    
     AgendamentoVisao(Caixa caixaAberto, Agendamento agendamento) {
         initComponents();
         jDateChooserDataAgendamento.setDate(agendamento.getDataagendamento());
+        jComboBoxHorario.setSelectedItem(""+agendamento.getDataagendamento().getHours());
         jComboBoxHorario.setEnabled(false);
         
         parceiroDAO = new ParceiroDAO();
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
-        jComboBoxHorario.setSelectedItem(agendamento.getHorario());
+        jDateChooserDataAgendamento.setEnabled(false);
+        
         this.caixaAberto = caixaAberto;
         agendamentoNovo = agendamento;
-
+        
     }
-
+    
     private void atualizaParceiros(List<Parceiro> parceiros) {
         String str = null;
-
+        
         for (int i = 0; i < parceiros.size(); i++) {
-
+            
             str = (String) parceiros.get(i).getNome();
             jComboBoxParceiro.addItem(str);
         }
@@ -115,11 +118,13 @@ public class AgendamentoVisao extends JDialog {
 
         jTextFieldEndereco.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
 
+        jDateChooserDataAgendamento.setForeground(new java.awt.Color(204, 0, 51));
         jDateChooserDataAgendamento.setDateFormatString("dd/MM/yy");
         jDateChooserDataAgendamento.setFont(new java.awt.Font("Segoe UI Symbol", 0, 24)); // NOI18N
+        jDateChooserDataAgendamento.setOpaque(false);
 
         jComboBoxHorario.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
-        jComboBoxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" }));
+        jComboBoxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17" }));
 
         jButtonAgendar.setFont(new java.awt.Font("Raleway", 1, 18)); // NOI18N
         jButtonAgendar.setText("Agendar");
@@ -315,138 +320,143 @@ public class AgendamentoVisao extends JDialog {
             novoagendamento.setCliente(null);
         } // Criar novo cliente e fazer a busca com DAO de acordo com o valor do jtext.
         else {
-
+            
         }
         novoagendamento.setDataagendamento(jDateChooserDataAgendamento.getDate());
-
+        
         if (jComboBoxTipoVeiculo.getSelectedItem() != "Selecione") {
             novoagendamento.setTipoveiculo(jComboBoxTipoVeiculo.getSelectedItem().toString());
         } else {
-
+            
         }
-        novoagendamento.setHorario("" + jComboBoxHorario.getSelectedItem());
+
+// Verifica se foi selecionado algum horario, caso sim, altera somente o horário no date.
+        if (jComboBoxHorario.getSelectedItem() != "Selecione") {
+            novoagendamento.getDataagendamento().setHours(Integer.parseInt("" + jComboBoxHorario.getSelectedItem()));
+        }
+        
         novoagendamento.setEndereco(jTextFieldEndereco.getText());
         novoagendamento.setObservacao(jTextAreaObserv.getText());
         novoagendamento.setCaixa(caixaAberto);
         novoagendamento.setTelefone(jTextFieldTelefone.getText());
-       
+
 // Se não receber o código por parametro, ou seja, não existe agendamento para o dia.
-        if (agendamentoNovo==null) {
-
+        if (agendamentoNovo == null) {
+            
             switch (jComboBoxHorario.getSelectedItem().toString()) {
-                case "08:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "8":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "09:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "9":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "10:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "10":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "11:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "11":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "12:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "12":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "13:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "13":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "14:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "14":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "15:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "15":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "16:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "17:00");
+                case "16":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
                     break;
-                case "17:00":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "08:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "09:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "10:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "11:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "12:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "13:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "14:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "15:00");
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), "16:00");
+                case "17":
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
                     break;
-
+                
             }
-
+            
         } // Existe agendamento marcado no dia.
         else {
             novoagendamento.setCodigo(agendamentoNovo.getCodigo());
@@ -455,14 +465,16 @@ public class AgendamentoVisao extends JDialog {
         JOptionPane.showMessageDialog(null, "O agendamento foi salvo!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }//GEN-LAST:event_jButtonAgendarActionPerformed
-
-    private void agendaVazia(Date date, String horario) {
+    
+    private void agendaVazia(Date date, int horario) {
+        date.setHours(horario);
+        date.setMinutes(0);
+        
         Agendamento novoagendamento = new Agendamento();
         novoagendamento.setParceiro(null);
         novoagendamento.setCliente(null);
         novoagendamento.setDataagendamento(date);
         novoagendamento.setEndereco(null);
-        novoagendamento.setHorario(horario);
         novoagendamento.setCaixa(null);
         novoagendamento.setObservacao("");
         novoagendamento.setTipoveiculo(null);
