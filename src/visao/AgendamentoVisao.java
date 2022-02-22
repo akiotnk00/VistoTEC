@@ -307,6 +307,7 @@ public class AgendamentoVisao extends JDialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxHorario, jComboBoxParceiro, jComboBoxTipoVeiculo, jTextField3, jTextFieldEndereco, jTextFieldTelefone});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgendarActionPerformed
