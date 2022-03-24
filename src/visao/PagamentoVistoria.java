@@ -6,6 +6,7 @@
 package visao;
 
 import dao.PagamentoDAO;
+import dao.VistoriaDAO;
 import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -17,9 +18,9 @@ import modelo.Vistoria;
  * @author akiot
  */
 public class PagamentoVistoria extends JDialog {
-
-    private final PagamentoDAO pagamentoDAO;
-
+    
+    private final VistoriaDAO vistoriaDAO;
+    
     private Vistoria vistoriasalva;
 
     /**
@@ -27,17 +28,17 @@ public class PagamentoVistoria extends JDialog {
      */
     public PagamentoVistoria() {
         initComponents();
-        pagamentoDAO = new PagamentoDAO();
-
+        vistoriaDAO = new VistoriaDAO();
+        
     }
-
+    
     public PagamentoVistoria(Vistoria get) {
         initComponents();
         System.out.println(get.toString());
         jTextFieldID.setText("" + get.getId());
         jTextFieldPlaca.setText("" + get.getVeiculo().getPlaca());
         jTextFieldNomeCliente.setText("" + get.getCliente().getNome());
-        pagamentoDAO = new PagamentoDAO();
+        vistoriaDAO = new VistoriaDAO();
         vistoriasalva = get;
         
     }
@@ -179,6 +180,7 @@ public class PagamentoVistoria extends JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButtonPixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPixActionPerformed
@@ -188,7 +190,7 @@ public class PagamentoVistoria extends JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Pagamento novopagamento = new Pagamento();
         novopagamento.setDatapagamento(new Date());
-
+        
         if (jRadioButtonDinheiro.isSelected()) {
             novopagamento.setFormapagamento("Dinheiro");
         }
@@ -198,12 +200,12 @@ public class PagamentoVistoria extends JDialog {
         if (jRadioButtonTransferencia.isSelected()) {
             novopagamento.setFormapagamento("Transferencia Bancaria");
         }
-
+        
         novopagamento.setValorcobrado(Double.parseDouble(jTextFieldValorPago.getText()));
-        novopagamento.setVistoria(vistoriasalva);
-        pagamentoDAO.merge(novopagamento);
+        vistoriasalva.setPagamento(novopagamento);
+        vistoriaDAO.merge(vistoriasalva);
         JOptionPane.showMessageDialog(null, "Pagamento confirmado!");
-
+        
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

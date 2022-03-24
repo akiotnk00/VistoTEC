@@ -41,7 +41,7 @@ public class Pagamento implements Serializable{
     @Column(name = "valorcobrado")
     private Double valorcobrado;
     
-    @OneToOne
+    @OneToOne(mappedBy="pagamento")
     @JoinColumn(name = "vistoria", nullable = true)
     private Vistoria vistoria;
 
@@ -77,8 +77,6 @@ public class Pagamento implements Serializable{
         this.valorcobrado = valorcobrado;
     }
 
-
-
     public Vistoria getVistoria() {
         return vistoria;
     }
@@ -86,6 +84,8 @@ public class Pagamento implements Serializable{
     public void setVistoria(Vistoria vistoria) {
         this.vistoria = vistoria;
     }
+
+   
     
     
 }

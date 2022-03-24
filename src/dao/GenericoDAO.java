@@ -5,7 +5,6 @@
  */
 package dao;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,7 +25,7 @@ public abstract class GenericoDAO<T> {
         emf = Persistence.createEntityManagerFactory("deltaSysPU");
     }
 
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 

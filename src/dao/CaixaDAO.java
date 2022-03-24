@@ -15,25 +15,23 @@ import modelo.Caixa;
  * @author akiot
  */
 public class CaixaDAO extends GenericoDAO<Caixa> {
-    
+
     public CaixaDAO() {
         super(Caixa.class);
     }
 
-     
-     public List<Caixa> findByCodigo(String codigo) {
+    public List<Caixa> findByCodigo(String codigo) {
         EntityManager em = getEntityManager();
         TypedQuery<Caixa> query = em.createQuery("Select c FROM Caixa c WHERE d LIKE :codigo ORDER BY codigo", Caixa.class);
         query.setParameter("codigo", "%" + codigo + "%");
         return query.getResultList();
     }
-     
-     
-     public List<Caixa> ultimasAberturas() {
+
+    public List<Caixa> ultimasAberturas() {
         EntityManager em = getEntityManager();
         TypedQuery<Caixa> query = em.createQuery("Select c FROM Caixa c ORDER BY c.codigo DESC", Caixa.class);
         query.setMaxResults(5);
         return query.getResultList();
     }
-     
+
 }

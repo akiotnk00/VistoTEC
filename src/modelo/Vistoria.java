@@ -64,7 +64,7 @@ public class Vistoria implements Serializable {
     @JoinColumn(name = "caixa", nullable = false)
     private Caixa caixa = new Caixa();   
 
-    @OneToOne(mappedBy="Vistoria")
+    @OneToOne
     @JoinColumn(name = "pagamento", nullable = true)
     private Pagamento pagamento;
     

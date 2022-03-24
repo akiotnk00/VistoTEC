@@ -47,6 +47,22 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
         return query.getResultList();
     }
 
+    // Busca de Vistoria por Caixa
+    public List<Vistoria> findByCaixa(Long codigo) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.caixa.codigo = :codigo", Vistoria.class);
+        query.setParameter("codigo", codigo);
+        return query.getResultList();
+    }
+
+// Busca de Vistoria por Caixa e Vistoria Paga
+    public List<Vistoria> findByCaixaPago(String codigo) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Vistoria> query = em.createQuery("Select v FROM Vistoria v WHERE v.caixa.codigo = :codigo and v.pagamento.formapagamento = 'dinheiro'", Vistoria.class);
+        query.setParameter("codigo", codigo);
+        return query.getResultList();
+    }
+
     // Busca de Vistoria por CPF
     public Vistoria findByCpf(String cpf) {
         EntityManager em = getEntityManager();
@@ -70,8 +86,7 @@ public class VistoriaDAO extends GenericoDAO<Vistoria> {
         query.setParameter("df", c.getTime(), TemporalType.TIMESTAMP);
         return query.getResultList();
     }
-    
-    
+
     // Busca Todos em ordem decrescente pelo codigo
     public List<Vistoria> findAllOrder() {
         EntityManager em = getEntityManager();

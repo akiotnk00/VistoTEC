@@ -12,6 +12,7 @@ package visao;
  */
 import dao.AgendamentoDAO;
 import dao.CaixaDAO;
+import dao.ContaAPagarDAO;
 import dao.VistoriaDAO;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
@@ -34,6 +35,7 @@ import modelo.Vistoria;
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     private final CaixaDAO caixaDAO;
+     private final ContaAPagarDAO contaapagarDAO;
     private final VistoriaDAO vistoriaDAO;
     private List<Vistoria> vistorias;
     private List<Agendamento> agendamentos;
@@ -44,12 +46,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPrincipal
      */
+    // Abertura da janela para testes.
     public JanelaPrincipal() {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         vistoriaDAO = new VistoriaDAO();
         caixaDAO = new CaixaDAO();
         agendamentoDAO = new AgendamentoDAO();
+        contaapagarDAO = new ContaAPagarDAO();
         atualizaTabela(vistoriaDAO.findAllOrder());
         bloqueiaTudo();
 
@@ -64,12 +68,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
     }
 
+    // Quando é feito o login corretamente.
     public JanelaPrincipal(Usuario usuario) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
         usuariologado = usuario;
         vistoriaDAO = new VistoriaDAO();
+        contaapagarDAO = new ContaAPagarDAO();
         agendamentoDAO = new AgendamentoDAO();
         caixaDAO = new CaixaDAO();
         atualizaTabela(vistoriaDAO.findAllOrder());
@@ -135,7 +141,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     jLabelStatusCaixa.setForeground(Color.green);
 
                     // Coloca o valor inicial na tela.
-                    jLabelSaldo.setText("R$" + String.format("%.2f", caixaAberto.getValorinicial()));
+                    jLabelSaldo.setText("R$" + String.format("%.2f", retornaTotal(caixaAberto)));
 
                     // Libera os botões da janela principal.
                     liberaTudo();
@@ -143,6 +149,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
+
+        // Verifica se existem contas a vencer hoje.
+        if(!contaapagarDAO.findByData(new Date()).isEmpty()){
+            JOptionPane.showMessageDialog(null, "Existem contas a vencer hoje!");
+        }
+        
     }
 
     /**
@@ -192,6 +204,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButtonAbrirFechar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabelUltimasVistorias = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabelTotalVistoriasHoje = new javax.swing.JLabel();
@@ -558,7 +571,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -574,9 +587,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(15, 15, 15)
                         .addComponent(jLabelAgendamentosBusca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -610,6 +623,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButtonAbrirFechar.setFont(new java.awt.Font("Raleway", 1, 18)); // NOI18N
         jButtonAbrirFechar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAbrirFechar.setText("Abrir caixa");
+        jButtonAbrirFechar.setFocusable(false);
         jButtonAbrirFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAbrirFecharActionPerformed(evt);
@@ -640,6 +654,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton1.setText("Ver Caixa");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -657,17 +673,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(419, 419, 419)
                                 .addComponent(jButton4)
-                                .addGap(0, 480, Short.MAX_VALUE))
+                                .addGap(0, 512, Short.MAX_VALUE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jButtonUsuarios2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonNovaVistoria)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonAbrirFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(24, 24, 24)))))
                         .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
@@ -676,7 +696,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonUsuarios2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonNovaVistoria, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -690,13 +710,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jButton4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(jPanelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanelSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jButtonAbrirFechar)))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabelStatusCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAbrirFechar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
 
@@ -709,7 +730,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabel4.setText("Total de Vistorias Hoje");
 
         jLabelTotalVistoriasHoje.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTotalVistoriasHoje.setFont(new java.awt.Font("RohnRounded-Black", 1, 48)); // NOI18N
+        jLabelTotalVistoriasHoje.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabelTotalVistoriasHoje.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTotalVistoriasHoje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTotalVistoriasHoje.setText("0");
@@ -727,10 +748,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelTotalVistoriasHoje, javax.swing.GroupLayout.PREFERRED_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(jLabelTotalVistoriasHoje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -764,7 +785,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
                 .addComponent(jPanelLogadoComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -774,6 +795,30 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+ // Verifica as contas
+
+    // Retorna o valor total das movimentações do caixa.
+    private double retornaTotal(Caixa caixa) {
+
+        // Pega o valor inicial do caixa.
+        double total = caixa.getValorinicial();
+
+        List<Vistoria> listaVistorias;
+        listaVistorias = vistoriaDAO.findByCaixa(caixa.getCodigo());
+
+        for (Vistoria v : listaVistorias) {
+            // Verifica se existe o pagamento na vistoria.
+            if (v.getPagamento() != null) {
+
+                // Verifica se o pagamento foi em dinheiro.
+                if (v.getPagamento().getFormapagamento().equals("Dinheiro")) {
+                    total = total + v.getPagamento().getValorcobrado();
+                }
+            }
+        }
+
+        return total;
+    }
 
     private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
         ClienteVisao frame = new ClienteVisao();
@@ -795,6 +840,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         atualizaTabela(vistoriaDAO.findAllOrder());
         jLabelTotalVistoriasHoje.setText("" + vistoriaDAO.findByData(new Date()).size());
+        jLabelSaldo.setText("R$" + String.format("%.2f", retornaTotal(caixaAberto)));
     }//GEN-LAST:event_jButtonVistoriasActionPerformed
 
     private void jButtonParceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonParceirosActionPerformed
@@ -810,6 +856,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         atualizaTabela(vistoriaDAO.findAllOrder());
         jLabelTotalVistoriasHoje.setText("" + vistoriaDAO.findByData(new Date()).size());
+        jLabelSaldo.setText("R$" + String.format("%.2f", retornaTotal(caixaAberto)));
     }//GEN-LAST:event_jButtonNovaVistoriaActionPerformed
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
@@ -827,7 +874,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonFinanceiroActionPerformed
 
     private void jButtonRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRelatoriosActionPerformed
-        JOptionPane.showMessageDialog(null, "Aguarde... Em breve.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        RelatorioVisao frame = new RelatorioVisao();
+        frame.setModal(true);
+        frame.setVisible(true);
+        atualizaTabela(vistoriaDAO.findAllOrder());
     }//GEN-LAST:event_jButtonRelatoriosActionPerformed
 
     private void jButtonAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgendamentosActionPerformed
@@ -1134,6 +1184,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonAbrirFechar;
     private javax.swing.JButton jButtonAgendamentos;
