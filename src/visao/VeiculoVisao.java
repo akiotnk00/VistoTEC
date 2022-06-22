@@ -27,7 +27,7 @@ public class VeiculoVisao extends JDialog {
      */
     public VeiculoVisao() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         veiculoDAO = new VeiculoDAO();
 
         PainelComAbas.setEnabledAt(1, false);
@@ -36,7 +36,7 @@ public class VeiculoVisao extends JDialog {
 
     VeiculoVisao(String b) {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         veiculoDAO = new VeiculoDAO();
         txtPlaca.setText(b);
         PainelComAbas.setSelectedIndex(1);
@@ -127,8 +127,9 @@ public class VeiculoVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 153));
+        jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +148,7 @@ public class VeiculoVisao extends JDialog {
 
         jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/carro_novo.png"))); // NOI18N
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +158,7 @@ public class VeiculoVisao extends JDialog {
 
         jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/editar_icone.png"))); // NOI18N
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +173,7 @@ public class VeiculoVisao extends JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextFieldCampoPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,18 +198,20 @@ public class VeiculoVisao extends JDialog {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton9)
                         .addComponent(jButton2))
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxOpPesquisa, jTextFieldCampoPesquisa});
 
-        PainelComAbas.addTab("Veiculos", jPanel2);
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton2, jButton8, jButton9});
+
+        PainelComAbas.addTab("Veiculos", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/carro.png")), jPanel2); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -283,11 +288,12 @@ public class VeiculoVisao extends JDialog {
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_icone.png"))); // NOI18N
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +303,7 @@ public class VeiculoVisao extends JDialog {
 
         jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/voltar_icone.png"))); // NOI18N
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,8 +311,9 @@ public class VeiculoVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(0, 102, 153));
+        jButton7.setBackground(new java.awt.Color(255, 0, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,15 +352,17 @@ public class VeiculoVisao extends JDialog {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
-        PainelComAbas.addTab("Formulário", jPanel1);
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton5, jButton6, jButton7});
+
+        PainelComAbas.addTab("Formulário", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/formulario.png")), jPanel1); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,7 +405,7 @@ public class VeiculoVisao extends JDialog {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha o campo de pesquisa!", "Alerta", JOptionPane.WARNING_MESSAGE);
+            atualizaTabela(veiculoDAO.findAll());
             jTextFieldCampoPesquisa.requestFocus();
         }
     }//GEN-LAST:event_jButton3ActionPerformed

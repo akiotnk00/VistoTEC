@@ -15,16 +15,22 @@ import modelo.Movimentacao;
  * @author akiot
  */
 public class MovimentacaoDAO extends GenericoDAO<Movimentacao> {
-    
+
     public MovimentacaoDAO() {
         super(Movimentacao.class);
     }
 
-    
-     public List<Movimentacao> findByCodigo(String codigo) {
+    public List<Movimentacao> findByCodigo(String codigo) {
         EntityManager em = getEntityManager();
         TypedQuery<Movimentacao> query = em.createQuery("Select d FROM Movimentacao d WHERE d LIKE :codigo", Movimentacao.class);
         query.setParameter("codigo", "%" + codigo + "%");
+        return query.getResultList();
+    }
+
+    public List<Movimentacao> findByCodigoCaixa(Long codigocaixa) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Movimentacao> query = em.createQuery("Select m FROM Movimentacao m WHERE m.caixa.codigo = :codigocaixa", Movimentacao.class);
+        query.setParameter("codigocaixa", codigocaixa);
         return query.getResultList();
     }
 }

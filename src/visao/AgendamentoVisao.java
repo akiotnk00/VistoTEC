@@ -10,10 +10,12 @@ import dao.ParceiroDAO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.Agendamento;
 import modelo.Caixa;
+import modelo.Cliente;
 import modelo.Parceiro;
 
 /**
@@ -21,55 +23,59 @@ import modelo.Parceiro;
  * @author akiot
  */
 public class AgendamentoVisao extends JDialog {
-    
+
     private final ParceiroDAO parceiroDAO;
     private List<Parceiro> parceiros;
     private final AgendamentoDAO agendamentoDAO;
     private List<Agendamento> agendamentos;
     private Caixa caixaAberto;
     private Agendamento agendamentoNovo;
+    private Cliente clienteSelecionado;
 
     /**
      * Creates new form AgendamentoVisao
      */
     public AgendamentoVisao() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         parceiroDAO = new ParceiroDAO();
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
     }
-    
+
     AgendamentoVisao(Caixa caixaAberto, Date date) {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         jDateChooserDataAgendamento.setDate(date);
         parceiroDAO = new ParceiroDAO();
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
         this.caixaAberto = caixaAberto;
-        
+
     }
-    
+
     AgendamentoVisao(Caixa caixaAberto, Agendamento agendamento) {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         jDateChooserDataAgendamento.setDate(agendamento.getDataagendamento());
-        jComboBoxHorario.setSelectedItem(""+agendamento.getDataagendamento().getHours());
+        jComboBoxHorario.setSelectedItem("" + agendamento.getDataagendamento().getHours());
         jComboBoxHorario.setEnabled(false);
-        
+
         parceiroDAO = new ParceiroDAO();
         agendamentoDAO = new AgendamentoDAO();
         atualizaParceiros(parceiroDAO.findAll());
         jDateChooserDataAgendamento.setEnabled(false);
-        
+
         this.caixaAberto = caixaAberto;
         agendamentoNovo = agendamento;
-        
+
     }
-    
+
     private void atualizaParceiros(List<Parceiro> parceiros) {
         String str = null;
-        
+
         for (int i = 0; i < parceiros.size(); i++) {
-            
+
             str = (String) parceiros.get(i).getNome();
             jComboBoxParceiro.addItem(str);
         }
@@ -84,7 +90,7 @@ public class AgendamentoVisao extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldNomeCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldEndereco = new javax.swing.JTextField();
         jDateChooserDataAgendamento = new com.toedter.calendar.JDateChooser();
@@ -99,19 +105,18 @@ public class AgendamentoVisao extends JDialog {
         jComboBoxTipoVeiculo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jRadioButtonSemCadastro = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jButton4 = new javax.swing.JButton();
+        jRadioButtonCliente = new javax.swing.JRadioButton();
         jRadioButtonSemParceiro = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButtonParceiro = new javax.swing.JRadioButton();
         jComboBoxParceiro = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldTelefone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Agendamento");
+        setTitle("VistoTEC - Agendamento");
 
-        jTextField3.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
+        jTextFieldNomeCliente.setFont(new java.awt.Font("Raleway", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         jLabel4.setText("Endereço:");
@@ -137,6 +142,7 @@ public class AgendamentoVisao extends JDialog {
         jButtonCancelar.setBackground(new java.awt.Color(255, 0, 0));
         jButtonCancelar.setFont(new java.awt.Font("Raleway", 1, 18)); // NOI18N
         jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
 
         jLabel5.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
@@ -161,19 +167,36 @@ public class AgendamentoVisao extends JDialog {
         jRadioButtonSemCadastro.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         jRadioButtonSemCadastro.setSelected(true);
         jRadioButtonSemCadastro.setText("Sem cadastro");
+        jRadioButtonSemCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSemCadastroActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
-        jRadioButton2.setText("Cliente:");
-
-        jButton4.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
-        jButton4.setText("OK");
+        jRadioButtonCliente.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
+        jRadioButtonCliente.setText("Cliente:");
+        jRadioButtonCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonClienteActionPerformed(evt);
+            }
+        });
 
         jRadioButtonSemParceiro.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         jRadioButtonSemParceiro.setSelected(true);
         jRadioButtonSemParceiro.setText("Sem parceiro");
+        jRadioButtonSemParceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSemParceiroActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
-        jRadioButton4.setText("Parceiro:");
+        jRadioButtonParceiro.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
+        jRadioButtonParceiro.setText("Parceiro:");
+        jRadioButtonParceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonParceiroActionPerformed(evt);
+            }
+        });
 
         jComboBoxParceiro.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         jComboBoxParceiro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum" }));
@@ -194,35 +217,29 @@ public class AgendamentoVisao extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButtonSemCadastro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButtonCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                                .addComponent(jButtonAgendar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBoxTipoVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxHorario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonAgendar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonCancelar)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxHorario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -234,18 +251,22 @@ public class AgendamentoVisao extends JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jRadioButtonSemCadastro)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldNomeCliente))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jRadioButtonSemParceiro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton4)
+                                .addComponent(jRadioButtonParceiro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxParceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(27, 27, 27))
+                                .addComponent(jComboBoxParceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldEndereco)
-                                .addGap(11, 11, 11)))
-                        .addGap(24, 24, 24))
+                                .addComponent(jTextFieldEndereco)))
+                        .addGap(35, 35, 35))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,13 +285,12 @@ public class AgendamentoVisao extends JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonSemCadastro)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(jRadioButtonCliente)
+                    .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonSemParceiro)
-                    .addComponent(jRadioButton4)
+                    .addComponent(jRadioButtonParceiro)
                     .addComponent(jComboBoxParceiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -280,7 +300,7 @@ public class AgendamentoVisao extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -291,9 +311,9 @@ public class AgendamentoVisao extends JDialog {
                             .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonAgendar)
-                            .addComponent(jButtonCancelar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAgendar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
@@ -304,7 +324,7 @@ public class AgendamentoVisao extends JDialog {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDateChooserDataAgendamento, jLabel3, jLabel8});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxHorario, jComboBoxParceiro, jComboBoxTipoVeiculo, jTextField3, jTextFieldEndereco, jTextFieldTelefone});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxHorario, jComboBoxParceiro, jComboBoxTipoVeiculo, jTextFieldEndereco, jTextFieldNomeCliente, jTextFieldTelefone});
 
         pack();
         setLocationRelativeTo(null);
@@ -321,156 +341,188 @@ public class AgendamentoVisao extends JDialog {
             novoagendamento.setCliente(null);
         } // Criar novo cliente e fazer a busca com DAO de acordo com o valor do jtext.
         else {
-            
+            novoagendamento.setCliente(clienteSelecionado);
         }
         novoagendamento.setDataagendamento(jDateChooserDataAgendamento.getDate());
-        
+
         if (jComboBoxTipoVeiculo.getSelectedItem() != "Selecione") {
             novoagendamento.setTipoveiculo(jComboBoxTipoVeiculo.getSelectedItem().toString());
-        } else {
-            
-        }
 
-// Verifica se foi selecionado algum horario, caso sim, altera somente o horário no date.
-        if (jComboBoxHorario.getSelectedItem() != "Selecione") {
-            novoagendamento.getDataagendamento().setHours(Integer.parseInt("" + jComboBoxHorario.getSelectedItem()));
-        }
-        
-        novoagendamento.setEndereco(jTextFieldEndereco.getText());
-        novoagendamento.setObservacao(jTextAreaObserv.getText());
-        novoagendamento.setCaixa(caixaAberto);
-        novoagendamento.setTelefone(jTextFieldTelefone.getText());
+            // Verifica se foi selecionado algum horario, caso sim, altera somente o horário no date.
+            if (jComboBoxHorario.getSelectedItem() != "Selecione") {
+                novoagendamento.getDataagendamento().setHours(Integer.parseInt("" + jComboBoxHorario.getSelectedItem()));
 
-// Se não receber o código por parametro, ou seja, não existe agendamento para o dia.
-        if (agendamentoNovo == null) {
-            
-            switch (jComboBoxHorario.getSelectedItem().toString()) {
-                case "8":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "9":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "10":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "11":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "12":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "13":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "14":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "15":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "16":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
-                    break;
-                case "17":
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
-                    agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
-                    break;
-                
+                novoagendamento.setEndereco(jTextFieldEndereco.getText());
+                novoagendamento.setObservacao(jTextAreaObserv.getText());
+                novoagendamento.setCaixa(caixaAberto);
+                novoagendamento.setTelefone(jTextFieldTelefone.getText());
+
+                // Se não receber o código por parametro, ou seja, não existe agendamento para o dia.
+                if (agendamentoNovo == null) {
+
+                    switch (jComboBoxHorario.getSelectedItem().toString()) {
+                        case "8":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "9":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "10":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "11":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "12":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "13":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "14":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "15":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "16":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 17);
+                            break;
+                        case "17":
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 8);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 9);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 10);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 11);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 12);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 13);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 14);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 15);
+                            agendaVazia(jDateChooserDataAgendamento.getDate(), 16);
+                            break;
+
+                    }
+
+                } // Existe agendamento marcado no dia.
+                else {
+                    novoagendamento.setCodigo(agendamentoNovo.getCodigo());
+                }
+                agendamentoDAO.merge(novoagendamento);
+                JOptionPane.showMessageDialog(null, "O agendamento foi salvo!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Favor selecionar um horário!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-        } // Existe agendamento marcado no dia.
-        else {
-            novoagendamento.setCodigo(agendamentoNovo.getCodigo());
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor selecionar o tipo do veiculo!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
         }
-        agendamentoDAO.merge(novoagendamento);
-        JOptionPane.showMessageDialog(null, "O agendamento foi salvo!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
+
+
     }//GEN-LAST:event_jButtonAgendarActionPerformed
-    
+
+    private void jRadioButtonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonClienteActionPerformed
+        jRadioButtonSemCadastro.setSelected(false);
+
+        SelecionarClienteVisao scv = new SelecionarClienteVisao();
+        scv.setModal(true);
+        scv.setVisible(true);
+
+        if (scv.clienteSelecionado != null) {
+            clienteSelecionado = scv.clienteSelecionado;
+            jTextFieldNomeCliente.setText(clienteSelecionado.getNome());
+        }
+    }//GEN-LAST:event_jRadioButtonClienteActionPerformed
+
+    private void jRadioButtonSemCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemCadastroActionPerformed
+        jRadioButtonCliente.setSelected(false);
+        jTextFieldNomeCliente.setText("");
+    }//GEN-LAST:event_jRadioButtonSemCadastroActionPerformed
+
+    private void jRadioButtonParceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonParceiroActionPerformed
+        jRadioButtonSemParceiro.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonParceiroActionPerformed
+
+    private void jRadioButtonSemParceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemParceiroActionPerformed
+        jRadioButtonParceiro.setSelected(false);
+        jComboBoxParceiro.setSelectedIndex(0);
+    }//GEN-LAST:event_jRadioButtonSemParceiroActionPerformed
+
     private void agendaVazia(Date date, int horario) {
         date.setHours(horario);
         date.setMinutes(0);
-        
+
         Agendamento novoagendamento = new Agendamento();
         novoagendamento.setParceiro(null);
         novoagendamento.setCliente(null);
@@ -496,16 +548,24 @@ public class AgendamentoVisao extends JDialog {
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgendamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgendamentoVisao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgendamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgendamentoVisao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgendamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgendamentoVisao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgendamentoVisao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgendamentoVisao.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -518,7 +578,6 @@ public class AgendamentoVisao extends JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonAgendar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JComboBox<String> jComboBoxHorario;
@@ -532,14 +591,14 @@ public class AgendamentoVisao extends JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButtonCliente;
+    private javax.swing.JRadioButton jRadioButtonParceiro;
     private javax.swing.JRadioButton jRadioButtonSemCadastro;
     private javax.swing.JRadioButton jRadioButtonSemParceiro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaObserv;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextFieldEndereco;
+    private javax.swing.JTextField jTextFieldNomeCliente;
     private javax.swing.JTextField jTextFieldTelefone;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         usuarioDAO = new UsuarioDAO();     
         novoUsuario();
         
@@ -83,7 +83,6 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Senha");
 
-        jButtonEnter.setBackground(new java.awt.Color(255, 255, 255));
         jButtonEnter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonEnter.setText("ENTRAR");
         jButtonEnter.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +107,7 @@ public class Login extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton2.setText("SAIR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

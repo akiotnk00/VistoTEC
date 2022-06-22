@@ -21,13 +21,14 @@ public class UsuarioVisao extends JDialog {
 
     private final UsuarioDAO usuarioDAO;
     private List<Usuario> lista;
+    Long salvaid;
 
     /**
      * Creates new form CadastroCliente
      */
     public UsuarioVisao() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         usuarioDAO = new UsuarioDAO();
 
         PainelComAbas.setEnabledAt(1, false);
@@ -52,6 +53,7 @@ public class UsuarioVisao extends JDialog {
         jButton2 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -66,8 +68,6 @@ public class UsuarioVisao extends JDialog {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextFieldID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VistoTEC - Usuarios");
@@ -114,8 +114,9 @@ public class UsuarioVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 153));
+        jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/deletar_icone.png"))); // NOI18N
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ public class UsuarioVisao extends JDialog {
 
         jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_usuario.png"))); // NOI18N
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,10 +136,21 @@ public class UsuarioVisao extends JDialog {
 
         jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/editar_icone.png"))); // NOI18N
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(255, 0, 51));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
+        jButton4.setText("Fechar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -157,8 +170,10 @@ public class UsuarioVisao extends JDialog {
                         .addComponent(jButton8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton4)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -170,18 +185,20 @@ public class UsuarioVisao extends JDialog {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton9)
-                        .addComponent(jButton2))
-                    .addComponent(jButton8))
-                .addGap(12, 12, 12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton3, jTextFieldCampoPesquisa});
 
-        PainelComAbas.addTab("Usuarios", jPanel2);
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton2, jButton4, jButton8, jButton9});
+
+        PainelComAbas.addTab("Usuarios", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/pessoa.png")), jPanel2); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -195,9 +212,20 @@ public class UsuarioVisao extends JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Senha");
 
+        jRadioButtonFuncionario.setSelected(true);
         jRadioButtonFuncionario.setText("Funcionario");
+        jRadioButtonFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonFuncionarioActionPerformed(evt);
+            }
+        });
 
         jRadioButtonAdministrador.setText("Administrador");
+        jRadioButtonAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAdministradorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -242,6 +270,7 @@ public class UsuarioVisao extends JDialog {
 
         jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_icone.png"))); // NOI18N
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +280,7 @@ public class UsuarioVisao extends JDialog {
 
         jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/voltar_icone.png"))); // NOI18N
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,8 +288,9 @@ public class UsuarioVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(0, 102, 153));
+        jButton7.setBackground(new java.awt.Color(255, 0, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,11 +301,6 @@ public class UsuarioVisao extends JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Cadastrar Usuario");
-
-        jLabel2.setText("ID");
-
-        jTextFieldID.setEnabled(false);
-        jTextFieldID.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -290,36 +316,30 @@ public class UsuarioVisao extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
-        PainelComAbas.addTab("Formulário", jPanel1);
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton5, jButton6, jButton7});
+
+        PainelComAbas.addTab("Formulário", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/formulario.png")), jPanel1); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -329,7 +349,7 @@ public class UsuarioVisao extends JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelComAbas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PainelComAbas, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -380,8 +400,8 @@ public class UsuarioVisao extends JDialog {
         u.setNome(txtNome.getText());
         u.setNomeusuario(txtUsuario.getText());
         u.setSenha(txtSenha.getText());
-        if(!"".equals(jTextFieldID.getText())){
-         u.setCodigo(Long.parseLong(jTextFieldID.getText()));
+        if(salvaid != null){
+         u.setCodigo(salvaid);
         }
         
         
@@ -424,7 +444,7 @@ public class UsuarioVisao extends JDialog {
                 txtNome.setText(u.getNome());
                 txtUsuario.setText(u.getNomeusuario());
                 txtSenha.setText(u.getSenha());
-                jTextFieldID.setText(String.valueOf(u.getCodigo()));
+                salvaid = u.getCodigo();
 
                 jLabel6.setText("Editar usuario");
                 PainelComAbas.setSelectedIndex(1);
@@ -447,10 +467,23 @@ public class UsuarioVisao extends JDialog {
         PainelComAbas.setSelectedIndex(0);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jRadioButtonFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFuncionarioActionPerformed
+        jRadioButtonAdministrador.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonFuncionarioActionPerformed
+
+    private void jRadioButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAdministradorActionPerformed
+        jRadioButtonFuncionario.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAdministradorActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void limparCampos() {
         txtNome.setText("");
         txtUsuario.setText("");
         txtSenha.setText("");
+        salvaid = null;
 
     }
 
@@ -536,13 +569,13 @@ public class UsuarioVisao extends JDialog {
     private javax.swing.JTabbedPane PainelComAbas;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -553,7 +586,6 @@ public class UsuarioVisao extends JDialog {
     private javax.swing.JRadioButton jRadioButtonFuncionario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldCampoPesquisa;
-    private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;

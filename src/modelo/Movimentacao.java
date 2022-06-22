@@ -36,10 +36,16 @@ public class Movimentacao implements Serializable {
     private Date data;
     
     @Column(name = "tipo")
-    private char tipo;
+    private String tipo;
+    
+    @Column(name = "descricao")
+    private String descricao;
     
     @Column(name = "valor")
     private Double valor;    
+    
+    @Column(name = "origem")
+    private String origem;
 
     @ManyToOne
     @JoinColumn(name = "caixa", nullable = false)
@@ -65,13 +71,15 @@ public class Movimentacao implements Serializable {
         this.data = data;
     }
 
-    public char getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+   
 
     public Double getValor() {
         return valor;
@@ -96,6 +104,22 @@ public class Movimentacao implements Serializable {
 
     public void setContaapagar(ContaAPagar contaapagar) {
         this.contaapagar = contaapagar;
+    }
+
+    public String getOrigem() {
+        return origem;
+    }
+
+    public void setOrigem(String origem) {
+        this.origem = origem;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
     

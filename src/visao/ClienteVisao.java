@@ -27,7 +27,7 @@ public class ClienteVisao extends JDialog {
      */
     public ClienteVisao() {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         clienteDAO = new ClienteDAO();
         PainelComAbas.setEnabledAt(1, false);
         atualizaTabela(clienteDAO.findAll());
@@ -35,7 +35,7 @@ public class ClienteVisao extends JDialog {
 
     ClienteVisao(String b) {
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("/icones/icones_pequenos/icone.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         clienteDAO = new ClienteDAO();
         txtCPF.setText(b);
         PainelComAbas.setSelectedIndex(1);
@@ -124,8 +124,9 @@ public class ClienteVisao extends JDialog {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 153));
+        jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +145,7 @@ public class ClienteVisao extends JDialog {
 
         jButton8.setBackground(new java.awt.Color(0, 102, 153));
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/novo_usuario.png"))); // NOI18N
         jButton8.setText("Novo");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +155,7 @@ public class ClienteVisao extends JDialog {
 
         jButton9.setBackground(new java.awt.Color(0, 102, 153));
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/editar_icone.png"))); // NOI18N
         jButton9.setText("Editar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +205,7 @@ public class ClienteVisao extends JDialog {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jTextFieldCampoPesquisa});
 
-        PainelComAbas.addTab("Clientes", jPanel2);
+        PainelComAbas.addTab("Clientes", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/pessoa.png")), jPanel2); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -293,6 +296,7 @@ public class ClienteVisao extends JDialog {
 
         jButton5.setBackground(new java.awt.Color(0, 102, 153));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/salvar_icone.png"))); // NOI18N
         jButton5.setText("Salvar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +306,7 @@ public class ClienteVisao extends JDialog {
 
         jButton6.setBackground(new java.awt.Color(0, 102, 153));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/voltar_icone.png"))); // NOI18N
         jButton6.setText("Limpar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,8 +314,9 @@ public class ClienteVisao extends JDialog {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(0, 102, 153));
+        jButton7.setBackground(new java.awt.Color(255, 0, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/close_icone.png"))); // NOI18N
         jButton7.setText("Cancelar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +354,7 @@ public class ClienteVisao extends JDialog {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
@@ -356,7 +362,7 @@ public class ClienteVisao extends JDialog {
                 .addGap(6, 6, 6))
         );
 
-        PainelComAbas.addTab("Formulário", jPanel1);
+        PainelComAbas.addTab("Formulário", new javax.swing.ImageIcon(getClass().getResource("/icones/icones_pretos/formulario.png")), jPanel1); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -383,7 +389,7 @@ public class ClienteVisao extends JDialog {
                 atualizaTabela(clientes);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha o campo de pesquisa!", "Alerta", JOptionPane.WARNING_MESSAGE);
+            atualizaTabela(clienteDAO.findAll());
             jTextFieldCampoPesquisa.requestFocus();
         }
     }//GEN-LAST:event_jButton3ActionPerformed

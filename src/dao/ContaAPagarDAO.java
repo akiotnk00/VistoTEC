@@ -45,4 +45,25 @@ public class ContaAPagarDAO extends GenericoDAO<ContaAPagar> {
         query.setParameter("df", c.getTime(), TemporalType.TIMESTAMP);
         return query.getResultList();
     }
+       
+       public List<ContaAPagar> findByDesc(String desc) {
+        EntityManager em = getEntityManager();
+        TypedQuery<ContaAPagar> query = em.createQuery("Select c FROM ContaAPagar c WHERE c.descricao LIKE :desc", ContaAPagar.class);
+        query.setParameter("desc", "%" + desc + "%");
+        return query.getResultList();
+    }
+       public List<ContaAPagar> findByValor(String valor) {
+        EntityManager em = getEntityManager();
+        TypedQuery<ContaAPagar> query = em.createQuery("Select c FROM ContaAPagar c WHERE c.valor LIKE :valor", ContaAPagar.class);
+        query.setParameter("valor", "%" + valor + "%");
+        return query.getResultList();
+    }
+       
+       public List<ContaAPagar> findBySit(String sit) {
+        EntityManager em = getEntityManager();
+        TypedQuery<ContaAPagar> query = em.createQuery("Select c FROM ContaAPagar c WHERE c.situacao LIKE :sit", ContaAPagar.class);
+        query.setParameter("sit", "%" + sit + "%");
+        return query.getResultList();
+    }
+       
 }

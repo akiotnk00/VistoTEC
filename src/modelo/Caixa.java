@@ -55,9 +55,6 @@ public class Caixa implements Serializable {
     private List<Vistoria> vistorias;
 
     @OneToMany(mappedBy = "Caixa")
-    private List<ContaAPagar> contas;
-
-    @OneToMany(mappedBy = "Caixa")
     private List<Agendamento> agendamentos;
 
     public long getCodigo() {
@@ -116,13 +113,6 @@ public class Caixa implements Serializable {
         this.vistorias = vistorias;
     }
 
-    public List<ContaAPagar> getContas() {
-        return contas;
-    }
-
-    public void setContas(List<ContaAPagar> contas) {
-        this.contas = contas;
-    }
 
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
