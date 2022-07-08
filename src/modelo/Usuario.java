@@ -31,13 +31,13 @@ public class Usuario implements Serializable {
     @Column(name = "codigo")
     private long codigo;
     
-    @Column (name = "nomeusuario")
+    @Column (name = "nomeusuario",length=20)
     private String nomeusuario;
     
-    @Column (name = "nome")
+    @Column (name = "nome",length=70)
     private String nome;
     
-    @Column(name = "senha")
+    @Column(name = "senha",length=30)
     private String senha;
     
     @Column (name = "nvacesso")

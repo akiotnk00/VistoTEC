@@ -2,27 +2,38 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="caixa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Key" uuid="bd1eaa73-e15b-43df-a7c4-b1ba4b66649f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<parameter name="filtro" class="java.lang.Long"/>
 	<queryString language="ejbql">
-		<![CDATA[SELECT v FROM Veiculo v WHERE v.modelo LIKE '%$P!{filtro}%' order by v.modelo]]>
+		<![CDATA[SELECT m FROM Movimentacao m WHERE m.caixa.codigo = $P{filtro}]]>
 	</queryString>
-	<field name="marca" class="java.lang.String">
-		<fieldDescription><![CDATA[marca]]></fieldDescription>
+	<field name="codigo" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
 	</field>
 	<field name="tipo" class="java.lang.String">
 		<fieldDescription><![CDATA[tipo]]></fieldDescription>
 	</field>
-	<field name="vistorias" class="java.util.List">
-		<fieldDescription><![CDATA[vistorias]]></fieldDescription>
+	<field name="caixa" class="modelo.Caixa">
+		<fieldDescription><![CDATA[caixa]]></fieldDescription>
 	</field>
-	<field name="cor" class="java.lang.String">
-		<fieldDescription><![CDATA[cor]]></fieldDescription>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
 	</field>
-	<field name="modelo" class="java.lang.String">
-		<fieldDescription><![CDATA[modelo]]></fieldDescription>
+	<field name="contaapagar" class="modelo.ContaAPagar">
+		<fieldDescription><![CDATA[contaapagar]]></fieldDescription>
 	</field>
-	<field name="placa" class="java.lang.String">
-		<fieldDescription><![CDATA[placa]]></fieldDescription>
+	<field name="origem" class="java.lang.String">
+		<fieldDescription><![CDATA[origem]]></fieldDescription>
 	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<variable name="somatotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
 	<background>
 		<band height="14" splitType="Stretch"/>
 	</background>
@@ -40,7 +51,7 @@
 				<textElement textAlignment="Center">
 					<font size="20"/>
 				</textElement>
-				<text><![CDATA[Veículos]]></text>
+				<text><![CDATA[Movimentações]]></text>
 			</staticText>
 			<textField pattern="d MMMM, yyyy">
 				<reportElement x="466" y="140" width="100" height="14" uuid="c9358003-730e-4ef0-992b-b23defe03cfe"/>
@@ -92,16 +103,40 @@
 				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="225" y="-17" width="40" height="17" uuid="80270003-9b2d-42dd-bdc7-2ae6af3469e8"/>
+				<reportElement x="301" y="81" width="99" height="14" uuid="dbff59b8-2e30-4a4e-8e43-7b961fc85a6d"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Filtro:]]></text>
+				<text><![CDATA[Caixa:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement x="273" y="-17" width="127" height="13" uuid="eda96b1d-ae4f-4658-9211-394aac8c30de"/>
+				<reportElement x="406" y="81" width="100" height="14" uuid="08d90cc5-d7a7-43e3-86a7-351bd856258b"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA["Sem filtro"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{caixa}.getCodigo()+" - "+$F{caixa}.getUsuario().getNomeusuario()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="302" y="97" width="99" height="14" uuid="4eb2cd83-b6cd-4d66-b36d-039206182547"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abertura:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="407" y="97" width="100" height="14" uuid="2b35de98-8b28-4856-ac09-c59e55b28d5b"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{caixa}.getAbertura()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="302" y="114" width="99" height="14" uuid="e1c69aa7-fd66-423e-90e0-00ba6cd07bb3"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fechamento:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="406" y="114" width="100" height="14" uuid="fc634c5e-1139-4679-bd14-7b3dc6884a65"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{caixa}.getFechamento()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -117,34 +152,25 @@
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[PLACA]]></text>
+				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="183" y="1" width="100" height="20" uuid="a2824f2d-a2f4-48f2-ba00-05abf7cb8fa6">
+				<reportElement x="178" y="1" width="100" height="20" uuid="a2824f2d-a2f4-48f2-ba00-05abf7cb8fa6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Modelo]]></text>
+				<text><![CDATA[Caixa-Usuário]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="1" width="100" height="20" uuid="c6ab09e4-3326-41c8-aad7-174abc24e1fa">
+				<reportElement x="480" y="0" width="100" height="20" uuid="c6ab09e4-3326-41c8-aad7-174abc24e1fa">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419c853d-2f1a-418c-9fc5-412c6613d325"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tipo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="462" y="1" width="100" height="20" uuid="54f95866-9986-4c58-9845-f9aa5feeaaca">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffead725-4771-47f5-aa92-d6f106b36665"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total de Vistorias]]></text>
+				<text><![CDATA[Origem]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="-11" y="17" width="580" height="3" backcolor="#053D7D" uuid="3683067b-22ee-47bf-b14c-64a52b8cdcb8"/>
@@ -153,22 +179,40 @@
 				<reportElement x="-11" y="-6" width="580" height="3" backcolor="#053D7D" uuid="9b856226-964b-4b81-a88f-e8fbe9057cd1"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="93" y="1" width="76" height="20" uuid="1e15e626-07ec-4503-a891-0e319e364d03">
+				<reportElement x="90" y="1" width="76" height="20" uuid="1e15e626-07ec-4503-a891-0e319e364d03">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e83b49c9-f132-4f61-9c52-d5fae1c580b5"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Marca]]></text>
+				<text><![CDATA[Descrição]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="1" width="100" height="20" uuid="595460d0-5e8d-47c5-962c-69af206728ad">
+				<reportElement x="327" y="0" width="100" height="20" uuid="595460d0-5e8d-47c5-962c-69af206728ad">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cor]]></text>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="100" height="20" uuid="0ddedcf2-574d-4e03-a9cb-2e231e068a99">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419c853d-2f1a-418c-9fc5-412c6613d325"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="1" width="100" height="20" uuid="604bb2d5-d44c-4534-b354-6d0c50ec56ca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -179,28 +223,21 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e83b49c9-f132-4f61-9c52-d5fae1c580b5"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="183" y="-5" width="100" height="20" uuid="89911bca-1cc3-443e-a6ee-f81fbe55581e">
+				<reportElement x="178" y="-7" width="100" height="20" uuid="89911bca-1cc3-443e-a6ee-f81fbe55581e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{caixa}.getUsuario().getNomeusuario()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="373" y="-5" width="100" height="20" uuid="e9d475d6-cf99-4e59-a7ad-6390a4d70198">
+				<reportElement x="480" y="-7" width="100" height="20" uuid="e9d475d6-cf99-4e59-a7ad-6390a4d70198">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419c853d-2f1a-418c-9fc5-412c6613d325"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="462" y="-5" width="100" height="20" uuid="ff4cd41b-f27d-40a6-9357-13ab929e43b3">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffead725-4771-47f5-aa92-d6f106b36665"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{vistorias}.size()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{origem}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="-11" y="13" width="580" height="2" backcolor="#DBDBDB" uuid="700fbe5b-5dd9-4cb1-9e8a-87088a5be7b0"/>
@@ -209,18 +246,32 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="93" y="-5" width="76" height="20" uuid="c08a70f8-e043-4d99-b2c1-3591a3f86417">
+				<reportElement x="90" y="-5" width="76" height="20" uuid="c08a70f8-e043-4d99-b2c1-3591a3f86417">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e83b49c9-f132-4f61-9c52-d5fae1c580b5"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="286" y="-5" width="100" height="20" uuid="85de8fcd-dd41-4aac-bdd9-f6dadf52e864">
+				<reportElement x="327" y="-7" width="100" height="20" uuid="85de8fcd-dd41-4aac-bdd9-f6dadf52e864">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{cor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="418" y="-6" width="100" height="20" uuid="7a2c2535-6d04-48b2-8168-8dff0a18e40c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="419c853d-2f1a-418c-9fc5-412c6613d325"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="-6" width="100" height="20" uuid="042a13f3-4166-4894-82af-0357bacf9d01">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0dc15750-d920-4835-8e5c-cd33d37def59"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -231,10 +282,22 @@
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="61" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<rectangle>
 				<reportElement x="-10" y="0" width="580" height="3" backcolor="#053D7D" uuid="5ea095d1-50b9-46e0-9557-b1eff5363c8a"/>
 			</rectangle>
+			<staticText>
+				<reportElement x="380" y="10" width="99" height="14" uuid="d750a26c-7276-4d8f-8c53-78a8b6d78bca"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total:]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="480" y="10" width="100" height="22" uuid="841c4a01-12e1-45ad-ac6c-ab29088537b8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{somatotal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

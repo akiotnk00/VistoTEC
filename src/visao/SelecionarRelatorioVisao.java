@@ -21,7 +21,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.is;
 
 /**
  *
@@ -37,6 +36,7 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/icones/vistotec-logo.png")).getImage());
         jLabelCampo.setText("");
         jTextFieldFiltro.setEnabled(false);
+        desativaCampoData(false);
     }
 
     /**
@@ -127,7 +127,7 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
         jLabelFiltro.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabelFiltro.setText("Relatório:");
 
-        jComboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Vistorias", "Clientes", "Veículos", "Parceiros", "Caixas" }));
+        jComboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Vistorias", "Clientes", "Veículos", "Parceiros", "Caixas", "Contas a Pagar", "Movimentações" }));
         jComboBoxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxFiltroActionPerformed(evt);
@@ -260,7 +260,8 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
         // Verifica a opção escolhida no filtro.
         jDateChooserDataInicial.setDate(null);
         jDateChooserDataFinal.setDate(null);
-        desativaCampoData(true);
+        jLabelCampo.setText("");
+        jTextFieldFiltro.setEnabled(false);
 
         switch (jComboBoxFiltro.getSelectedIndex()) {
             case 0:
@@ -269,40 +270,57 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                 jTextFieldFiltro.setText("");
                 jLabelCampo.setText("");
                 jTextFieldFiltro.setEnabled(false);
+                desativaCampoData(false);
 
                 break;
 
-            // Vistorias
+            // Vistorias   
             case 1:
-                // Preenche os dados no box 2.
-                jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Placa", "CPF", "Reprovadas", "Retornos", "Parceiro"}));
 
+                // Preenche os dados no box 2.
+                jComboBoxFiltro2.setEnabled(true);
+                jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Placa", "CPF", "Reprovadas", "Retornos", "Parceiro", "Caixa"}));
+                desativaCampoData(true);
                 break;
 
             // Clientes
             case 2:
-
+                jComboBoxFiltro2.setEnabled(true);
                 jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Nome", "CPF", "Telefone", "Cidade"}));
-                jDateChooserDataInicial.setEnabled(false);
-                jDateChooserDataFinal.setEnabled(false);
+
                 break;
 
             // Veiculos
             case 3:
-
+                jComboBoxFiltro2.setEnabled(true);
                 jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Placa", "Modelo"}));
+
                 break;
 
             // Parceiros
             case 4:
-
+                jComboBoxFiltro2.setEnabled(true);
                 jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Nome"}));
+
                 break;
 
             // Caixas
-            default:
-
+            case 5:
+                jComboBoxFiltro2.setEnabled(true);
                 jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Nome"}));
+
+                break;
+
+            // Contas a pagar 
+            case 6:
+                jComboBoxFiltro2.setEnabled(true);
+                jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Pagas", "Pendentes"}));
+                break;
+
+            // Movimentacoes
+            default:
+                jComboBoxFiltro2.setEnabled(true);
+                jComboBoxFiltro2.setModel(new DefaultComboBoxModel<>(new String[]{"Nenhum", "Caixa-Usuário", "Entrada", "Saida"}));
         }
 
     }//GEN-LAST:event_jComboBoxFiltroActionPerformed
@@ -345,36 +363,259 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
     }
 
     private void jComboBoxFiltro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFiltro2ActionPerformed
-        if (!"Nenhum".equals(jComboBoxFiltro2.getSelectedItem().toString()) && jComboBoxFiltro2.getSelectedItem().toString() != "Reprovadas" && jComboBoxFiltro2.getSelectedItem().toString() != "Retornos") {
-            jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
-            jTextFieldFiltro.setEnabled(true);
-        } else {
-            jTextFieldFiltro.setText("");
-            jLabelCampo.setText("");
-            jTextFieldFiltro.setEnabled(false);
+        jDateChooserDataInicial.setDate(null);
+        jDateChooserDataFinal.setDate(null);
+        jTextFieldFiltro.setText("");
+        jLabelCampo.setText("");
+
+        switch (jComboBoxFiltro.getSelectedIndex()) {
+
+            // Vistorias   
+            case 1:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(true);
+                        break;
+
+                    //Placa
+                    case 1:
+                        jTextFieldFiltro.setEnabled(true);
+                        desativaCampoData(false);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                    //CPF
+                    case 2:
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                    //Reprovadas
+                    case 3:
+                        jLabelCampo.setText("");
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(false);
+                        desativaCampoData(true);
+                        break;
+                    //Retornos
+                    case 4:
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        desativaCampoData(true);
+                        break;
+                    //Parceiros
+                    case 5:
+                        desativaCampoData(true);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                    //Caixas
+                    default:
+                        desativaCampoData(true);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+
+                }
+                break;
+
+            // Clientes
+            case 2:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Nome
+                    case 1:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                    //CPF
+                    case 2:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                    //Telefone
+                    case 3:
+
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+
+                    //Cidade
+                    default:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                }
+
+                break;
+
+            // Veiculos
+            case 3:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Placa
+                    case 1:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+
+                    //Modelo
+                    default:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                }
+
+                break;
+
+            // Parceiros
+            case 4:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Nome
+                    default:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                }
+
+                break;
+
+            // Caixas
+            case 5:
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Nome
+                    default:
+                        desativaCampoData(false);
+                        jTextFieldFiltro.setEnabled(true);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        break;
+                }
+
+                break;
+
+            // Contas a pagar 
+            case 6:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Pagas
+                    case 1:
+                        desativaCampoData(true);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Pendentes
+                    default:
+                        desativaCampoData(true);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+                }
+
+                break;
+
+            // Movimentacoes    
+            default:
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        desativaCampoData(true);
+                        break;
+
+                    //Usuário
+                    case 1:
+                        desativaCampoData(false);
+                        jLabelCampo.setText(jComboBoxFiltro2.getSelectedItem().toString());
+                        jTextFieldFiltro.setEnabled(true);
+                        break;
+
+                    //Entradas
+                    case 2:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+
+                    //Saídas
+                    default:
+                        desativaCampoData(false);
+                        jLabelCampo.setText("");
+                        jTextFieldFiltro.setEnabled(false);
+                        break;
+                }
+
+                break;
         }
+
+
     }//GEN-LAST:event_jComboBoxFiltro2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         switch (jComboBoxFiltro.getSelectedIndex()) {
-            // Caso seja nenhum no primeiro filtro.
-            case 0:
-                JOptionPane.showMessageDialog(rootPane, "Favor selecione um filtro.");
-                break;
 
-            // Caso opção escolhida Vistorias.
+            // Vistorias   
             case 1:
-                // Verifica o filtro escolhido no Box 2.
+
                 switch (jComboBoxFiltro2.getSelectedIndex()) {
-                    // Nenhum
+
+                    //Nenhum
                     case 0:
                         String local;
                         try {
-
                             // Verifica se a data está vazia.
                             if (verificaDataVazia()) {
-                                local = "../relatorios/vistorias.jrxml";
+                                local = "../relatorios/vistorias_semdata.jrxml";
 
                             } else {
                                 local = "../relatorios/vistorias_comdata.jrxml";
@@ -401,7 +642,7 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                         }
                         break;
 
-                    // Placa
+                    //Placa
                     case 1:
                         if (!jTextFieldFiltro.getText().isEmpty()) {
                             try {
@@ -414,8 +655,6 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
 
                                 HashMap<String, Object> parametros = new HashMap<>();
                                 parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
-                                parametros.put("dataInicial", jDateChooserDataInicial.getDate());
-                                parametros.put("dataFinal", jDateChooserDataFinal.getDate());
                                 parametros.put("filtro", jTextFieldFiltro.getText());
 
                                 JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
@@ -429,13 +668,12 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
                             jTextFieldFiltro.requestFocus();
                         }
-                        break;
 
-                    // CPF
+                        break;
+                    //CPF
                     case 2:
                         if (!jTextFieldFiltro.getText().isEmpty()) {
                             try {
-
                                 InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_cpf.jrxml");
                                 JasperDesign jd = JRXmlLoader.load(is);
                                 //testar com input stream
@@ -445,8 +683,6 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
 
                                 HashMap<String, Object> parametros = new HashMap<>();
                                 parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
-                                parametros.put("dataInicial", jDateChooserDataInicial.getDate());
-                                parametros.put("dataFinal", jDateChooserDataFinal.getDate());
                                 parametros.put("filtro", jTextFieldFiltro.getText());
 
                                 JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
@@ -461,65 +697,12 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                             jTextFieldFiltro.requestFocus();
                         }
                         break;
-
-                    // Reprovadas
+                    //Reprovadas
                     case 3:
-                                
-                                    try {
-
-                        InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_reprovadas.jrxml");
-                        JasperDesign jd = JRXmlLoader.load(is);
-                        //testar com input stream
-                        JasperReport jr = JasperCompileManager.compileReport(jd);
-
-                        EntityManager em = new VistoriaDAO().getEntityManager();
-
-                        HashMap<String, Object> parametros = new HashMap<>();
-                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
-                        parametros.put("dataInicial", jDateChooserDataInicial.getDate());
-                        parametros.put("dataFinal", jDateChooserDataFinal.getDate());
-
-                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
-                        JasperViewer jv = new JasperViewer(jp, false);
-                        jv.setVisible(true);
-
-                    } catch (JRException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    break;
-
-                    // Retornos
-                    case 4:
-                                
-                                    try {
-                        InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_retornos.jrxml");
-                        JasperDesign jd = JRXmlLoader.load(is);
-                        //testar com input stream
-                        JasperReport jr = JasperCompileManager.compileReport(jd);
-
-                        EntityManager em = new VistoriaDAO().getEntityManager();
-
-                        HashMap<String, Object> parametros = new HashMap<>();
-                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
-                        parametros.put("dataInicial", jDateChooserDataInicial.getDate());
-                        parametros.put("dataFinal", jDateChooserDataFinal.getDate());
-
-                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
-                        JasperViewer jv = new JasperViewer(jp, false);
-                        jv.setVisible(true);
-
-                    } catch (JRException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    break;
-
-                    // Parceiros
-                    default:
-                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                        if (!verificaDataVazia()) {
                             try {
-                                InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_parceiros.jrxml");
+
+                                InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_reprovadas.jrxml");
                                 JasperDesign jd = JRXmlLoader.load(is);
                                 //testar com input stream
                                 JasperReport jr = JasperCompileManager.compileReport(jd);
@@ -530,7 +713,6 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                                 parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
                                 parametros.put("dataInicial", jDateChooserDataInicial.getDate());
                                 parametros.put("dataFinal", jDateChooserDataFinal.getDate());
-                                parametros.put("filtro", jTextFieldFiltro.getText());
 
                                 JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
                                 JasperViewer jv = new JasperViewer(jp, false);
@@ -538,6 +720,98 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
 
                             } catch (JRException ex) {
                                 ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
+                        }
+                        break;
+                    //Retornos
+                    case 4:
+                        if (!verificaDataVazia()) {
+                            try {
+
+                                InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_retornos.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                                parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
+                        }
+                        break;
+                    //Parceiros
+                    case 5:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            if (!verificaDataVazia()) {
+                                try {
+                                    InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_parceiros.jrxml");
+                                    JasperDesign jd = JRXmlLoader.load(is);
+                                    //testar com input stream
+                                    JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                    EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                    HashMap<String, Object> parametros = new HashMap<>();
+                                    parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                    parametros.put("filtro", jTextFieldFiltro.getText());
+                                    parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                                    parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                                    JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                    JasperViewer jv = new JasperViewer(jp, false);
+                                    jv.setVisible(true);
+
+                                } catch (JRException ex) {
+                                    ex.printStackTrace();
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                    default:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            if (!verificaDataVazia()) {
+                                try {
+                                    InputStream is = getClass().getResourceAsStream("/relatorios/vistorias_caixas.jrxml");
+                                    JasperDesign jd = JRXmlLoader.load(is);
+                                    //testar com input stream
+                                    JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                    EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                    HashMap<String, Object> parametros = new HashMap<>();
+                                    parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                    parametros.put("filtro", jTextFieldFiltro.getText());
+                                    parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                                    parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                                    JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                    JasperViewer jv = new JasperViewer(jp, false);
+                                    jv.setVisible(true);
+
+                                } catch (JRException ex) {
+                                    ex.printStackTrace();
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
                             }
                         } else {
                             JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
@@ -549,12 +823,371 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
 
             // Clientes
             case 2:
-                // Verifica o filtro escolhido no Box 2.
+
                 switch (jComboBoxFiltro2.getSelectedIndex()) {
-                    // Nenhum
+
+                    //Nenhum
                     case 0:
-                                try {
-                        InputStream is = getClass().getResourceAsStream("/relatorios/cliente.jrxml");
+                    try {
+                        InputStream is = getClass().getResourceAsStream("/relatorios/clientes.jrxml");
+                        JasperDesign jd = JRXmlLoader.load(is);
+                        //testar com input stream
+                        JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                        EntityManager em = new VistoriaDAO().getEntityManager();
+
+                        HashMap<String, Object> parametros = new HashMap<>();
+                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                        parametros.put("filtro", jTextFieldFiltro.getText());
+
+                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                        JasperViewer jv = new JasperViewer(jp, false);
+                        jv.setVisible(true);
+
+                    } catch (JRException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    break;
+
+                    //Nome
+                    case 1:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/clientes_nome.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                    //CPF
+                    case 2:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/clientes_cpf.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                    //Telefone
+                    case 3:
+
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/clientes_telefone.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+
+                    //Cidade
+                    default:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/clientes_cidade.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                }
+
+                break;
+
+            // Veiculos
+            case 3:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/veiculos.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+
+                    //Placa
+                    case 1:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/veiculos_placa.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+
+                    //Modelo
+                    default:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/veiculos_modelo.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                }
+
+                break;
+
+            // Parceiros
+            case 4:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/parceiro.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+
+                    //Nome
+                    default:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/parceiro_nome.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                }
+
+                break;
+
+            // Caixas
+            case 5:
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                            try {
+                        InputStream is = getClass().getResourceAsStream("/relatorios/caixas.jrxml");
+                        JasperDesign jd = JRXmlLoader.load(is);
+                        //testar com input stream
+                        JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                        EntityManager em = new VistoriaDAO().getEntityManager();
+
+                        HashMap<String, Object> parametros = new HashMap<>();
+                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+
+                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                        JasperViewer jv = new JasperViewer(jp, false);
+                        jv.setVisible(true);
+
+                    } catch (JRException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    break;
+
+                    //Nome
+                    default:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/caixas_nome.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
+                        break;
+                }
+
+                break;
+
+            // Contas a pagar 
+            case 6:
+
+                switch (jComboBoxFiltro2.getSelectedIndex()) {
+
+                    //Nenhum
+                    case 0:
+                            try {
+
+                        InputStream is = getClass().getResourceAsStream("/relatorios/contas.jrxml");
                         JasperDesign jd = JRXmlLoader.load(is);
                         //testar com input stream
                         JasperReport jr = JasperCompileManager.compileReport(jd);
@@ -573,85 +1206,181 @@ public class SelecionarRelatorioVisao extends javax.swing.JFrame {
                     }
                     break;
 
-                    // Nome
+                    //Pagas
                     case 1:
-                        JOptionPane.showMessageDialog(rootPane, "Nome");
+
+                        if (!verificaDataVazia()) {
+                            try {
+
+                                InputStream is = getClass().getResourceAsStream("/relatorios/contas_pagas.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                                parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
+                        }
                         break;
 
-                    // CPF
-                    case 2:
-                        JOptionPane.showMessageDialog(rootPane, "CPF");
-                        break;
-
-                    // Telefone
-                    case 3:
-                        JOptionPane.showMessageDialog(rootPane, "Telefone");
-                        break;
-
-                    // Cidade
+                    //Pendentes
                     default:
-                        JOptionPane.showMessageDialog(rootPane, "Cidade");
+                        if (!verificaDataVazia()) {
+                            try {
+
+                                InputStream is = getClass().getResourceAsStream("/relatorios/contas_naopagas.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                                parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher todos os campos de data!");
+                        }
                         break;
                 }
 
                 break;
 
-            // Veiculos
-            case 3:
-                // Verifica o filtro escolhido no Box 2.
-                switch (jComboBoxFiltro2.getSelectedIndex()) {
-                    // Nenhum
-                    case 0:
-                        JOptionPane.showMessageDialog(rootPane, "Nenhum");
-                        break;
-
-                    // Placa
-                    case 1:
-                        JOptionPane.showMessageDialog(rootPane, "Placa");
-                        break;
-
-                    // Modelo
-                    default:
-                        JOptionPane.showMessageDialog(rootPane, "Modelo");
-                        break;
-                }
-                break;
-
-            // Parceiros
-            case 4:
-                // Verifica o filtro escolhido no Box 2.
-                switch (jComboBoxFiltro2.getSelectedIndex()) {
-                    // Nenhum
-                    case 0:
-                        JOptionPane.showMessageDialog(rootPane, "Nenhum");
-                        break;
-
-                    // Nome
-                    default:
-                        JOptionPane.showMessageDialog(rootPane, "Nome");
-                        break;
-                }
-
-                break;
-
-            // Caixas
+            // Movimentacoes    
             default:
-                // Verifica o filtro escolhido no Box 2.
                 switch (jComboBoxFiltro2.getSelectedIndex()) {
-                    // Nenhum
+
+                    //Nenhum
                     case 0:
-                        JOptionPane.showMessageDialog(rootPane, "Nenhum");
+                        String local;
+                        try {
+                            // Verifica se a data está vazia.
+                            if (verificaDataVazia()) {
+                                local = "../relatorios/movimentacoes.jrxml";
+
+                            } else {
+                                local = "../relatorios/movimentacoes_comData.jrxml";
+                            }
+                            File localFile = new File(local);
+                            InputStream is = getClass().getResourceAsStream(localFile.getPath());
+                            JasperDesign jd = JRXmlLoader.load(is);
+                            //testar com input stream
+                            JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                            EntityManager em = new VistoriaDAO().getEntityManager();
+
+                            HashMap<String, Object> parametros = new HashMap<>();
+                            parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                            parametros.put("dataInicial", jDateChooserDataInicial.getDate());
+                            parametros.put("dataFinal", jDateChooserDataFinal.getDate());
+
+                            JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                            JasperViewer jv = new JasperViewer(jp, false);
+                            jv.setVisible(true);
+
+                        } catch (JRException ex) {
+                            ex.printStackTrace();
+                        }
                         break;
 
-                    // Nome
-                    default:
-                        JOptionPane.showMessageDialog(rootPane, "Nome");
+                    // Caixa - Usuario    
+                    case 1:
+                        if (!jTextFieldFiltro.getText().isEmpty()) {
+                            try {
+                                InputStream is = getClass().getResourceAsStream("/relatorios/movimentacoes_usuario.jrxml");
+                                JasperDesign jd = JRXmlLoader.load(is);
+                                //testar com input stream
+                                JasperReport jr = JasperCompileManager.compileReport(jd);
+ 
+                                EntityManager em = new VistoriaDAO().getEntityManager();
+
+                                HashMap<String, Object> parametros = new HashMap<>();
+                                parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+                                parametros.put("filtro", jTextFieldFiltro.getText());
+
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                                JasperViewer jv = new JasperViewer(jp, false);
+                                jv.setVisible(true);
+
+                            } catch (JRException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Favor preencher o filtro " + jComboBoxFiltro2.getSelectedItem());
+                            jTextFieldFiltro.requestFocus();
+                        }
                         break;
+
+                    // Entradas
+                    case 2:
+                         try {
+
+                        InputStream is = getClass().getResourceAsStream("/relatorios/movimentacoes_entrada.jrxml");
+                        JasperDesign jd = JRXmlLoader.load(is);
+                        //testar com input stream
+                        JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                        EntityManager em = new VistoriaDAO().getEntityManager();
+
+                        HashMap<String, Object> parametros = new HashMap<>();
+                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+
+                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                        JasperViewer jv = new JasperViewer(jp, false);
+                        jv.setVisible(true);
+
+                    } catch (JRException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
+
+                    // Saídas
+                    case 3:
+                        try {
+
+                        InputStream is = getClass().getResourceAsStream("/relatorios/movimentacoes_entrada.jrxml");
+                        JasperDesign jd = JRXmlLoader.load(is);
+                        //testar com input stream
+                        JasperReport jr = JasperCompileManager.compileReport(jd);
+
+                        EntityManager em = new VistoriaDAO().getEntityManager();
+
+                        HashMap<String, Object> parametros = new HashMap<>();
+                        parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+
+                        JasperPrint jp = JasperFillManager.fillReport(jr, parametros);
+                        JasperViewer jv = new JasperViewer(jp, false);
+                        jv.setVisible(true);
+
+                    } catch (JRException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 }
                 break;
         }
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

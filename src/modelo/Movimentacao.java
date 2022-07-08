@@ -35,16 +35,16 @@ public class Movimentacao implements Serializable {
     @Column(name = "data")
     private Date data;
     
-    @Column(name = "tipo")
+    @Column(name = "tipo",length=20)
     private String tipo;
     
-    @Column(name = "descricao")
+    @Column(name = "descricao",length=70)
     private String descricao;
     
     @Column(name = "valor")
     private Double valor;    
     
-    @Column(name = "origem")
+    @Column(name = "origem",length=20)
     private String origem;
 
     @ManyToOne

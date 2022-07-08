@@ -65,7 +65,7 @@
 			</textField>
 			<image>
 				<reportElement x="19" y="5" width="220" height="70" uuid="c0e9c5a7-d23c-46f1-9827-9468cf6a528a"/>
-				<imageExpression><![CDATA["D:/Backup/deltacar/deltaSys/src/img/vistotec.png"]]></imageExpression>
+				<imageExpression><![CDATA["img/vistotec.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="32" y="78" width="198" height="21" uuid="a04c7310-c461-4c4a-9755-3bf373497db8"/>

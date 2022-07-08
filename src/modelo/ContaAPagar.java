@@ -49,10 +49,10 @@ public class ContaAPagar implements Serializable {
     @Column(name = "valor")
     private Double valor;
     
-    @Column(name = "codigodebarras")
+    @Column(name = "codigodebarras",length=255)
     private String codigodebarras;
 
-    @Column(name = "situacao")
+    @Column(name = "situacao",length=20)
     private String situacao;
      
     

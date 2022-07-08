@@ -2,11 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="caixa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Key" uuid="bd1eaa73-e15b-43df-a7c4-b1ba4b66649f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
-	<parameter name="dataInicial" class="java.util.Date"/>
-	<parameter name="dataFinal" class="java.util.Date"/>
 	<parameter name="filtro" class="java.lang.String"/>
 	<queryString language="ejbql">
-		<![CDATA[SELECT v FROM Vistoria v where v.veiculo.placa = $P{filtro}  AND v.datahora BETWEEN  $P{dataInicial} and $P{dataFinal}]]>
+		<![CDATA[SELECT v FROM Vistoria v where v.veiculo.placa = $P{filtro} ]]>
 	</queryString>
 	<field name="veiculo" class="modelo.Veiculo">
 		<fieldDescription><![CDATA[veiculo]]></fieldDescription>
@@ -65,7 +63,7 @@
 			</textField>
 			<image>
 				<reportElement x="19" y="5" width="220" height="70" uuid="c0e9c5a7-d23c-46f1-9827-9468cf6a528a"/>
-				<imageExpression><![CDATA["D:/Backup/deltacar/deltaSys/src/img/vistotec.png"]]></imageExpression>
+				<imageExpression><![CDATA["img/vistotec.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="32" y="78" width="198" height="21" uuid="a04c7310-c461-4c4a-9755-3bf373497db8"/>
@@ -90,21 +88,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{dataInicial}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="337" y="99" width="40" height="18" uuid="1f0b5b24-a6ed-4b4e-85ed-d3478b1a3a57"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[até]]></text>
-			</staticText>
-			<textField pattern="d MMMM, yyyy">
-				<reportElement mode="Opaque" x="380" y="100" width="95" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="e3ff9889-1c12-47d4-bfbf-3ada3e455a0f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{dataFinal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Todo o período"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="409" y="140" width="54" height="14" uuid="79632da4-9c81-4dd0-9324-829b3e492ca0"/>

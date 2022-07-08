@@ -2,8 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="caixa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Key" uuid="bd1eaa73-e15b-43df-a7c4-b1ba4b66649f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString language="ejbql">
-		<![CDATA[SELECT v FROM Veiculo v WHERE v.modelo LIKE '%$P!{filtro}%' order by v.modelo]]>
+		<![CDATA[SELECT v FROM Veiculo v WHERE v.placa = $P{filtro} order by v.modelo]]>
 	</queryString>
 	<field name="marca" class="java.lang.String">
 		<fieldDescription><![CDATA[marca]]></fieldDescription>
@@ -101,7 +102,7 @@
 			<textField evaluationTime="Report">
 				<reportElement x="273" y="-17" width="127" height="13" uuid="eda96b1d-ae4f-4658-9211-394aac8c30de"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA["Sem filtro"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Placa " + $P{filtro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

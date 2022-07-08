@@ -36,7 +36,7 @@ public class Vistoria implements Serializable {
     @Column(name = "datahora")
     private Date datahora;
         
-    @Column(name = "motivo")
+    @Column(name = "motivo",length=20)
     private String motivo;
         
     @Column(name = "resultado")
@@ -45,7 +45,7 @@ public class Vistoria implements Serializable {
     @Column(name = "kilometragem")
     private long kilometragem;
     
-    @Column(name = "localpdf")
+    @Column(name = "localpdf",length=155)
     private String localpdf;
     
     @ManyToOne

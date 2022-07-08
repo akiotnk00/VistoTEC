@@ -35,17 +35,20 @@ public class Agendamento implements Serializable {
     @Column(name = "data")
     private Date dataagendamento;
         
-    @Column(name = "endereco")
+    @Column(name = "endereco", length=155)
     private String endereco;    
     
-    @Column(name= "telefone")
+    @Column(name= "telefone", length=15)
     private String telefone;
     
-    @Column(name = "observacao")
+    @Column(name = "observacao", length=155)
     private String observacao; 
     
-    @Column(name ="tipoveiculo")
+    @Column(name ="tipoveiculo", length=20)
     private String tipoveiculo;
+    
+    @Column(name = "status")
+    private char status;
     
     
     @ManyToOne
@@ -133,6 +136,14 @@ public class Agendamento implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public char getStatus() {
+        return status;
+    }
+
+    public void setStatus(char status) {
+        this.status = status;
     }
 
 

@@ -35,7 +35,7 @@ public class Pagamento implements Serializable{
     @Column(name = "datapagamento")
     private Date datapagamento;
     
-    @Column(name = "formapagamento")
+    @Column(name = "formapagamento",length=20)
     private String formapagamento;
 
     @Column(name = "valorcobrado")

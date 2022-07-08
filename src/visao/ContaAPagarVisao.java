@@ -8,6 +8,7 @@ package visao;
 import dao.ContaAPagarDAO;
 import static java.lang.Double.parseDouble;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -506,10 +507,11 @@ public class ContaAPagarVisao extends javax.swing.JDialog {
         DefaultTableModel dtm = (DefaultTableModel) jTableContas.getModel();
         dtm.setNumRows(0); // excluir os registros que estão na JTable
         DateFormat dateDia = new SimpleDateFormat("dd/MM/yyyy");
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
         lista = contas;
         if (lista != null) {
             lista.forEach(c -> {
-                dtm.addRow(new Object[]{c.getDescricao(), dateDia.format(c.getVencimento()), c.getValor(), c.getSituacao()});
+                dtm.addRow(new Object[]{c.getDescricao(), dateDia.format(c.getVencimento()), nf.format(c.getValor()), c.getSituacao()});
             });
         }
 

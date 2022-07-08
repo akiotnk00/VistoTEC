@@ -15,24 +15,33 @@ import modelo.Usuario;
  * @author akiot
  */
 public class UsuarioDAO extends GenericoDAO<Usuario> {
-    
+
     public UsuarioDAO() {
         super(Usuario.class);
     }
-        
+
     public List<Usuario> findByUser(String name) {
         EntityManager em = getEntityManager();
         TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.nomeusuario like :namebusca", Usuario.class);
-        query.setParameter("namebusca",name);
+        query.setParameter("namebusca", name);
         return query.getResultList();
     }
-    
-    public Usuario findUser(String name){
-		
-		EntityManager em = getEntityManager();
-		TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.nomeusuario = :namebusca", Usuario.class);
-		query.setParameter("namebusca",name);
-		return query.getSingleResult();
-	}
-    
+
+    public Usuario findUser(String name) {
+
+        EntityManager em = getEntityManager();
+        TypedQuery<Usuario> query = em.createQuery("Select u FROM Usuario u WHERE u.nomeusuario = :namebusca", Usuario.class);
+        query.setParameter("namebusca", name);
+        try {
+            if (query.getSingleResult() == null) {
+                return null;
+            } else {
+                return query.getSingleResult();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+                
+    }
+
 }

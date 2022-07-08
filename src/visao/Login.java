@@ -116,7 +116,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Versão do Sistema: v2.0");
+        jLabel4.setText("Versão do Sistema: v5.0 Final");
 
         jCheckBox1.setBackground(new java.awt.Color(0, 102, 153));
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

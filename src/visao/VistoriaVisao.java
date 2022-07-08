@@ -1153,12 +1153,26 @@ public class VistoriaVisao extends JDialog {
             if (op == 0) {
                 Vistoria v = vistorias.get(linha);
 
-                vistoriaDAO.merge(v);
+                if (v.getPagamento() == null) {
+                    PagamentoVistoria frame = new PagamentoVistoria(v);
+                    frame.setModal(true);
+                    frame.setVisible(true);
+
+                } else {
+                    int op2 = JOptionPane.showConfirmDialog(null, "Existe um pagamento registrado, deseja removê-lo?");
+
+                    if (op2 == 0) {
+                        v.setPagamento(null);
+                        vistoriaDAO.merge(v);
+                        JOptionPane.showMessageDialog(null, "Pagamento removido!");
+                    }
+                }
                 atualizaTabela(vistoriaDAO.findAll());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um registro da tabela!");
         }
+        
     }//GEN-LAST:event_jButtonPagoActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1412,7 +1426,7 @@ public class VistoriaVisao extends JDialog {
         jTextFieldKilometragem.setText("");
         jLabelMotivo.setText("Transferência");
         jLabelMotivo.setForeground(Color.black);
-        
+
     }
 
     private void atualizaTabela(List<Vistoria> lista) {

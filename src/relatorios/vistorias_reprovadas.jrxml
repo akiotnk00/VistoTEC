@@ -145,7 +145,7 @@
 			<textField evaluationTime="Report">
 				<reportElement x="235" y="-17" width="100" height="13" uuid="0f509c6b-25ac-40b2-84a7-cdc3dd3dc02a"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA["Reprovadas"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" Reprovadas"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
