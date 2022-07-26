@@ -1,5 +1,4 @@
-# TCC-IFSP
-TCC - em JAVA / JPA / MYSQL / SWING
+Feito com JAVA / JPA / MYSQL / SWING
 
 Sistema para Empresa de Vistoria Veicular
 
