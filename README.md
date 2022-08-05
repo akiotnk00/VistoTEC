@@ -4,7 +4,7 @@ Sistema para Empresa de Vistoria Veicular
 
 Autor: Akio Tanaka
 
-Orientador: Marcelo Zorzan
+Orientador: Marcelo Roberto Zorzan
 
 Tela  de login:
 
