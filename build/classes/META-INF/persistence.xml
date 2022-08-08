@@ -13,7 +13,11 @@
     <class>modelo.Veiculo</class>
     <class>modelo.Vistoria</class>
     <properties>
+<<<<<<< HEAD
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deltacarsys?useTimezone=true&amp;serverTimezone=UTC"/>
+=======
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/deltacarsys?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+>>>>>>> 791fa7302d8d5d97eeedd4be04da628588d96b96
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="48253641x"/>

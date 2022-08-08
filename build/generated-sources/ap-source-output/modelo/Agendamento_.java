@@ -8,7 +8,11 @@ import modelo.Caixa;
 import modelo.Cliente;
 import modelo.Parceiro;
 
+<<<<<<< HEAD
 @Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-08-08T15:14:06")
+=======
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-07-08T16:10:30")
+>>>>>>> 791fa7302d8d5d97eeedd4be04da628588d96b96
 @StaticMetamodel(Agendamento.class)
 public class Agendamento_ { 
 
