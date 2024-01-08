@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -35,41 +34,3 @@ public class MovimentacaoDAO extends GenericoDAO<Movimentacao> {
         return query.getResultList();
     }
 }
-=======
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dao;
-
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import modelo.Movimentacao;
-
-/**
- *
- * @author akiot
- */
-public class MovimentacaoDAO extends GenericoDAO<Movimentacao> {
-
-    public MovimentacaoDAO() {
-        super(Movimentacao.class);
-    }
-
-    public List<Movimentacao> findByCodigo(String codigo) {
-        EntityManager em = getEntityManager();
-        TypedQuery<Movimentacao> query = em.createQuery("Select d FROM Movimentacao d WHERE d LIKE :codigo", Movimentacao.class);
-        query.setParameter("codigo", "%" + codigo + "%");
-        return query.getResultList();
-    }
-
-    public List<Movimentacao> findByCodigoCaixa(Long codigocaixa) {
-        EntityManager em = getEntityManager();
-        TypedQuery<Movimentacao> query = em.createQuery("Select m FROM Movimentacao m WHERE m.caixa.codigo = :codigocaixa", Movimentacao.class);
-        query.setParameter("codigocaixa", codigocaixa);
-        return query.getResultList();
-    }
-}
->>>>>>> 791fa7302d8d5d97eeedd4be04da628588d96b96
